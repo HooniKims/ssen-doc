@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-10T01:23:49.213Z",
+  "model": {
+    "id": "qwen3-0.6b",
+    "name": "가벼운 모델 · Qwen3 0.6B",
+    "filename": "Qwen3-0.6B-Q4_K_M.gguf",
+    "bytes": 396705472,
+    "sha256": "ac2d97712095a558e31573f62f466a3f9d93990898b0ec79d7c974c1780d524a",
+    "license": "Apache-2.0",
+    "path": "C:\\Users\\user\\Desktop\\Coding\\261008_집중개발_프로토타입\\쎈mark\\_workspace\\ai-verification\\models\\Qwen3-0.6B-Q4_K_M.gguf"
+  },
+  "results": [
+    {
+      "text": "회의가 일찍 됬어요.",
+      "milliseconds": 9803,
+      "issues": [
+        {
+          "id": "ai-0-0",
+          "start": 0,
+          "end": 11,
+          "original": "회의가 일찍 됬어요.",
+          "suggestion": "회의가 일찍 되었어요.",
+          "reason": "회의가 일찍 되었어요",
+          "source": "ai",
+          "category": "AI 제안",
+          "auto": false
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "text": "할수있어요.",
+      "milliseconds": 5723,
+      "issues": [],
+      "warnings": []
+    },
+    {
+      "text": "오늘은 왠지 기분이 좋아요.",
+      "milliseconds": 8245,
+      "issues": [],
+      "warnings": []
+    }
+  ]
+}

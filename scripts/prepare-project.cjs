@@ -1,0 +1,12 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path');
+const p=require('../package.json');delete p.devDependencies['dictionary-ko'];
+p.overrides={'simple-git':'4.0.2','@simple-git/argv-parser':'2.0.1','sprintf-js':'1.1.3'};
+p.build.files.push('!node_modules/@node-llama-cpp/win-arm64/**/*','!node_modules/@node-llama-cpp/win-x64-cuda/**/*','!node_modules/@node-llama-cpp/win-x64-cuda-ext/**/*','!node_modules/@node-llama-cpp/win-x64-vulkan/**/*');
+fs.writeFileSync(path.join(__dirname,'../package.json'),JSON.stringify(p,null,2)+'\n');
+for(const f of ['optimizer.test.cjs','target.test.cjs','edge-cases.test.cjs']){
+ const file=path.join(__dirname,'../modules/lite/tests',f);const s=fs.readFileSync(file,'utf8').replaceAll("path.resolve('assets/samples/","path.resolve(__dirname,'../assets/samples/");fs.writeFileSync(file,s);
+}
+const {rules}=require('../src/rules/rules.json');const correct=['왠지 기분이 좋다.','깍두기를 담갔다.','요새 날씨가 좋다.','이쁘다.','반듯이 앉으세요.','대게를 먹었다.','안녕하세요.','학교에 갑니다.','할 수 있습니다.','준비할 때 확인해 주세요.','오뚜기 제품입니다.','어제께 만났습니다.','급여의 일부로 샀습니다.','요세미티 국립 공원입니다.','학부모님께 안내드립니다.','내일 봬요.','며칠 동안 쉬었습니다.','역할을 정했습니다.','곰곰이 생각합니다.','오랜만입니다.'];
+const contexts=['교사로서 노력합니다.','대화로써 해결합니다.','안 갑니다.','하지 않습니다.','어떻게 오셨어요?','어떡해!','가든지 말든지 선택하세요.','얼마나 좋던지 몰라요.','연필로써 그립니다.','학생으로서 지킵니다.','안 먹어요.','않고 기다립니다.','무엇이든지 가능합니다.','어떻게 할까요?','얼마나 크던지 놀랐어요.'];
+fs.writeFileSync(path.join(__dirname,'../assets/samples/test-sentences.txt'),['# 쎈doc 테스트 문장 세트','## 규칙별 참 사례',...rules.filter(r=>r.auto!==false).map(r=>`[${r.category}/${r.id}] ${r.positive} → ${r.negative}`),'## 맞는 표현 — 자동 교정 금지',...correct,'## 문맥 확인',...contexts].join('\n')+'\n');

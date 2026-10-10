@@ -1,0 +1,8 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),crypto=require('node:crypto'),asar=require('@electron/asar');
+const root=path.resolve('release/win-unpacked'),archive=path.join(root,'resources/app.asar'),entries=asar.listPackage(archive);let checked=0;
+for(const entry of entries){const relative=entry.replace(/^\\/,'').replaceAll('\\','/'),nativePath=path.normalize(relative);if(!/^(app|src|assets|modules)\//.test(relative)||asar.statFile(archive,nativePath).files)continue;const file=path.resolve(relative);if(fs.existsSync(file)&&fs.statSync(file).isFile()){assert.deepEqual(asar.extractFile(archive,nativePath),fs.readFileSync(file),`Packaged file differs: ${relative}`);checked++;}}
+const p=JSON.parse(asar.extractFile(archive,'package.json'));assert.equal(p.main,'app/main.cjs');assert.ok(checked>50);assert.ok(!entries.some(e=>/\.gguf$/i.test(e)));const native=path.join(root,'resources/native/ssen-hwpx.exe');assert.ok(fs.statSync(native).size>10000);
+const variants=fs.readdirSync(path.join(root,'resources/app.asar.unpacked/node_modules/@node-llama-cpp'));assert.deepEqual(variants,['win-x64']);
+const artifacts=fs.readdirSync('release').filter(f=>/^SsenDoc.*\.(exe|zip)$/.test(f)).map(name=>({name,bytes:fs.statSync(path.join('release',name)).size,sha256:crypto.createHash('sha256').update(fs.readFileSync(path.join('release',name))).digest('hex')}));
+const report={date:new Date().toISOString(),checkedFiles:checked,nativeVariants:variants,modelsBundled:false,artifacts};fs.writeFileSync('docs/PACKAGE-VERIFICATION.json',JSON.stringify(report,null,2));fs.writeFileSync('release/SHA256SUMS.txt',artifacts.map(a=>`${a.sha256}  ${a.name}`).join('\n')+'\n');console.log(report);

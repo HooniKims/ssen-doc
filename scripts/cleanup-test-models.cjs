@@ -1,0 +1,3 @@
+'use strict';
+const fs=require('node:fs/promises'),path=require('node:path'),{ModelManager}=require('../src/ai/model-manager.cjs');
+(async()=>{const root=path.resolve('_workspace');let freed=0;for(const d of await fs.readdir(root,{withFileTypes:true})){if(!d.isDirectory()||d.isSymbolicLink()||!/^model-lifecycle-\d+$/.test(d.name))continue;const directory=path.resolve(root,d.name,'models');if(!directory.startsWith(root+path.sep))throw Error('Unexpected test path');if(await fs.stat(directory).catch(()=>null)){const r=await new ModelManager(directory).delete();freed+=r.freed;console.log('Removed test model:',directory,r.freed);}}console.log('Freed test bytes:',freed);})().catch(e=>{console.error(e);process.exitCode=1;});

@@ -1,0 +1,85 @@
+/* SsenPick design: Ghanachocolate, warm neutral/green, 22px cards and pill buttons. */
+.nav-glyph { width:18px; text-align:center; font-family:'Segoe UI Symbol',sans-serif; font-size:19px; }
+.heading-row h1 span { color:var(--accent); }
+#review-page:not(.has-files) .heading-row { margin:28px 0; }
+.upload-symbol { font-size:30px; }
+.lite-work-grid { display:grid; grid-template-columns:minmax(0,1fr) 320px; gap:20px; flex:1; min-height:0; }
+.documents-panel,.options-panel { display:flex; flex-direction:column; min-height:0; overflow:hidden; }
+.document-list { overflow-y:auto; flex:1; min-height:0; scrollbar-gutter:stable; }
+.list-header { display:flex; justify-content:space-between; padding:12px 20px; color:var(--muted); font-size:12px; border-bottom:1px solid var(--line); }
+.document-row { padding:19px 20px; border-bottom:1px solid var(--line); }
+.document-row.processing { background:var(--surface-soft); }
+.document-top { display:flex; align-items:flex-start; gap:12px; }
+.document-icon { background:var(--accent-soft); border-radius:10px; padding:12px 7px; font-size:10px; color:var(--accent-strong); flex-shrink:0; }
+.document-name { flex:1; min-width:0; }
+.document-name b { display:block; font-size:15px; overflow-wrap:anywhere; }
+.document-name small { display:block; font-size:12px; color:var(--muted); margin-top:5px; }
+.document-size { text-align:right; white-space:nowrap; font-size:14px; }
+.document-size span { color:var(--muted); }
+.document-size strong { display:block; font-size:12px; margin-top:4px; color:var(--accent); }
+.remove-file { flex-shrink:0; border:0; background:transparent; color:var(--muted); font-size:21px; padding:0 0 0 5px; }
+.result-actions { display:flex; flex-wrap:wrap; align-items:center; gap:14px; padding:12px 0 0 46px; }
+.result-actions small { margin-right:auto; color:var(--muted); }
+.text-button { padding:3px 0; background:none; border:0; color:var(--accent-strong); font-size:12px; text-decoration:underline; text-underline-offset:3px; }
+.file-error { margin:10px 0 0 46px; color:var(--red); font-size:12px; overflow-wrap:anywhere; }
+.list-note { padding:13px 20px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; }
+.options-scroll { padding:18px; overflow-y:auto; flex:1; }
+fieldset { border:0; padding:0; margin:0; min-width:0; }
+legend { padding:0; font-size:13px; margin-bottom:12px; }
+.quality-option { display:flex; align-items:center; gap:11px; padding:13px 12px; border:1px solid var(--line); border-radius:14px; margin-bottom:9px; cursor:pointer; }
+.quality-option:has(input:checked) { background:var(--accent-soft); border-color:var(--accent); }
+.quality-option input { accent-color:var(--accent); margin:0; width:16px; height:16px; flex-shrink:0; }
+.quality-option b { font-size:14px; }
+.quality-option small { display:block; font-size:12px; color:var(--muted); margin-top:3px; }
+.quality-option em { font-size:10px; font-style:normal; margin-left:5px; color:var(--accent); }
+.option-hint,.save-note { font-size:11px; line-height:1.8; margin-top:12px; }
+.destination { border-top:1px solid var(--line); margin-top:19px; padding-top:18px; }
+.destination h3 { font-size:13px; }
+.destination p { font-size:12px; margin:8px 0 12px; overflow-wrap:anywhere; }
+.destination>div { display:flex; align-items:center; gap:14px; }
+.run-area { padding:16px 18px; border-top:1px solid var(--line); background:var(--surface-soft); }
+.run-area .button { width:100%; margin-top:9px; }
+#run-status { font-size:12px; line-height:1.6; min-height:39px; }
+#task-progress { width:100%; height:8px; accent-color:var(--accent); margin-top:10px; }
+#summary-status { font-size:12px; }
+.summary-strip { gap:26px; }
+.summary-strip strong { font-size:23px; }
+.summary-strip>div>div { gap:9px; }
+.guide-page { overflow-y:auto; padding-bottom:30px; }
+#detail-dialog { width:650px; }
+#detail-file { overflow-wrap:anywhere; }
+#image-details { max-height:390px; overflow:auto; }
+.image-detail { border-top:1px solid var(--line); padding:12px 0; font-size:13px; }
+.image-detail b { overflow-wrap:anywhere; }
+.image-detail p { margin:4px 0 0; font-size:12px; }
+.mode-options { display:flex; gap:6px; margin-bottom:12px; }
+.mode-options legend { margin-bottom:6px; }
+.mode-options label { flex:1; position:relative; cursor:pointer; }
+.mode-options input { position:absolute; opacity:0; }
+.mode-options span { display:block; padding:7px 4px; border:1px solid var(--line); border-radius:12px; text-align:center; font-size:13px; }
+.mode-options input:checked+span { background:var(--accent-soft); border-color:var(--accent); color:var(--accent-strong); }
+.mode-options input:focus-visible+span { outline:2px solid var(--accent); outline-offset:2px; }
+.mode-options:disabled,.conversion-option:has(input:disabled) { opacity:.65; }
+.target-original { display:flex; justify-content:space-between; font-size:12px; color:var(--muted); }
+#target-options>legend { margin-bottom:4px; }
+#target-options .target-readout { padding:5px 0; }
+.target-readout { padding:8px 0; display:flex; flex-direction:column; gap:2px; }
+.target-readout strong { font-size:25px; color:var(--accent-strong); }
+.target-readout span { font-size:12px; color:var(--muted); }
+.slider-label { font-size:12px; }
+#target-slider { display:block; width:100%; accent-color:var(--accent); margin:12px 0 6px; }
+.slider-ends { display:flex; justify-content:space-between; font-size:10px; color:var(--muted); }
+.target-numbers { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; }
+.target-numbers label { font-size:11px; }
+.target-numbers input { width:100%; min-width:0; padding:7px 8px; margin-top:4px; border:1px solid var(--line); border-radius:10px; background:var(--paper); color:var(--ink); font:inherit; font-size:14px; }
+.target-error { color:var(--red); font-size:11px; margin-top:8px; }
+.conversion-option { display:flex; gap:9px; padding-top:16px; margin-top:16px; border-top:1px solid var(--line); cursor:pointer; }
+.conversion-option input { accent-color:var(--accent); margin:3px 0 0; }
+.conversion-option b { font-size:12px; }
+.conversion-option small { display:block; font-size:11px; line-height:1.7; color:var(--muted); margin-top:5px; }
+.target-result { font-size:12px; margin:12px 0 0 46px; color:var(--accent-strong); }
+.target-result.missed { color:#8b581a; }
+.target-result span { display:block; margin-top:4px; color:var(--muted); line-height:1.6; }
+.drag-overlay::after { content:'HWPX 문서를 놓아주세요'; position:fixed; inset:48px 16px 16px 210px; display:grid; place-items:center; background:#edf5eff5; border:2px dashed var(--accent); border-radius:24px; z-index:20; color:var(--accent-strong); font-size:27px; pointer-events:none; }
+@media (max-width:1240px) { .lite-work-grid { grid-template-columns:minmax(0,1fr) 260px; gap:14px; } .summary-strip { gap:16px; } .summary-strip strong { font-size:20px; } .document-row { padding:16px 14px; } .document-size { font-size:12px; } .result-actions { gap:10px; } .drag-overlay::after { left:176px; } }
+@media (max-height:800px) { #review-page:not(.has-files) .heading-row { margin:0 0 16px; } .quality-option { padding:9px 11px; } .options-scroll { padding:12px 15px; } .destination { margin-top:12px; padding-top:12px; } .option-hint { margin-top:7px; } }

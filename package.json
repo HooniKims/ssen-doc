@@ -1,0 +1,103 @@
+{
+  "name": "ssen-doc",
+  "version": "1.0.0",
+  "description": "학교 문서 맞춤법 검사·문서 대조·용량 줄이기",
+  "author": "HooniKim",
+  "private": true,
+  "main": "app/main.cjs",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test tests/*.test.cjs modules/review/tests/core.test.cjs modules/review/tests/document-edit.test.cjs modules/lite/tests/optimizer.test.cjs modules/lite/tests/target.test.cjs modules/lite/tests/edge-cases.test.cjs",
+    "test:ui": "playwright test",
+    "test:ai": "node scripts/test-local-ai.cjs",
+    "build:native": "node scripts/build-native.cjs",
+    "dist": "npm run build:native && electron-builder --win nsis zip --x64 --publish never"
+  },
+  "dependencies": {
+    "@xmldom/xmldom": "^0.9.12",
+    "buffer-crc32": "^1.0.0",
+    "electron-updater": "^6.8.9",
+    "sharp": "^0.35.5",
+    "yauzl": "^3.2.0",
+    "yazl": "^3.3.1",
+    "diff": "^9.0.0",
+    "fflate": "^0.8.3",
+    "node-llama-cpp": "3.22.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "electron": "^44.6.0",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "kr.hoonikim.ssendoc",
+    "productName": "쎈doc",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "app/**/*",
+      "src/**/*",
+      "assets/**/*",
+      "modules/*/app/**/*",
+      "modules/*/src/**/*",
+      "modules/*/assets/**/*",
+      "package.json",
+      "!node_modules/@node-llama-cpp/win-arm64/**/*",
+      "!node_modules/@node-llama-cpp/win-x64-cuda/**/*",
+      "!node_modules/@node-llama-cpp/win-x64-cuda-ext/**/*",
+      "!node_modules/@node-llama-cpp/win-x64-vulkan/**/*",
+      "README.md",
+      "THIRD-PARTY-NOTICES.md"
+    ],
+    "extraResources": [
+      {
+        "from": "modules/lite/native/bin",
+        "to": "native",
+        "filter": [
+          "*.exe"
+        ]
+      }
+    ],
+    "asarUnpack": [
+      "node_modules/sharp/**/*",
+      "node_modules/@img/**/*",
+      "node_modules/node-llama-cpp/bins/**/*",
+      "node_modules/@node-llama-cpp/**/*"
+    ],
+    "publish": {
+      "provider": "github",
+      "owner": "HooniKims",
+      "repo": "ssen-doc",
+      "releaseType": "release"
+    },
+    "win": {
+      "icon": "assets/icon.ico",
+      "executableName": "SsenDoc",
+      "artifactName": "SsenDoc-${version}-${arch}.${ext}"
+    },
+    "nsis": {
+      "artifactName": "SsenDoc-Setup-${version}.exe",
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "shortcutName": "쎈doc",
+      "runAfterFinish": true,
+      "installerLanguages": [
+        "ko_KR"
+      ],
+      "include": "build/installer.nsh",
+      "installerSidebar": "build/installer/sidebar.bmp",
+      "installerHeader": "build/installer/header.bmp"
+    }
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "overrides": {
+    "simple-git": "4.0.2",
+    "@simple-git/argv-parser": "2.0.1",
+    "sprintf-js": "1.1.3"
+  }
+}

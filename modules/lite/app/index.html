@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"><title>쎈doc</title><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="lite.css"></head>
+<body>
+<div class="titlebar"><span class="titlebar-label">쎈doc <span>한글 문서 용량 줄이기</span></span><div class="window-actions"><button id="minimize" aria-label="창 최소화">─</button><button id="maximize" aria-label="창 최대화">□</button><button id="close" aria-label="창 닫기">×</button></div></div>
+<div class="app-shell">
+  <aside class="sidebar">
+    <a class="brand" href="#" aria-label="쎈doc 홈"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span><span class="brand-wordmark">쎈doc</span><small>문서를 가볍게</small></span></a>
+    <nav><button class="nav-item doc-route" data-route="spell">맞춤법 검사</button><button class="nav-item doc-route " data-route="review">문서 대조</button><button class="nav-item doc-route active" data-route="lite">용량 줄이기</button><button class="nav-item" id="doc-models">AI 모델 관리</button><button hidden id="nav-review" class="nav-item active"><span class="nav-glyph" aria-hidden="true">▤</span>용량 줄이기</button><button id="nav-guide" class="nav-item"><span class="nav-glyph" aria-hidden="true">?</span>사용 안내</button><button id="open-settings" class="nav-item"><span class="nav-glyph" aria-hidden="true">⚙</span>설정</button></nav>
+    <div class="sidebar-note"><strong>내 PC에서 처리</strong><p>용량 줄이기는 인터넷 없이 동작합니다.<br>문서를 외부로 전송하지 않습니다.</p></div>
+    <button id="open-update" class="update-entry">업데이트 확인 <span id="app-version"></span><span id="update-dot" hidden aria-label="새 업데이트 있음">●</span></button>
+  </aside>
+  <main>
+    <header class="page-header"><b id="page-label" class="breadcrumb">용량 줄이기</b><ol class="workflow" aria-label="작업 순서"><li data-stage="add" aria-current="step"><span>1</span>파일 추가</li><li data-stage="settings"><span>2</span>품질 선택</li><li data-stage="done"><span>3</span>가볍게 저장</li></ol><button id="new-task" class="button subtle small">새 작업</button></header>
+    <div id="review-page" class="page">
+      <section class="heading-row"><div><h1>한글 문서를 <span>가볍게.</span></h1><p>문서 속 큰 이미지의 용량을 한 번에 줄여보세요.</p></div><button id="demo" class="button secondary">예제 불러오기 <span aria-hidden="true">↗</span></button></section>
+      <div id="notice" class="notice" role="status" hidden></div>
+      <div id="empty-view">
+        <section id="drop-zone" class="drop-zone" tabindex="0" role="button" aria-label="HWPX 파일 추가">
+          <div class="drop-copy"><span class="upload-symbol" aria-hidden="true">↓</span><h2>가볍게 만들 문서를 추가하세요</h2><p>HWPX 파일을 이곳으로 끌어다 놓으세요.<br>여러 문서도 한 번에 처리할 수 있습니다.</p><div class="upload-actions"><div class="file-support"><strong>HWPX 한글 문서</strong><span>파일당 500MB 이하 · 최대 50개</span></div><button id="pick-empty" class="button primary">＋ 파일 선택</button></div></div>
+        </section>
+        <section class="review-scope"><h2>문서는 그대로, 이미지는 가볍게</h2><dl><div><dt>원본은 보관</dt><dd>결과는 ‘_가볍게’가 붙은<br>새 문서로 저장합니다.</dd></div><div><dt>내게 맞는 품질</dt><dd>화질부터 작은 용량까지<br>품질 또는 목표 용량을 정합니다.</dd></div><div><dt>줄어든 용량 확인</dt><dd>처리 전후 파일 크기를<br>한눈에 비교합니다.</dd></div></dl></section>
+        <p class="gentle-note">JPEG·PNG 이미지를 최적화합니다. 글·표·서식 데이터는 그대로 보존합니다.</p>
+      </div>
+      <div id="workspace" hidden>
+        <section class="summary-strip" aria-live="polite"><div><div><small>문서</small><strong id="file-count">0개</strong></div></div><div><div><small>원래 용량</small><strong id="total-before">0 MB</strong></div></div><div><div><small>줄어든 용량</small><strong id="total-saved">—</strong></div></div><div class="summary-status" id="summary-status">처리할 준비가 되었어요</div></section>
+        <div class="lite-work-grid">
+          <section class="panel documents-panel"><div class="panel-heading"><h2>문서 목록</h2><button id="pick-more" class="button subtle small">＋ 파일 추가</button></div><div class="list-header"><span>문서 이름</span><span>처리 전 → 처리 후</span></div><div id="document-list" class="document-list" aria-label="문서 목록"></div><div class="list-note">파일을 이 창으로 끌어다 놓아 추가할 수 있어요.</div></section>
+          <aside class="panel options-panel"><div class="panel-heading"><h2>저장 설정</h2></div><div class="options-scroll">
+          <fieldset id="mode-options" class="mode-options"><legend>줄이는 방법</legend><label><input type="radio" name="mode" value="quality" checked><span>품질 기준</span></label><label><input type="radio" name="mode" value="target"><span>목표 용량</span></label></fieldset>
+          <fieldset id="target-options" hidden><legend>원하는 용량 정하기</legend><div class="target-original">원래 용량 <strong id="target-before">0 MB</strong></div><div class="target-readout"><strong id="target-preview">0 MB 이하</strong><span id="target-reduction-label">50% 줄이기</span></div><label class="slider-label" for="target-slider">줄일 비율</label><input id="target-slider" type="range" min="1" max="99" step="0.1" value="50"><div class="slider-ends"><span>조금 줄이기</span><span>많이 줄이기</span></div><div class="target-numbers"><label for="target-percent">감소율 (%)<input id="target-percent" type="number" min="0.01" max="99.99" step="any" value="50"></label><label for="target-mb">목표 용량 (MB)<input id="target-mb" type="number" min="0" step="any"></label></div><p id="target-error" class="target-error" role="status" hidden></p><p class="option-hint">높은 화질부터 조절해 목표 용량 이하로 저장합니다. 여러 문서는 각각 같은 비율로 줄입니다. 목표가 너무 작으면 달성하지 못할 수 있습니다.</p></fieldset>
+          <div id="quality-panel"><fieldset id="quality-options"><legend>이미지 품질</legend>
+            <label class="quality-option"><input type="radio" name="quality" value="high"><span><b>화질 우선</b><small>인쇄·확대해서 볼 문서</small></span></label>
+            <label class="quality-option"><input type="radio" name="quality" value="balanced" checked><span><b>균형 <em>추천</em></b><small>화질과 용량을 알맞게</small></span></label>
+            <label class="quality-option"><input type="radio" name="quality" value="small"><span><b>용량 우선</b><small>이메일·메신저로 보낼 문서</small></span></label>
+          </fieldset><p id="quality-hint" class="option-hint">긴 변 2,200px · JPEG 품질 82<br>작은 이미지는 확대하지 않습니다.</p></div>
+          <label class="conversion-option"><input id="convert-png" type="checkbox"><span><b>불투명 PNG를 JPEG로 변환</b><small>사진 용량을 더 줄입니다. 투명 배경은 유지하며, 글자가 든 그림은 선명도가 낮아질 수 있습니다.</small></span></label>
+          <div class="destination"><h3>저장 위치</h3><p id="folder-label">각 원본 문서가 있는 폴더</p><div><button id="choose-folder" class="button secondary small">폴더 변경</button><button id="reset-folder" class="text-button" hidden>원래대로</button></div></div>
+          <p class="save-note">원본은 덮어쓰지 않습니다.<br>이미 작은 이미지는 그대로 유지합니다.</p></div>
+          <div class="run-area"><p id="run-status" role="status" aria-live="polite">선택한 품질로 새 문서를 저장합니다.</p><progress id="task-progress" max="100" value="0" aria-label="문서 처리 진행률" hidden></progress><button id="start" class="button primary">가볍게 저장</button><button id="cancel" class="button secondary" hidden>작업 중지</button></div></aside>
+        </div>
+      </div>
+      <footer class="page-footer"><span>HWPX 이미지 일괄 최적화</span><span>원본 보존 · 내 PC에서 처리</span></footer>
+    </div>
+    <div id="guide-page" class="page guide-page" hidden><h1>사용 방법</h1><p class="guide-intro">문서를 넣고 품질이나 목표 용량을 선택하면 새 HWPX 파일로 저장합니다.</p><div class="guide-grid"><article class="panel"><span class="step">01</span><h2>문서 추가</h2><p>HWPX 파일을 선택하거나 창으로 끌어다 놓으세요. 구형 HWP는 한글에서 HWPX로 저장한 뒤 사용해 주세요.</p></article><article class="panel"><span class="step">02</span><h2>품질 · 목표 용량 선택</h2><p>목표 용량에서는 슬라이더를 움직이거나 감소율(%), 용량(MB)을 입력하세요. 나머지 값도 함께 바뀝니다. 여러 문서는 각각 같은 감소율로 처리합니다. 인쇄할 문서는 화질 우선, 평소에는 균형, 작은 첨부 파일이 필요하면 용량 우선을 선택하세요. 축소한 이미지의 작은 글씨는 흐려질 수 있습니다.</p></article><article class="panel"><span class="step">03</span><h2>가볍게 저장</h2><p>원본 옆이나 지정한 폴더에 새 문서를 저장합니다. 같은 이름의 파일이 있으면 번호를 붙이므로 기존 파일을 덮어쓰지 않습니다.</p></article><article class="panel"><span class="step">04</span><h2>결과 확인</h2><p>문서별 전후 용량과 처리 내역을 확인하세요. ‘문서 열기’로 한글에서 결과를 확인하거나 ‘폴더 보기’로 저장 위치를 찾을 수 있습니다.</p></article></div><section class="guide-limits panel"><h2>알아두세요</h2><ul><li>JPEG·PNG 이미지를 처리하며 투명 배경은 유지합니다. 불투명 PNG의 JPEG 변환은 선택할 수 있으며 목표 용량 모드에서는 기본으로 켜집니다. 다른 형식·움직이는 이미지는 원본을 보존합니다.</li><li>저장 전에 글·표·서식·그림 배치 정보가 원본과 같은지 확인합니다. 이미지 자체의 화질은 선택한 설정에 따라 달라집니다.</li><li>그림이 없거나 이미 최적화된 문서는 용량이 거의 줄지 않을 수 있습니다. 결과가 더 커지면 원본 데이터로 저장합니다.</li><li>서명·암호화된 문서, 손상된 문서는 처리하지 않습니다. 한 문서의 오류가 다른 문서의 처리를 중단시키지는 않습니다.</li><li>작업을 중지하면 이미 저장한 결과는 남고, 처리 중이던 임시 파일은 정리됩니다.</li></ul></section></div>
+  </main>
+</div>
+<dialog id="detail-dialog" aria-labelledby="detail-heading"><form method="dialog"><button class="dialog-close icon-button" aria-label="닫기">×</button></form><h2 id="detail-heading">이미지 처리 내역</h2><p id="detail-file"></p><div id="image-details"></div></dialog>
+<dialog id="update-dialog" aria-labelledby="update-heading"><form method="dialog"><button class="dialog-close icon-button" aria-label="닫기">×</button></form><h2 id="update-heading">설정</h2><p id="update-version"></p><section aria-labelledby="settings-update-heading"><h3 id="settings-update-heading">업데이트</h3><p id="update-message" role="status" aria-live="polite"></p><progress id="update-progress" max="100" value="0" hidden aria-label="업데이트 다운로드 진행률"></progress><p class="update-note">용량 줄이기는 인터넷 없이 진행합니다.<br>인터넷은 AI 모델 다운로드와 업데이트에만 사용합니다.</p><div class="dialog-actions"><button id="update-release" class="button secondary">배포 페이지 열기</button><button id="update-action" class="button primary">새 버전 확인</button></div></section><footer class="maker-credit"><span>제작</span><strong>HooniKim</strong></footer></dialog>
+<script src="renderer.js"></script><script src="updater-ui.js"></script>
+<script src="doc-navigation.js"></script></body></html>

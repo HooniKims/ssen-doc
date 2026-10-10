@@ -1,0 +1,8 @@
+{
+  "date": "2026-10-10T01:23:18.837Z",
+  "characters": 1680,
+  "ruleIssues": 60,
+  "dictionaryIssues": 120,
+  "milliseconds": 121.02430000000001,
+  "scope": "cold dictionary load + rules + dictionary + apply; excludes UI interaction"
+}

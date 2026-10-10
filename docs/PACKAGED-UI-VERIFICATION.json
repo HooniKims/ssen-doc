@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-10T01:41:00.799Z",
+  "testAutomationFlag": false,
+  "checks": [
+    "paste, first AI notice, skip, spelling, spacing, rule apply, clipboard",
+    "HTML export",
+    {
+      "documentComparisonIssues": "6"
+    },
+    "real HWPX image compression using packaged native engine",
+    "text retained across all three features",
+    "HTTP HTTPS WS WSS requests blocked"
+  ],
+  "completed": "2026-10-10T01:41:05.528Z"
+}

@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-10T04:02:17.077Z",
+  "checkedFiles": 81,
+  "nativeVariants": [
+    "win-x64"
+  ],
+  "modelsBundled": false,
+  "artifacts": [
+    {
+      "name": "SsenDoc-1.0.0-x64.zip",
+      "bytes": 228410597,
+      "sha256": "3420cedec7c20025682f11ca2e07b93e771edf3774e8597fdea4bc8407f04b6e"
+    },
+    {
+      "name": "SsenDoc-Setup-1.0.0.exe",
+      "bytes": 184360178,
+      "sha256": "df1dbc658613e45690d2c15e8c2f9a2e37e76f6d5f620c8bb32b63d0c757ab07"
+    }
+  ]
+}

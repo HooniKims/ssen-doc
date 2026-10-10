@@ -1,0 +1,12 @@
+node_modules/
+release/
+*.gguf
+*.part
+test-results/
+playwright-report/
+_workspace/
+modules/*/native/target/
+modules/*/native/bin/
+*.log
+_audit.json
+runtime-audit.json

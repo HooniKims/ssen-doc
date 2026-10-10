@@ -1,0 +1,17 @@
+{
+  "packaged": true,
+  "started": "2026-10-10T01:29:50.755Z",
+  "checks": [
+    {
+      "pauseBytes": 5952468
+    },
+    "real download, pause, resume, SHA-256 verified",
+    {
+      "cpuInferenceNotice": "AI 검사가 끝났습니다. 제안을 확인하고 하나씩 적용하세요."
+    },
+    "real model deleted after unloading",
+    "redownload after deletion verified",
+    "real GGUF direct import verified"
+  ],
+  "completed": "2026-10-10T01:31:07.048Z"
+}
