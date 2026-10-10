@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-10T04:05:21.847Z",
+  "url": "https://github.com/HooniKims/ssen-doc/releases/tag/v1.0.0",
+  "draft": false,
+  "assets": [
+    {
+      "name": "latest.yml",
+      "bytes": 343,
+      "digest": "sha256:42095ae84ff13748fa7431dc3a4c8d94174aaa17c1c973a0451f7e16a4255533",
+      "status": 200
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 178,
+      "digest": "sha256:c4135d41d4fbcf14f12b2b8ac015a4e5f759333b2a4009a342f6d460854e286a",
+      "status": 200
+    },
+    {
+      "name": "SsenDoc-1.0.0-x64.zip",
+      "bytes": 228410597,
+      "digest": "sha256:3420cedec7c20025682f11ca2e07b93e771edf3774e8597fdea4bc8407f04b6e",
+      "status": 200
+    },
+    {
+      "name": "SsenDoc-Setup-1.0.0.exe",
+      "bytes": 184360178,
+      "digest": "sha256:df1dbc658613e45690d2c15e8c2f9a2e37e76f6d5f620c8bb32b63d0c757ab07",
+      "status": 200
+    },
+    {
+      "name": "SsenDoc-Setup-1.0.0.exe.blockmap",
+      "bytes": 192874,
+      "digest": "sha256:05dc9d5d23477cfd2c2c932bd9386acd3d602ea804a3cb1609f44ac457d15192",
+      "status": 200
+    }
+  ],
+  "zipUpdate": {
+    "mode": "zip",
+    "phase": "latest",
+    "current": "1.0.0",
+    "available": null,
+    "progress": 0,
+    "message": "최신 버전입니다.",
+    "releaseUrl": "https://github.com/HooniKims/ssen-doc/releases/latest",
+    "checkedAt": 1791605121847
+  }
+}
