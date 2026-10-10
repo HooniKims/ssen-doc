@@ -3,7 +3,7 @@ const fs=require('node:fs/promises'),path=require('node:path'),assert=require('n
 function run(file,args){return new Promise((resolve,reject)=>{const p=spawn(file,args,{windowsHide:true,stdio:'ignore'});p.on('error',reject);p.on('exit',code=>code===0?resolve(code):reject(Error(`Installer exit ${code}`)));});}
 (async()=>{
  const root=path.resolve('_workspace/install-test'),profile=path.resolve('_workspace/installed-profile');await fs.mkdir(root,{recursive:true});
- await run(path.resolve('release/SsenDoc-Setup-1.0.0.exe'),['/S','/D='+root]);
+ await run(path.resolve(process.env.SSENDOC_RELEASE_DIR||'release',`SsenDoc-Setup-${require('../package.json').version}.exe`),['/S','/D='+root]);
  const executable=path.join(root,'SsenDoc.exe');assert.ok((await fs.stat(executable)).size>1000000);
  const env={...process.env,SSENDOC_TEST_DATA:profile};delete env.ELECTRON_RUN_AS_NODE;delete env.SSENDOC_TEST_HIDDEN;
  const app=await _electron.launch({executablePath:executable,args:[],env});let report;

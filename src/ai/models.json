@@ -1,7 +1,6 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.1",
   "models": [
-    {"id":"qwen3-0.6b","name":"가벼운 모델 · Qwen3 0.6B","filename":"Qwen3-0.6B-Q4_K_M.gguf","bytes":396705472,"sha256":"ac2d97712095a558e31573f62f466a3f9d93990898b0ec79d7c974c1780d524a","url":"https://huggingface.co/unsloth/Qwen3-0.6B-GGUF/resolve/main/Qwen3-0.6B-Q4_K_M.gguf","license":"Apache-2.0","enabled":true},
-    {"id":"exaone-2.4b","name":"한국어 특화 · EXAONE 3.5 2.4B","bytes":1500000000,"license":"라이선스 검토 중","enabled":false}
+    {"id":"qwen3-0.6b","name":"가벼운 모델 · Qwen3 0.6B","filename":"Qwen3-0.6B-Q4_K_M.gguf","bytes":396705472,"sha256":"ac2d97712095a558e31573f62f466a3f9d93990898b0ec79d7c974c1780d524a","url":"https://huggingface.co/unsloth/Qwen3-0.6B-GGUF/resolve/main/Qwen3-0.6B-Q4_K_M.gguf","license":"Apache-2.0","enabled":true}
   ]
 }

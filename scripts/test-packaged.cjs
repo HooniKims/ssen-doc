@@ -1,7 +1,7 @@
 'use strict';
 const fs=require('node:fs/promises'),path=require('node:path'),{_electron,expect}=require('@playwright/test'),assert=require('node:assert/strict');
 (async()=>{const profile=path.resolve('_workspace/package-smoke-'+Date.now()),env={...process.env,SSENDOC_TEST_DATA:profile};delete env.ELECTRON_RUN_AS_NODE;delete env.SSENDOC_TEST_AUTOMATION;delete env.SSENDOC_TEST_HIDDEN;
-const app=await _electron.launch({executablePath:path.resolve('release/win-unpacked/SsenDoc.exe'),args:[],env}),report={date:new Date().toISOString(),testAutomationFlag:false,checks:[]};
+const app=await _electron.launch({executablePath:path.resolve(process.env.SSENDOC_RELEASE_DIR||'release','win-unpacked/SsenDoc.exe'),args:[],env}),report={date:new Date().toISOString(),testAutomationFlag:false,checks:[]};
 const view=(name,code)=>app.evaluate(async({webContents},{name,code})=>{const w=webContents.getAllWebContents().find(w=>name==='spell'?w.getURL().endsWith('/app/index.html')&&!w.getURL().includes('/modules/'):w.getURL().includes('/modules/'+name+'/'));return w?.executeJavaScript(code);},{name,code});
 try{
  await expect.poll(()=>view('spell',"document.documentElement.dataset.ready==='true'").catch(()=>false),{timeout:30000}).toBe(true);

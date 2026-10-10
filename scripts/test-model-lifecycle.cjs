@@ -4,7 +4,7 @@ const {sha256}=require('../src/ai/model-manager.cjs'),catalog=require('../src/ai
 (async()=>{
  const profile=path.resolve('_workspace/model-lifecycle-'+Date.now());await fs.mkdir(profile,{recursive:true});
  const env={...process.env,SSENDOC_TEST_DATA:profile,SSENDOC_TEST_HIDDEN:process.argv.includes('--packaged')?'':'1'};delete env.ELECTRON_RUN_AS_NODE;
- const packaged=process.argv.includes('--packaged');const app=await _electron.launch({...(packaged?{executablePath:path.resolve('release/win-unpacked/SsenDoc.exe'),args:[]}:{args:[path.resolve('.')]}),env});
+ const packaged=process.argv.includes('--packaged');const app=await _electron.launch({...(packaged?{executablePath:path.resolve(process.env.SSENDOC_RELEASE_DIR||'release','win-unpacked/SsenDoc.exe'),args:[]}:{args:[path.resolve('.')]}),env});
  const report={packaged,started:new Date().toISOString(),checks:[]};
  try{
   await expect.poll(()=>app.windows().find(p=>p.url().endsWith('/app/index.html')&&!p.url().includes('/modules/'))?.url(),{timeout:30000}).toBeTruthy();

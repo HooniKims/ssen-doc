@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-10T01:45:16.963Z",
+  "date": "2026-10-10T04:46:00.163Z",
   "installation": "NSIS silent install exit 0",
   "executable": "C:\\Users\\user\\Desktop\\Coding\\261008_집중개발_프로토타입\\쎈mark\\_workspace\\install-test\\SsenDoc.exe",
   "spellAndSpacing": "passed",
@@ -7,12 +7,13 @@
   "updateMode": "installed",
   "liveUpdate": {
     "mode": "installed",
-    "phase": "error",
-    "current": "1.0.0",
+    "phase": "latest",
+    "current": "1.0.1",
     "available": null,
     "progress": 0,
-    "message": "배포된 업데이트 정보를 찾지 못했습니다. 잠시 뒤 다시 확인해 주세요.",
-    "releaseUrl": "https://github.com/HooniKims/ssen-doc/releases/latest"
+    "message": "최신 버전입니다.",
+    "releaseUrl": "https://github.com/HooniKims/ssen-doc/releases/latest",
+    "checkedAt": 1791607560158
   },
   "uninstall": "exit 0; installed executable removed"
 }
