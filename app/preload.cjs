@@ -8,6 +8,6 @@ contextBridge.exposeInMainWorld('doc',{
  modelInfo:()=>invoke('model:info'),downloadModel:id=>invoke('model:download',id),pauseModel:()=>invoke('model:pause'),importModel:()=>invoke('model:import'),deleteModel:()=>invoke('model:delete'),
  ai:text=>invoke('spell:ai',text),cancelAI:()=>invoke('spell:cancel-ai'),onModel:callback=>on('model:state',callback),onAI:callback=>on('ai:progress',callback),onNavigate:callback=>on('doc:settings',callback),
  settings:()=>invoke('settings:read'),saveSettings:settings=>invoke('settings:write',settings),addWord:word=>invoke('dictionary:add',word),
- updateState:()=>invoke('update:state'),checkUpdate:()=>invoke('update:check'),downloadUpdate:()=>invoke('update:download'),installUpdate:()=>invoke('update:install'),openRelease:()=>invoke('update:release'),onUpdate:callback=>on('update:state',callback),
+ updateState:()=>invoke('update:state'),checkUpdate:()=>invoke('update:check'),downloadUpdate:()=>invoke('update:download'),installUpdate:()=>invoke('update:install'),openRelease:()=>invoke('update:release'),licenseText:()=>invoke('license:text'),onUpdate:callback=>on('update:state',callback),
  minimize:()=>ipcRenderer.send('window:minimize'),maximize:()=>ipcRenderer.send('window:maximize'),close:()=>ipcRenderer.send('window:close')
 });

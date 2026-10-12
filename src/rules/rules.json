@@ -30,7 +30,7 @@
       "reason": "이 문맥에서는 '금세'로 적습니다.",
       "example": "금새 → 금세",
       "category": "자주 틀리는 말",
-      "boundary": "none",
+      "boundary": "left",
       "positive": "금새",
       "negative": "금세"
     },
@@ -272,7 +272,7 @@
       "reason": "이 문맥에서는 '희한'로 적습니다.",
       "example": "희안 → 희한",
       "category": "자주 틀리는 말",
-      "boundary": "none",
+      "boundary": "left",
       "positive": "희안",
       "negative": "희한"
     },
@@ -339,6 +339,7 @@
       "example": "갈려고 → 가려고",
       "category": "자주 틀리는 말",
       "boundary": "none",
+      "auto": false,
       "positive": "갈려고",
       "negative": "가려고"
     },
@@ -361,6 +362,7 @@
       "example": "줄려고 → 주려고",
       "category": "자주 틀리는 말",
       "boundary": "none",
+      "auto": false,
       "positive": "줄려고",
       "negative": "주려고"
     },
@@ -372,6 +374,7 @@
       "example": "쓸려고 → 쓰려고",
       "category": "자주 틀리는 말",
       "boundary": "none",
+      "auto": false,
       "positive": "쓸려고",
       "negative": "쓰려고"
     },
@@ -416,6 +419,7 @@
       "example": "않되 → 안 되",
       "category": "자주 틀리는 말",
       "boundary": "none",
+      "auto": false,
       "positive": "않되",
       "negative": "안 되"
     },
@@ -647,6 +651,7 @@
       "example": "예기했 → 얘기했",
       "category": "자주 틀리는 말",
       "boundary": "none",
+      "auto": false,
       "positive": "예기했",
       "negative": "얘기했"
     },
@@ -1169,17 +1174,6 @@
     },
     {
       "id": "spelling-107",
-      "pattern": "꺼림직",
-      "replacement": "꺼림칙",
-      "reason": "이 문맥에서는 '꺼림칙'로 적습니다.",
-      "example": "꺼림직 → 꺼림칙",
-      "category": "자주 틀리는 말",
-      "boundary": "none",
-      "positive": "꺼림직",
-      "negative": "꺼림칙"
-    },
-    {
-      "id": "spelling-108",
       "pattern": "꺼림찍",
       "replacement": "꺼림칙",
       "reason": "이 문맥에서는 '꺼림칙'로 적습니다.",
@@ -1190,7 +1184,7 @@
       "negative": "꺼림칙"
     },
     {
-      "id": "spelling-109",
+      "id": "spelling-108",
       "pattern": "거꾸로로",
       "replacement": "거꾸로",
       "reason": "이 문맥에서는 '거꾸로'로 적습니다.",
@@ -1201,7 +1195,7 @@
       "negative": "거꾸로"
     },
     {
-      "id": "spelling-110",
+      "id": "spelling-109",
       "pattern": "거꾸루",
       "replacement": "거꾸로",
       "reason": "이 문맥에서는 '거꾸로'로 적습니다.",
@@ -1212,7 +1206,7 @@
       "negative": "거꾸로"
     },
     {
-      "id": "spelling-111",
+      "id": "spelling-110",
       "pattern": "억지루",
       "replacement": "억지로",
       "reason": "이 문맥에서는 '억지로'로 적습니다.",
@@ -1223,7 +1217,7 @@
       "negative": "억지로"
     },
     {
-      "id": "spelling-112",
+      "id": "spelling-111",
       "pattern": "핑게",
       "replacement": "핑계",
       "reason": "이 문맥에서는 '핑계'로 적습니다.",
@@ -1234,7 +1228,7 @@
       "negative": "핑계"
     },
     {
-      "id": "spelling-113",
+      "id": "spelling-112",
       "pattern": "찌게",
       "replacement": "찌개",
       "reason": "이 문맥에서는 '찌개'로 적습니다.",
@@ -1245,7 +1239,7 @@
       "negative": "찌개"
     },
     {
-      "id": "spelling-114",
+      "id": "spelling-113",
       "pattern": "육계장",
       "replacement": "육개장",
       "reason": "이 문맥에서는 '육개장'로 적습니다.",
@@ -1256,7 +1250,7 @@
       "negative": "육개장"
     },
     {
-      "id": "spelling-115",
+      "id": "spelling-114",
       "pattern": "김치찌게",
       "replacement": "김치찌개",
       "reason": "이 문맥에서는 '김치찌개'로 적습니다.",
@@ -1267,7 +1261,7 @@
       "negative": "김치찌개"
     },
     {
-      "id": "spelling-116",
+      "id": "spelling-115",
       "pattern": "된장찌게",
       "replacement": "된장찌개",
       "reason": "이 문맥에서는 '된장찌개'로 적습니다.",
@@ -1278,7 +1272,7 @@
       "negative": "된장찌개"
     },
     {
-      "id": "spelling-117",
+      "id": "spelling-116",
       "pattern": "떡뽁이",
       "replacement": "떡볶이",
       "reason": "이 문맥에서는 '떡볶이'로 적습니다.",
@@ -1289,7 +1283,7 @@
       "negative": "떡볶이"
     },
     {
-      "id": "spelling-118",
+      "id": "spelling-117",
       "pattern": "떡복이",
       "replacement": "떡볶이",
       "reason": "이 문맥에서는 '떡볶이'로 적습니다.",
@@ -1300,7 +1294,7 @@
       "negative": "떡볶이"
     },
     {
-      "id": "spelling-119",
+      "id": "spelling-118",
       "pattern": "깍뚜기",
       "replacement": "깍두기",
       "reason": "이 문맥에서는 '깍두기'로 적습니다.",
@@ -1311,7 +1305,7 @@
       "negative": "깍두기"
     },
     {
-      "id": "spelling-120",
+      "id": "spelling-119",
       "pattern": "깎두기",
       "replacement": "깍두기",
       "reason": "이 문맥에서는 '깍두기'로 적습니다.",
@@ -1322,7 +1316,7 @@
       "negative": "깍두기"
     },
     {
-      "id": "spelling-121",
+      "id": "spelling-120",
       "pattern": "깍둑이",
       "replacement": "깍두기",
       "reason": "이 문맥에서는 '깍두기'로 적습니다.",
@@ -1333,7 +1327,7 @@
       "negative": "깍두기"
     },
     {
-      "id": "spelling-122",
+      "id": "spelling-121",
       "pattern": "곱배기",
       "replacement": "곱빼기",
       "reason": "이 문맥에서는 '곱빼기'로 적습니다.",
@@ -1344,7 +1338,7 @@
       "negative": "곱빼기"
     },
     {
-      "id": "spelling-123",
+      "id": "spelling-122",
       "pattern": "설레임",
       "replacement": "설렘",
       "reason": "이 문맥에서는 '설렘'로 적습니다.",
@@ -1355,7 +1349,7 @@
       "negative": "설렘"
     },
     {
-      "id": "spelling-124",
+      "id": "spelling-123",
       "pattern": "바램입니다",
       "replacement": "바람입니다",
       "reason": "이 문맥에서는 '바람입니다'로 적습니다.",
@@ -1366,7 +1360,7 @@
       "negative": "바람입니다"
     },
     {
-      "id": "spelling-125",
+      "id": "spelling-124",
       "pattern": "합격을 바래요",
       "replacement": "합격을 바라요",
       "reason": "이 문맥에서는 '합격을 바라요'로 적습니다.",
@@ -1377,7 +1371,7 @@
       "negative": "합격을 바라요"
     },
     {
-      "id": "spelling-126",
+      "id": "spelling-125",
       "pattern": "쾌유를 바래요",
       "replacement": "쾌유를 바라요",
       "reason": "이 문맥에서는 '쾌유를 바라요'로 적습니다.",
@@ -1388,7 +1382,7 @@
       "negative": "쾌유를 바라요"
     },
     {
-      "id": "spelling-127",
+      "id": "spelling-126",
       "pattern": "삼가해 주세요",
       "replacement": "삼가 주세요",
       "reason": "이 문맥에서는 '삼가 주세요'로 적습니다.",
@@ -1399,7 +1393,7 @@
       "negative": "삼가 주세요"
     },
     {
-      "id": "spelling-128",
+      "id": "spelling-127",
       "pattern": "삼가해 주십시오",
       "replacement": "삼가 주십시오",
       "reason": "이 문맥에서는 '삼가 주십시오'로 적습니다.",
@@ -1410,7 +1404,7 @@
       "negative": "삼가 주십시오"
     },
     {
-      "id": "spelling-129",
+      "id": "spelling-128",
       "pattern": "삼가해주시기",
       "replacement": "삼가 주시기",
       "reason": "이 문맥에서는 '삼가 주시기'로 적습니다.",
@@ -1421,7 +1415,7 @@
       "negative": "삼가 주시기"
     },
     {
-      "id": "spelling-130",
+      "id": "spelling-129",
       "pattern": "삼가하여",
       "replacement": "삼가",
       "reason": "이 문맥에서는 '삼가'로 적습니다.",
@@ -1432,7 +1426,7 @@
       "negative": "삼가"
     },
     {
-      "id": "spelling-131",
+      "id": "spelling-130",
       "pattern": "삼가하겠습니다",
       "replacement": "삼가겠습니다",
       "reason": "이 문맥에서는 '삼가겠습니다'로 적습니다.",
@@ -1443,7 +1437,7 @@
       "negative": "삼가겠습니다"
     },
     {
-      "id": "spelling-132",
+      "id": "spelling-131",
       "pattern": "잠궈",
       "replacement": "잠가",
       "reason": "이 문맥에서는 '잠가'로 적습니다.",
@@ -1454,7 +1448,7 @@
       "negative": "잠가"
     },
     {
-      "id": "spelling-133",
+      "id": "spelling-132",
       "pattern": "잠궜",
       "replacement": "잠갔",
       "reason": "이 문맥에서는 '잠갔'로 적습니다.",
@@ -1465,7 +1459,7 @@
       "negative": "잠갔"
     },
     {
-      "id": "spelling-134",
+      "id": "spelling-133",
       "pattern": "담궈",
       "replacement": "담가",
       "reason": "이 문맥에서는 '담가'로 적습니다.",
@@ -1476,7 +1470,7 @@
       "negative": "담가"
     },
     {
-      "id": "spelling-135",
+      "id": "spelling-134",
       "pattern": "담궜",
       "replacement": "담갔",
       "reason": "이 문맥에서는 '담갔'로 적습니다.",
@@ -1487,7 +1481,7 @@
       "negative": "담갔"
     },
     {
-      "id": "spelling-136",
+      "id": "spelling-135",
       "pattern": "치뤄",
       "replacement": "치러",
       "reason": "이 문맥에서는 '치러'로 적습니다.",
@@ -1498,7 +1492,7 @@
       "negative": "치러"
     },
     {
-      "id": "spelling-137",
+      "id": "spelling-136",
       "pattern": "치뤘",
       "replacement": "치렀",
       "reason": "이 문맥에서는 '치렀'로 적습니다.",
@@ -1509,7 +1503,7 @@
       "negative": "치렀"
     },
     {
-      "id": "spelling-138",
+      "id": "spelling-137",
       "pattern": "가뿐이",
       "replacement": "가뿐히",
       "reason": "이 문맥에서는 '가뿐히'로 적습니다.",
@@ -1520,7 +1514,7 @@
       "negative": "가뿐히"
     },
     {
-      "id": "spelling-139",
+      "id": "spelling-138",
       "pattern": "뻐근이",
       "replacement": "뻐근히",
       "reason": "이 문맥에서는 '뻐근히'로 적습니다.",
@@ -1531,7 +1525,7 @@
       "negative": "뻐근히"
     },
     {
-      "id": "spelling-140",
+      "id": "spelling-139",
       "pattern": "섯부른",
       "replacement": "섣부른",
       "reason": "이 문맥에서는 '섣부른'로 적습니다.",
@@ -1542,7 +1536,7 @@
       "negative": "섣부른"
     },
     {
-      "id": "spelling-141",
+      "id": "spelling-140",
       "pattern": "섣불리히",
       "replacement": "섣불리",
       "reason": "이 문맥에서는 '섣불리'로 적습니다.",
@@ -1553,7 +1547,7 @@
       "negative": "섣불리"
     },
     {
-      "id": "spelling-142",
+      "id": "spelling-141",
       "pattern": "섯불리",
       "replacement": "섣불리",
       "reason": "이 문맥에서는 '섣불리'로 적습니다.",
@@ -1564,7 +1558,7 @@
       "negative": "섣불리"
     },
     {
-      "id": "spelling-143",
+      "id": "spelling-142",
       "pattern": "실증이 나",
       "replacement": "싫증이 나",
       "reason": "이 문맥에서는 '싫증이 나'로 적습니다.",
@@ -1575,18 +1569,7 @@
       "negative": "싫증이 나"
     },
     {
-      "id": "spelling-144",
-      "pattern": "싫증나다",
-      "replacement": "싫증 나다",
-      "reason": "이 문맥에서는 '싫증 나다'로 적습니다.",
-      "example": "싫증나다 → 싫증 나다",
-      "category": "자주 틀리는 말",
-      "boundary": "none",
-      "positive": "싫증나다",
-      "negative": "싫증 나다"
-    },
-    {
-      "id": "spelling-145",
+      "id": "spelling-143",
       "pattern": "금시초면",
       "replacement": "금시초문",
       "reason": "이 문맥에서는 '금시초문'로 적습니다.",
@@ -1597,18 +1580,18 @@
       "negative": "금시초문"
     },
     {
-      "id": "spelling-146",
+      "id": "spelling-144",
       "pattern": "절때",
       "replacement": "절대",
       "reason": "이 문맥에서는 '절대'로 적습니다.",
       "example": "절때 → 절대",
       "category": "자주 틀리는 말",
-      "boundary": "none",
+      "boundary": "left",
       "positive": "절때",
       "negative": "절대"
     },
     {
-      "id": "spelling-147",
+      "id": "spelling-145",
       "pattern": "절데",
       "replacement": "절대",
       "reason": "이 문맥에서는 '절대'로 적습니다.",
@@ -1619,7 +1602,7 @@
       "negative": "절대"
     },
     {
-      "id": "spelling-148",
+      "id": "spelling-146",
       "pattern": "도데체",
       "replacement": "도대체",
       "reason": "이 문맥에서는 '도대체'로 적습니다.",
@@ -1630,7 +1613,7 @@
       "negative": "도대체"
     },
     {
-      "id": "spelling-149",
+      "id": "spelling-147",
       "pattern": "도대채",
       "replacement": "도대체",
       "reason": "이 문맥에서는 '도대체'로 적습니다.",
@@ -1641,7 +1624,7 @@
       "negative": "도대체"
     },
     {
-      "id": "spelling-150",
+      "id": "spelling-148",
       "pattern": "대채로",
       "replacement": "대체로",
       "reason": "이 문맥에서는 '대체로'로 적습니다.",
@@ -1652,7 +1635,7 @@
       "negative": "대체로"
     },
     {
-      "id": "spelling-151",
+      "id": "spelling-149",
       "pattern": "대체적으로로",
       "replacement": "대체적으로",
       "reason": "이 문맥에서는 '대체적으로'로 적습니다.",
@@ -1663,7 +1646,7 @@
       "negative": "대체적으로"
     },
     {
-      "id": "spelling-152",
+      "id": "spelling-150",
       "pattern": "요세",
       "replacement": "요새",
       "reason": "이 문맥에서는 '요새'로 적습니다.",
@@ -1674,7 +1657,7 @@
       "negative": "요새"
     },
     {
-      "id": "spelling-153",
+      "id": "spelling-151",
       "pattern": "엊그재",
       "replacement": "엊그제",
       "reason": "이 문맥에서는 '엊그제'로 적습니다.",
@@ -1685,7 +1668,7 @@
       "negative": "엊그제"
     },
     {
-      "id": "spelling-154",
+      "id": "spelling-152",
       "pattern": "구렛나루",
       "replacement": "구레나룻",
       "reason": "이 문맥에서는 '구레나룻'로 적습니다.",
@@ -1696,7 +1679,7 @@
       "negative": "구레나룻"
     },
     {
-      "id": "spelling-155",
+      "id": "spelling-153",
       "pattern": "구레나루",
       "replacement": "구레나룻",
       "reason": "이 문맥에서는 '구레나룻'로 적습니다.",
@@ -1707,7 +1690,7 @@
       "negative": "구레나룻"
     },
     {
-      "id": "spelling-156",
+      "id": "spelling-154",
       "pattern": "뒷치닥거리",
       "replacement": "뒤치다꺼리",
       "reason": "이 문맥에서는 '뒤치다꺼리'로 적습니다.",
@@ -1718,7 +1701,7 @@
       "negative": "뒤치다꺼리"
     },
     {
-      "id": "spelling-157",
+      "id": "spelling-155",
       "pattern": "뒤치닥거리",
       "replacement": "뒤치다꺼리",
       "reason": "이 문맥에서는 '뒤치다꺼리'로 적습니다.",
@@ -1729,7 +1712,7 @@
       "negative": "뒤치다꺼리"
     },
     {
-      "id": "spelling-158",
+      "id": "spelling-156",
       "pattern": "뒷치다꺼리",
       "replacement": "뒤치다꺼리",
       "reason": "이 문맥에서는 '뒤치다꺼리'로 적습니다.",
@@ -1740,7 +1723,7 @@
       "negative": "뒤치다꺼리"
     },
     {
-      "id": "spelling-159",
+      "id": "spelling-157",
       "pattern": "건들이다",
       "replacement": "건드리다",
       "reason": "이 문맥에서는 '건드리다'로 적습니다.",
@@ -1751,7 +1734,7 @@
       "negative": "건드리다"
     },
     {
-      "id": "spelling-160",
+      "id": "spelling-158",
       "pattern": "건들였다",
       "replacement": "건드렸다",
       "reason": "이 문맥에서는 '건드렸다'로 적습니다.",
@@ -1762,18 +1745,7 @@
       "negative": "건드렸다"
     },
     {
-      "id": "spelling-161",
-      "pattern": "건들지 마",
-      "replacement": "건드리지 마",
-      "reason": "이 문맥에서는 '건드리지 마'로 적습니다.",
-      "example": "건들지 마 → 건드리지 마",
-      "category": "자주 틀리는 말",
-      "boundary": "none",
-      "positive": "건들지 마",
-      "negative": "건드리지 마"
-    },
-    {
-      "id": "spelling-162",
+      "id": "spelling-159",
       "pattern": "희생양으로 삼앗",
       "replacement": "희생양으로 삼았",
       "reason": "이 문맥에서는 '희생양으로 삼았'로 적습니다.",
@@ -1784,7 +1756,7 @@
       "negative": "희생양으로 삼았"
     },
     {
-      "id": "spelling-163",
+      "id": "spelling-160",
       "pattern": "맞딱뜨",
       "replacement": "맞닥뜨",
       "reason": "이 문맥에서는 '맞닥뜨'로 적습니다.",
@@ -1795,7 +1767,7 @@
       "negative": "맞닥뜨"
     },
     {
-      "id": "spelling-164",
+      "id": "spelling-161",
       "pattern": "부딪히쳤",
       "replacement": "부딪혔",
       "reason": "이 문맥에서는 '부딪혔'로 적습니다.",
@@ -1806,18 +1778,7 @@
       "negative": "부딪혔"
     },
     {
-      "id": "spelling-165",
-      "pattern": "오손도손",
-      "replacement": "오순도순",
-      "reason": "이 문맥에서는 '오순도순'로 적습니다.",
-      "example": "오손도손 → 오순도순",
-      "category": "자주 틀리는 말",
-      "boundary": "none",
-      "positive": "오손도손",
-      "negative": "오순도순"
-    },
-    {
-      "id": "spelling-166",
+      "id": "spelling-162",
       "pattern": "오랫만에",
       "replacement": "오랜만에",
       "reason": "이 문맥에서는 '오랜만에'로 적습니다.",
@@ -1828,7 +1789,7 @@
       "negative": "오랜만에"
     },
     {
-      "id": "spelling-167",
+      "id": "spelling-163",
       "pattern": "애띤",
       "replacement": "앳된",
       "reason": "이 문맥에서는 '앳된'로 적습니다.",
@@ -1839,7 +1800,7 @@
       "negative": "앳된"
     },
     {
-      "id": "spelling-168",
+      "id": "spelling-164",
       "pattern": "앳띤",
       "replacement": "앳된",
       "reason": "이 문맥에서는 '앳된'로 적습니다.",
@@ -1850,7 +1811,7 @@
       "negative": "앳된"
     },
     {
-      "id": "spelling-169",
+      "id": "spelling-165",
       "pattern": "뇌졸증",
       "replacement": "뇌졸중",
       "reason": "이 문맥에서는 '뇌졸중'로 적습니다.",
@@ -1861,7 +1822,7 @@
       "negative": "뇌졸중"
     },
     {
-      "id": "spelling-170",
+      "id": "spelling-166",
       "pattern": "휴유증",
       "replacement": "후유증",
       "reason": "이 문맥에서는 '후유증'로 적습니다.",
@@ -1872,7 +1833,7 @@
       "negative": "후유증"
     },
     {
-      "id": "spelling-171",
+      "id": "spelling-167",
       "pattern": "햇갈리",
       "replacement": "헷갈리",
       "reason": "이 문맥에서는 '헷갈리'로 적습니다.",
@@ -1883,7 +1844,7 @@
       "negative": "헷갈리"
     },
     {
-      "id": "spelling-172",
+      "id": "spelling-168",
       "pattern": "햇갈려",
       "replacement": "헷갈려",
       "reason": "이 문맥에서는 '헷갈려'로 적습니다.",
@@ -1894,7 +1855,7 @@
       "negative": "헷갈려"
     },
     {
-      "id": "spelling-173",
+      "id": "spelling-169",
       "pattern": "왠만",
       "replacement": "웬만",
       "reason": "이 문맥에서는 '웬만'로 적습니다.",
@@ -1905,7 +1866,7 @@
       "negative": "웬만"
     },
     {
-      "id": "spelling-174",
+      "id": "spelling-170",
       "pattern": "왠일",
       "replacement": "웬일",
       "reason": "이 문맥에서는 '웬일'로 적습니다.",
@@ -1916,7 +1877,7 @@
       "negative": "웬일"
     },
     {
-      "id": "spelling-175",
+      "id": "spelling-171",
       "pattern": "왠 사람이",
       "replacement": "웬 사람이",
       "reason": "이 문맥에서는 '웬 사람이'로 적습니다.",
@@ -1927,7 +1888,7 @@
       "negative": "웬 사람이"
     },
     {
-      "id": "spelling-176",
+      "id": "spelling-172",
       "pattern": "왠 영문",
       "replacement": "웬 영문",
       "reason": "이 문맥에서는 '웬 영문'로 적습니다.",
@@ -1938,7 +1899,7 @@
       "negative": "웬 영문"
     },
     {
-      "id": "spelling-177",
+      "id": "spelling-173",
       "pattern": "왠 떡",
       "replacement": "웬 떡",
       "reason": "이 문맥에서는 '웬 떡'로 적습니다.",
@@ -1949,7 +1910,7 @@
       "negative": "웬 떡"
     },
     {
-      "id": "spelling-178",
+      "id": "spelling-174",
       "pattern": "왠 날벼락",
       "replacement": "웬 날벼락",
       "reason": "이 문맥에서는 '웬 날벼락'로 적습니다.",
@@ -1960,7 +1921,7 @@
       "negative": "웬 날벼락"
     },
     {
-      "id": "spelling-179",
+      "id": "spelling-175",
       "pattern": "왠 소리",
       "replacement": "웬 소리",
       "reason": "이 문맥에서는 '웬 소리'로 적습니다.",
@@ -1971,7 +1932,7 @@
       "negative": "웬 소리"
     },
     {
-      "id": "spelling-180",
+      "id": "spelling-176",
       "pattern": "왠 걱정",
       "replacement": "웬 걱정",
       "reason": "이 문맥에서는 '웬 걱정'로 적습니다.",
@@ -1982,7 +1943,7 @@
       "negative": "웬 걱정"
     },
     {
-      "id": "spelling-181",
+      "id": "spelling-177",
       "pattern": "왠 말",
       "replacement": "웬 말",
       "reason": "이 문맥에서는 '웬 말'로 적습니다.",
@@ -1993,7 +1954,7 @@
       "negative": "웬 말"
     },
     {
-      "id": "spelling-182",
+      "id": "spelling-178",
       "pattern": "아니예요",
       "replacement": "아니에요",
       "reason": "이 문맥에서는 '아니에요'로 적습니다.",
@@ -2004,7 +1965,7 @@
       "negative": "아니에요"
     },
     {
-      "id": "spelling-183",
+      "id": "spelling-179",
       "pattern": "아니에요요",
       "replacement": "아니에요",
       "reason": "이 문맥에서는 '아니에요'로 적습니다.",
@@ -2015,7 +1976,7 @@
       "negative": "아니에요"
     },
     {
-      "id": "spelling-184",
+      "id": "spelling-180",
       "pattern": "거에요",
       "replacement": "거예요",
       "reason": "이 문맥에서는 '거예요'로 적습니다.",
@@ -2026,7 +1987,7 @@
       "negative": "거예요"
     },
     {
-      "id": "spelling-185",
+      "id": "spelling-181",
       "pattern": "꺼예요",
       "replacement": "거예요",
       "reason": "이 문맥에서는 '거예요'로 적습니다.",
@@ -2037,7 +1998,7 @@
       "negative": "거예요"
     },
     {
-      "id": "spelling-186",
+      "id": "spelling-182",
       "pattern": "할꺼야",
       "replacement": "할 거야",
       "reason": "이 문맥에서는 '할 거야'로 적습니다.",
@@ -2048,7 +2009,7 @@
       "negative": "할 거야"
     },
     {
-      "id": "spelling-187",
+      "id": "spelling-183",
       "pattern": "갈꺼야",
       "replacement": "갈 거야",
       "reason": "이 문맥에서는 '갈 거야'로 적습니다.",
@@ -2059,7 +2020,7 @@
       "negative": "갈 거야"
     },
     {
-      "id": "spelling-188",
+      "id": "spelling-184",
       "pattern": "될꺼야",
       "replacement": "될 거야",
       "reason": "이 문맥에서는 '될 거야'로 적습니다.",
@@ -2070,7 +2031,7 @@
       "negative": "될 거야"
     },
     {
-      "id": "spelling-189",
+      "id": "spelling-185",
       "pattern": "할거야",
       "replacement": "할 거야",
       "reason": "이 문맥에서는 '할 거야'로 적습니다.",
@@ -2081,7 +2042,7 @@
       "negative": "할 거야"
     },
     {
-      "id": "spelling-190",
+      "id": "spelling-186",
       "pattern": "갈거야",
       "replacement": "갈 거야",
       "reason": "이 문맥에서는 '갈 거야'로 적습니다.",
@@ -2092,7 +2053,7 @@
       "negative": "갈 거야"
     },
     {
-      "id": "spelling-191",
+      "id": "spelling-187",
       "pattern": "될거야",
       "replacement": "될 거야",
       "reason": "이 문맥에서는 '될 거야'로 적습니다.",
@@ -2103,7 +2064,7 @@
       "negative": "될 거야"
     },
     {
-      "id": "spelling-192",
+      "id": "spelling-188",
       "pattern": "할거예요",
       "replacement": "할 거예요",
       "reason": "이 문맥에서는 '할 거예요'로 적습니다.",
@@ -2114,7 +2075,7 @@
       "negative": "할 거예요"
     },
     {
-      "id": "spelling-193",
+      "id": "spelling-189",
       "pattern": "갈거예요",
       "replacement": "갈 거예요",
       "reason": "이 문맥에서는 '갈 거예요'로 적습니다.",
@@ -2125,7 +2086,7 @@
       "negative": "갈 거예요"
     },
     {
-      "id": "spelling-194",
+      "id": "spelling-190",
       "pattern": "될거예요",
       "replacement": "될 거예요",
       "reason": "이 문맥에서는 '될 거예요'로 적습니다.",
@@ -2136,7 +2097,7 @@
       "negative": "될 거예요"
     },
     {
-      "id": "spelling-195",
+      "id": "spelling-191",
       "pattern": "할거에요",
       "replacement": "할 거예요",
       "reason": "이 문맥에서는 '할 거예요'로 적습니다.",
@@ -2147,7 +2108,7 @@
       "negative": "할 거예요"
     },
     {
-      "id": "spelling-196",
+      "id": "spelling-192",
       "pattern": "될거에요",
       "replacement": "될 거예요",
       "reason": "이 문맥에서는 '될 거예요'로 적습니다.",
@@ -2158,7 +2119,7 @@
       "negative": "될 거예요"
     },
     {
-      "id": "spelling-197",
+      "id": "spelling-193",
       "pattern": "할 꺼예요",
       "replacement": "할 거예요",
       "reason": "이 문맥에서는 '할 거예요'로 적습니다.",
@@ -2169,7 +2130,7 @@
       "negative": "할 거예요"
     },
     {
-      "id": "spelling-198",
+      "id": "spelling-194",
       "pattern": "할 꺼야",
       "replacement": "할 거야",
       "reason": "이 문맥에서는 '할 거야'로 적습니다.",
@@ -2180,7 +2141,7 @@
       "negative": "할 거야"
     },
     {
-      "id": "spelling-199",
+      "id": "spelling-195",
       "pattern": "될 꺼야",
       "replacement": "될 거야",
       "reason": "이 문맥에서는 '될 거야'로 적습니다.",
@@ -2191,7 +2152,7 @@
       "negative": "될 거야"
     },
     {
-      "id": "spelling-200",
+      "id": "spelling-196",
       "pattern": "있을 꺼야",
       "replacement": "있을 거야",
       "reason": "이 문맥에서는 '있을 거야'로 적습니다.",
@@ -2202,7 +2163,7 @@
       "negative": "있을 거야"
     },
     {
-      "id": "spelling-201",
+      "id": "spelling-197",
       "pattern": "없을 꺼야",
       "replacement": "없을 거야",
       "reason": "이 문맥에서는 '없을 거야'로 적습니다.",
@@ -2213,7 +2174,7 @@
       "negative": "없을 거야"
     },
     {
-      "id": "spelling-202",
+      "id": "spelling-198",
       "pattern": "것같다",
       "replacement": "것 같다",
       "reason": "이 문맥에서는 '것 같다'로 적습니다.",
@@ -2224,7 +2185,7 @@
       "negative": "것 같다"
     },
     {
-      "id": "spelling-203",
+      "id": "spelling-199",
       "pattern": "것같아요",
       "replacement": "것 같아요",
       "reason": "이 문맥에서는 '것 같아요'로 적습니다.",
@@ -2235,7 +2196,7 @@
       "negative": "것 같아요"
     },
     {
-      "id": "spelling-204",
+      "id": "spelling-200",
       "pattern": "것같습니다",
       "replacement": "것 같습니다",
       "reason": "이 문맥에서는 '것 같습니다'로 적습니다.",
@@ -2246,7 +2207,7 @@
       "negative": "것 같습니다"
     },
     {
-      "id": "spelling-205",
+      "id": "spelling-201",
       "pattern": "것같은",
       "replacement": "것 같은",
       "reason": "이 문맥에서는 '것 같은'로 적습니다.",
@@ -2257,7 +2218,7 @@
       "negative": "것 같은"
     },
     {
-      "id": "spelling-206",
+      "id": "spelling-202",
       "pattern": "것같아서",
       "replacement": "것 같아서",
       "reason": "이 문맥에서는 '것 같아서'로 적습니다.",
@@ -2268,7 +2229,7 @@
       "negative": "것 같아서"
     },
     {
-      "id": "spelling-207",
+      "id": "spelling-203",
       "pattern": "수 밖에",
       "replacement": "수밖에",
       "reason": "이 문맥에서는 '수밖에'로 적습니다.",
@@ -2279,7 +2240,7 @@
       "negative": "수밖에"
     },
     {
-      "id": "spelling-208",
+      "id": "spelling-204",
       "pattern": "할수밖에",
       "replacement": "할 수밖에",
       "reason": "이 문맥에서는 '할 수밖에'로 적습니다.",
@@ -2290,7 +2251,7 @@
       "negative": "할 수밖에"
     },
     {
-      "id": "spelling-209",
+      "id": "spelling-205",
       "pattern": "될수밖에",
       "replacement": "될 수밖에",
       "reason": "이 문맥에서는 '될 수밖에'로 적습니다.",
@@ -2301,7 +2262,7 @@
       "negative": "될 수밖에"
     },
     {
-      "id": "spelling-210",
+      "id": "spelling-206",
       "pattern": "갈수밖에",
       "replacement": "갈 수밖에",
       "reason": "이 문맥에서는 '갈 수밖에'로 적습니다.",
@@ -2312,7 +2273,7 @@
       "negative": "갈 수밖에"
     },
     {
-      "id": "spelling-211",
+      "id": "spelling-207",
       "pattern": "어쩔수",
       "replacement": "어쩔 수",
       "reason": "이 문맥에서는 '어쩔 수'로 적습니다.",
@@ -2323,7 +2284,7 @@
       "negative": "어쩔 수"
     },
     {
-      "id": "spelling-212",
+      "id": "spelling-208",
       "pattern": "할 지라도",
       "replacement": "할지라도",
       "reason": "이 문맥에서는 '할지라도'로 적습니다.",
@@ -2334,7 +2295,7 @@
       "negative": "할지라도"
     },
     {
-      "id": "spelling-213",
+      "id": "spelling-209",
       "pattern": "할 지언정",
       "replacement": "할지언정",
       "reason": "이 문맥에서는 '할지언정'로 적습니다.",
@@ -2345,7 +2306,7 @@
       "negative": "할지언정"
     },
     {
-      "id": "spelling-214",
+      "id": "spelling-210",
       "pattern": "하던지 말던지",
       "replacement": "하든지 말든지",
       "reason": "이 문맥에서는 '하든지 말든지'로 적습니다.",
@@ -2356,7 +2317,7 @@
       "negative": "하든지 말든지"
     },
     {
-      "id": "spelling-215",
+      "id": "spelling-211",
       "pattern": "몇 월 몇 일",
       "replacement": "몇 월 며칠",
       "reason": "이 문맥에서는 '몇 월 며칠'로 적습니다.",
@@ -2367,7 +2328,7 @@
       "negative": "몇 월 며칠"
     },
     {
-      "id": "spelling-216",
+      "id": "spelling-212",
       "pattern": "몇월 몇일",
       "replacement": "몇 월 며칠",
       "reason": "이 문맥에서는 '몇 월 며칠'로 적습니다.",
@@ -2378,7 +2339,7 @@
       "negative": "몇 월 며칠"
     },
     {
-      "id": "spelling-217",
+      "id": "spelling-213",
       "pattern": "몇일 동안",
       "replacement": "며칠 동안",
       "reason": "이 문맥에서는 '며칠 동안'로 적습니다.",
@@ -2389,8 +2350,9 @@
       "negative": "며칠 동안"
     },
     {
-      "id": "spelling-218",
-      "pattern": "제작년",
+      "id": "spelling-214",
+      "pattern": "제작년(?!도)",
+      "regex": true,
       "replacement": "재작년",
       "reason": "이 문맥에서는 '재작년'로 적습니다.",
       "example": "제작년 → 재작년",
@@ -2400,7 +2362,7 @@
       "negative": "재작년"
     },
     {
-      "id": "spelling-219",
+      "id": "spelling-215",
       "pattern": "일찌기",
       "replacement": "일찍이",
       "reason": "이 문맥에서는 '일찍이'로 적습니다.",
@@ -2411,7 +2373,7 @@
       "negative": "일찍이"
     },
     {
-      "id": "spelling-220",
+      "id": "spelling-216",
       "pattern": "더우기",
       "replacement": "더욱이",
       "reason": "이 문맥에서는 '더욱이'로 적습니다.",
@@ -2422,7 +2384,7 @@
       "negative": "더욱이"
     },
     {
-      "id": "spelling-221",
+      "id": "spelling-217",
       "pattern": "더욱히",
       "replacement": "더욱이",
       "reason": "이 문맥에서는 '더욱이'로 적습니다.",
@@ -2433,7 +2395,7 @@
       "negative": "더욱이"
     },
     {
-      "id": "spelling-222",
+      "id": "spelling-218",
       "pattern": "함부러",
       "replacement": "함부로",
       "reason": "이 문맥에서는 '함부로'로 적습니다.",
@@ -2444,7 +2406,7 @@
       "negative": "함부로"
     },
     {
-      "id": "spelling-223",
+      "id": "spelling-219",
       "pattern": "함부러요",
       "replacement": "함부로요",
       "reason": "이 문맥에서는 '함부로요'로 적습니다.",
@@ -2455,7 +2417,7 @@
       "negative": "함부로요"
     },
     {
-      "id": "spelling-224",
+      "id": "spelling-220",
       "pattern": "우겨넣",
       "replacement": "욱여넣",
       "reason": "이 문맥에서는 '욱여넣'로 적습니다.",
@@ -2466,7 +2428,7 @@
       "negative": "욱여넣"
     },
     {
-      "id": "spelling-225",
+      "id": "spelling-221",
       "pattern": "궁시렁",
       "replacement": "구시렁",
       "reason": "이 문맥에서는 '구시렁'로 적습니다.",
@@ -2477,7 +2439,7 @@
       "negative": "구시렁"
     },
     {
-      "id": "spelling-226",
+      "id": "spelling-222",
       "pattern": "궁시렁궁시렁",
       "replacement": "구시렁구시렁",
       "reason": "이 문맥에서는 '구시렁구시렁'로 적습니다.",
@@ -2488,7 +2450,7 @@
       "negative": "구시렁구시렁"
     },
     {
-      "id": "spelling-227",
+      "id": "spelling-223",
       "pattern": "짜집기",
       "replacement": "짜깁기",
       "reason": "이 문맥에서는 '짜깁기'로 적습니다.",
@@ -2499,7 +2461,7 @@
       "negative": "짜깁기"
     },
     {
-      "id": "spelling-228",
+      "id": "spelling-224",
       "pattern": "짭잘",
       "replacement": "짭짤",
       "reason": "이 문맥에서는 '짭짤'로 적습니다.",
@@ -2510,7 +2472,7 @@
       "negative": "짭짤"
     },
     {
-      "id": "spelling-229",
+      "id": "spelling-225",
       "pattern": "짭쪼롬",
       "replacement": "짭조름",
       "reason": "이 문맥에서는 '짭조름'로 적습니다.",
@@ -2521,7 +2483,7 @@
       "negative": "짭조름"
     },
     {
-      "id": "spelling-230",
+      "id": "spelling-226",
       "pattern": "짜투리",
       "replacement": "자투리",
       "reason": "이 문맥에서는 '자투리'로 적습니다.",
@@ -2532,7 +2494,7 @@
       "negative": "자투리"
     },
     {
-      "id": "spelling-231",
+      "id": "spelling-227",
       "pattern": "오뚝히",
       "replacement": "오뚝이",
       "reason": "이 문맥에서는 '오뚝이'로 적습니다.",
@@ -2543,7 +2505,7 @@
       "negative": "오뚝이"
     },
     {
-      "id": "spelling-232",
+      "id": "spelling-228",
       "pattern": "쑥쓰러",
       "replacement": "쑥스러",
       "reason": "이 문맥에서는 '쑥스러'로 적습니다.",
@@ -2554,7 +2516,7 @@
       "negative": "쑥스러"
     },
     {
-      "id": "spelling-233",
+      "id": "spelling-229",
       "pattern": "쑥쓰럽",
       "replacement": "쑥스럽",
       "reason": "이 문맥에서는 '쑥스럽'로 적습니다.",
@@ -2565,7 +2527,7 @@
       "negative": "쑥스럽"
     },
     {
-      "id": "spelling-234",
+      "id": "spelling-230",
       "pattern": "쓰잘데없",
       "replacement": "쓸데없",
       "reason": "이 문맥에서는 '쓸데없'로 적습니다.",
@@ -2576,7 +2538,7 @@
       "negative": "쓸데없"
     },
     {
-      "id": "spelling-235",
+      "id": "spelling-231",
       "pattern": "쓸대없",
       "replacement": "쓸데없",
       "reason": "이 문맥에서는 '쓸데없'로 적습니다.",
@@ -2587,7 +2549,7 @@
       "negative": "쓸데없"
     },
     {
-      "id": "spelling-236",
+      "id": "spelling-232",
       "pattern": "쓸데 없이",
       "replacement": "쓸데없이",
       "reason": "이 문맥에서는 '쓸데없이'로 적습니다.",
@@ -2598,7 +2560,7 @@
       "negative": "쓸데없이"
     },
     {
-      "id": "spelling-237",
+      "id": "spelling-233",
       "pattern": "쓸모 없이",
       "replacement": "쓸모없이",
       "reason": "이 문맥에서는 '쓸모없이'로 적습니다.",
@@ -2609,7 +2571,7 @@
       "negative": "쓸모없이"
     },
     {
-      "id": "spelling-238",
+      "id": "spelling-234",
       "pattern": "어이 없이",
       "replacement": "어이없이",
       "reason": "이 문맥에서는 '어이없이'로 적습니다.",
@@ -2620,7 +2582,7 @@
       "negative": "어이없이"
     },
     {
-      "id": "spelling-239",
+      "id": "spelling-235",
       "pattern": "느닷 없이",
       "replacement": "느닷없이",
       "reason": "이 문맥에서는 '느닷없이'로 적습니다.",
@@ -2631,7 +2593,7 @@
       "negative": "느닷없이"
     },
     {
-      "id": "spelling-240",
+      "id": "spelling-236",
       "pattern": "느닷없히",
       "replacement": "느닷없이",
       "reason": "이 문맥에서는 '느닷없이'로 적습니다.",
@@ -2642,7 +2604,7 @@
       "negative": "느닷없이"
     },
     {
-      "id": "spelling-241",
+      "id": "spelling-237",
       "pattern": "어이없히",
       "replacement": "어이없이",
       "reason": "이 문맥에서는 '어이없이'로 적습니다.",
@@ -2653,7 +2615,7 @@
       "negative": "어이없이"
     },
     {
-      "id": "spelling-242",
+      "id": "spelling-238",
       "pattern": "터무니 없이",
       "replacement": "터무니없이",
       "reason": "이 문맥에서는 '터무니없이'로 적습니다.",
@@ -2664,7 +2626,7 @@
       "negative": "터무니없이"
     },
     {
-      "id": "spelling-243",
+      "id": "spelling-239",
       "pattern": "보잘것 없이",
       "replacement": "보잘것없이",
       "reason": "이 문맥에서는 '보잘것없이'로 적습니다.",
@@ -2675,7 +2637,7 @@
       "negative": "보잘것없이"
     },
     {
-      "id": "spelling-244",
+      "id": "spelling-240",
       "pattern": "보잘 것 없다",
       "replacement": "보잘것없다",
       "reason": "이 문맥에서는 '보잘것없다'로 적습니다.",
@@ -2686,7 +2648,7 @@
       "negative": "보잘것없다"
     },
     {
-      "id": "spelling-245",
+      "id": "spelling-241",
       "pattern": "보잘 것 없는",
       "replacement": "보잘것없는",
       "reason": "이 문맥에서는 '보잘것없는'로 적습니다.",
@@ -2697,7 +2659,7 @@
       "negative": "보잘것없는"
     },
     {
-      "id": "spelling-246",
+      "id": "spelling-242",
       "pattern": "하마트면",
       "replacement": "하마터면",
       "reason": "이 문맥에서는 '하마터면'로 적습니다.",
@@ -2708,7 +2670,7 @@
       "negative": "하마터면"
     },
     {
-      "id": "spelling-247",
+      "id": "spelling-243",
       "pattern": "하마트며",
       "replacement": "하마터면",
       "reason": "이 문맥에서는 '하마터면'로 적습니다.",
@@ -2719,7 +2681,7 @@
       "negative": "하마터면"
     },
     {
-      "id": "spelling-248",
+      "id": "spelling-244",
       "pattern": "으례",
       "replacement": "으레",
       "reason": "이 문맥에서는 '으레'로 적습니다.",
@@ -2730,7 +2692,7 @@
       "negative": "으레"
     },
     {
-      "id": "spelling-249",
+      "id": "spelling-245",
       "pattern": "으레히",
       "replacement": "으레",
       "reason": "이 문맥에서는 '으레'로 적습니다.",
@@ -2741,7 +2703,7 @@
       "negative": "으레"
     },
     {
-      "id": "spelling-250",
+      "id": "spelling-246",
       "pattern": "으례히",
       "replacement": "으레",
       "reason": "이 문맥에서는 '으레'로 적습니다.",
@@ -2752,7 +2714,7 @@
       "negative": "으레"
     },
     {
-      "id": "spelling-251",
+      "id": "spelling-247",
       "pattern": "희안하게",
       "replacement": "희한하게",
       "reason": "이 문맥에서는 '희한하게'로 적습니다.",
@@ -2763,7 +2725,7 @@
       "negative": "희한하게"
     },
     {
-      "id": "spelling-252",
+      "id": "spelling-248",
       "pattern": "일사분란",
       "replacement": "일사불란",
       "reason": "이 문맥에서는 '일사불란'로 적습니다.",
@@ -2774,7 +2736,7 @@
       "negative": "일사불란"
     },
     {
-      "id": "spelling-253",
+      "id": "spelling-249",
       "pattern": "천상연분",
       "replacement": "천생연분",
       "reason": "이 문맥에서는 '천생연분'로 적습니다.",
@@ -2785,7 +2747,7 @@
       "negative": "천생연분"
     },
     {
-      "id": "spelling-254",
+      "id": "spelling-250",
       "pattern": "천편일율",
       "replacement": "천편일률",
       "reason": "이 문맥에서는 '천편일률'로 적습니다.",
@@ -2796,7 +2758,7 @@
       "negative": "천편일률"
     },
     {
-      "id": "spelling-255",
+      "id": "spelling-251",
       "pattern": "획일률적",
       "replacement": "획일적",
       "reason": "이 문맥에서는 '획일적'로 적습니다.",
@@ -2807,7 +2769,7 @@
       "negative": "획일적"
     },
     {
-      "id": "spelling-256",
+      "id": "spelling-252",
       "pattern": "백분률",
       "replacement": "백분율",
       "reason": "이 문맥에서는 '백분율'로 적습니다.",
@@ -2818,7 +2780,7 @@
       "negative": "백분율"
     },
     {
-      "id": "spelling-257",
+      "id": "spelling-253",
       "pattern": "합격율",
       "replacement": "합격률",
       "reason": "이 문맥에서는 '합격률'로 적습니다.",
@@ -2829,7 +2791,7 @@
       "negative": "합격률"
     },
     {
-      "id": "spelling-258",
+      "id": "spelling-254",
       "pattern": "경쟁율",
       "replacement": "경쟁률",
       "reason": "이 문맥에서는 '경쟁률'로 적습니다.",
@@ -2840,7 +2802,7 @@
       "negative": "경쟁률"
     },
     {
-      "id": "spelling-259",
+      "id": "spelling-255",
       "pattern": "출석율",
       "replacement": "출석률",
       "reason": "이 문맥에서는 '출석률'로 적습니다.",
@@ -2851,7 +2813,7 @@
       "negative": "출석률"
     },
     {
-      "id": "spelling-260",
+      "id": "spelling-256",
       "pattern": "참석율",
       "replacement": "참석률",
       "reason": "이 문맥에서는 '참석률'로 적습니다.",
@@ -2862,7 +2824,7 @@
       "negative": "참석률"
     },
     {
-      "id": "spelling-261",
+      "id": "spelling-257",
       "pattern": "이용율",
       "replacement": "이용률",
       "reason": "이 문맥에서는 '이용률'로 적습니다.",
@@ -2873,7 +2835,7 @@
       "negative": "이용률"
     },
     {
-      "id": "spelling-262",
+      "id": "spelling-258",
       "pattern": "사용율",
       "replacement": "사용률",
       "reason": "이 문맥에서는 '사용률'로 적습니다.",
@@ -2884,7 +2846,7 @@
       "negative": "사용률"
     },
     {
-      "id": "spelling-263",
+      "id": "spelling-259",
       "pattern": "증가률",
       "replacement": "증가율",
       "reason": "이 문맥에서는 '증가율'로 적습니다.",
@@ -2895,7 +2857,7 @@
       "negative": "증가율"
     },
     {
-      "id": "spelling-264",
+      "id": "spelling-260",
       "pattern": "감소률",
       "replacement": "감소율",
       "reason": "이 문맥에서는 '감소율'로 적습니다.",
@@ -2906,7 +2868,7 @@
       "negative": "감소율"
     },
     {
-      "id": "spelling-265",
+      "id": "spelling-261",
       "pattern": "비률",
       "replacement": "비율",
       "reason": "이 문맥에서는 '비율'로 적습니다.",
@@ -2917,7 +2879,7 @@
       "negative": "비율"
     },
     {
-      "id": "spelling-266",
+      "id": "spelling-262",
       "pattern": "할인률",
       "replacement": "할인율",
       "reason": "이 문맥에서는 '할인율'로 적습니다.",
@@ -2928,7 +2890,7 @@
       "negative": "할인율"
     },
     {
-      "id": "spelling-267",
+      "id": "spelling-263",
       "pattern": "실패률",
       "replacement": "실패율",
       "reason": "이 문맥에서는 '실패율'로 적습니다.",
@@ -2939,7 +2901,7 @@
       "negative": "실패율"
     },
     {
-      "id": "spelling-268",
+      "id": "spelling-264",
       "pattern": "성공율",
       "replacement": "성공률",
       "reason": "이 문맥에서는 '성공률'로 적습니다.",
@@ -2950,7 +2912,7 @@
       "negative": "성공률"
     },
     {
-      "id": "spelling-269",
+      "id": "spelling-265",
       "pattern": "확율",
       "replacement": "확률",
       "reason": "이 문맥에서는 '확률'로 적습니다.",
@@ -2961,7 +2923,7 @@
       "negative": "확률"
     },
     {
-      "id": "spelling-270",
+      "id": "spelling-266",
       "pattern": "능율",
       "replacement": "능률",
       "reason": "이 문맥에서는 '능률'로 적습니다.",
@@ -2972,7 +2934,7 @@
       "negative": "능률"
     },
     {
-      "id": "spelling-271",
+      "id": "spelling-267",
       "pattern": "효률",
       "replacement": "효율",
       "reason": "이 문맥에서는 '효율'로 적습니다.",
@@ -2983,7 +2945,7 @@
       "negative": "효율"
     },
     {
-      "id": "spelling-272",
+      "id": "spelling-268",
       "pattern": "법율",
       "replacement": "법률",
       "reason": "이 문맥에서는 '법률'로 적습니다.",
@@ -2994,7 +2956,7 @@
       "negative": "법률"
     },
     {
-      "id": "spelling-273",
+      "id": "spelling-269",
       "pattern": "규률",
       "replacement": "규율",
       "reason": "이 문맥에서는 '규율'로 적습니다.",
@@ -3005,7 +2967,7 @@
       "negative": "규율"
     },
     {
-      "id": "spelling-274",
+      "id": "spelling-270",
       "pattern": "률동",
       "replacement": "율동",
       "reason": "이 문맥에서는 '율동'로 적습니다.",
@@ -3016,7 +2978,7 @@
       "negative": "율동"
     },
     {
-      "id": "spelling-275",
+      "id": "spelling-271",
       "pattern": "되돌아 보면",
       "replacement": "되돌아보면",
       "reason": "이 문맥에서는 '되돌아보면'로 적습니다.",
@@ -3027,7 +2989,7 @@
       "negative": "되돌아보면"
     },
     {
-      "id": "spelling-276",
+      "id": "spelling-272",
       "pattern": "되돌아 보다",
       "replacement": "되돌아보다",
       "reason": "이 문맥에서는 '되돌아보다'로 적습니다.",
@@ -3038,7 +3000,7 @@
       "negative": "되돌아보다"
     },
     {
-      "id": "spelling-277",
+      "id": "spelling-273",
       "pattern": "안 되요",
       "replacement": "안 돼요",
       "reason": "이 문맥에서는 '안 돼요'로 적습니다.",
@@ -3049,7 +3011,7 @@
       "negative": "안 돼요"
     },
     {
-      "id": "spelling-278",
+      "id": "spelling-274",
       "pattern": "안되요",
       "replacement": "안 돼요",
       "reason": "이 문맥에서는 '안 돼요'로 적습니다.",
@@ -3060,7 +3022,7 @@
       "negative": "안 돼요"
     },
     {
-      "id": "spacing-279",
+      "id": "spacing-275",
       "pattern": "할수있",
       "replacement": "할 수 있",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -3071,7 +3033,7 @@
       "negative": "할 수 있습니다"
     },
     {
-      "id": "spacing-280",
+      "id": "spacing-276",
       "pattern": "할수없",
       "replacement": "할 수 없",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -3082,7 +3044,7 @@
       "negative": "할 수 없습니다"
     },
     {
-      "id": "spacing-281",
+      "id": "spacing-277",
       "pattern": "할때",
       "replacement": "할 때",
       "reason": "의존 명사 '때'는 앞말과 띄어 씁니다.",
@@ -3093,7 +3055,7 @@
       "negative": "할 때입니다"
     },
     {
-      "id": "spacing-282",
+      "id": "spacing-278",
       "pattern": "할것",
       "replacement": "할 것",
       "reason": "의존 명사 '것'는 앞말과 띄어 씁니다.",
@@ -3104,8 +3066,9 @@
       "negative": "할 것입니다"
     },
     {
-      "id": "spacing-283",
-      "pattern": "할뿐",
+      "id": "spacing-279",
+      "pattern": "할뿐(?!더러)",
+      "regex": true,
       "replacement": "할 뿐",
       "reason": "의존 명사 '뿐'는 앞말과 띄어 씁니다.",
       "example": "할뿐입니다 → 할 뿐입니다",
@@ -3115,7 +3078,7 @@
       "negative": "할 뿐입니다"
     },
     {
-      "id": "spacing-284",
+      "id": "spacing-280",
       "pattern": "될수있",
       "replacement": "될 수 있",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -3126,7 +3089,7 @@
       "negative": "될 수 있습니다"
     },
     {
-      "id": "spacing-285",
+      "id": "spacing-281",
       "pattern": "될수없",
       "replacement": "될 수 없",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -3137,7 +3100,7 @@
       "negative": "될 수 없습니다"
     },
     {
-      "id": "spacing-286",
+      "id": "spacing-282",
       "pattern": "될때",
       "replacement": "될 때",
       "reason": "의존 명사 '때'는 앞말과 띄어 씁니다.",
@@ -3148,7 +3111,7 @@
       "negative": "될 때입니다"
     },
     {
-      "id": "spacing-287",
+      "id": "spacing-283",
       "pattern": "될것",
       "replacement": "될 것",
       "reason": "의존 명사 '것'는 앞말과 띄어 씁니다.",
@@ -3159,8 +3122,9 @@
       "negative": "될 것입니다"
     },
     {
-      "id": "spacing-288",
-      "pattern": "될뿐",
+      "id": "spacing-284",
+      "pattern": "될뿐(?!더러)",
+      "regex": true,
       "replacement": "될 뿐",
       "reason": "의존 명사 '뿐'는 앞말과 띄어 씁니다.",
       "example": "될뿐입니다 → 될 뿐입니다",
@@ -3170,7 +3134,7 @@
       "negative": "될 뿐입니다"
     },
     {
-      "id": "spacing-289",
+      "id": "spacing-285",
       "pattern": "갈수있",
       "replacement": "갈 수 있",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -3181,7 +3145,7 @@
       "negative": "갈 수 있습니다"
     },
     {
-      "id": "spacing-290",
+      "id": "spacing-286",
       "pattern": "갈수없",
       "replacement": "갈 수 없",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -3192,7 +3156,7 @@
       "negative": "갈 수 없습니다"
     },
     {
-      "id": "spacing-291",
+      "id": "spacing-287",
       "pattern": "갈때",
       "replacement": "갈 때",
       "reason": "의존 명사 '때'는 앞말과 띄어 씁니다.",
@@ -3203,7 +3167,7 @@
       "negative": "갈 때입니다"
     },
     {
-      "id": "spacing-292",
+      "id": "spacing-288",
       "pattern": "갈것",
       "replacement": "갈 것",
       "reason": "의존 명사 '것'는 앞말과 띄어 씁니다.",
@@ -3214,8 +3178,9 @@
       "negative": "갈 것입니다"
     },
     {
-      "id": "spacing-293",
-      "pattern": "갈뿐",
+      "id": "spacing-289",
+      "pattern": "갈뿐(?!더러)",
+      "regex": true,
       "replacement": "갈 뿐",
       "reason": "의존 명사 '뿐'는 앞말과 띄어 씁니다.",
       "example": "갈뿐입니다 → 갈 뿐입니다",
@@ -3225,7 +3190,7 @@
       "negative": "갈 뿐입니다"
     },
     {
-      "id": "spacing-294",
+      "id": "spacing-290",
       "pattern": "올수있",
       "replacement": "올 수 있",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -3236,7 +3201,7 @@
       "negative": "올 수 있습니다"
     },
     {
-      "id": "spacing-295",
+      "id": "spacing-291",
       "pattern": "올수없",
       "replacement": "올 수 없",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -3247,7 +3212,7 @@
       "negative": "올 수 없습니다"
     },
     {
-      "id": "spacing-296",
+      "id": "spacing-292",
       "pattern": "올때",
       "replacement": "올 때",
       "reason": "의존 명사 '때'는 앞말과 띄어 씁니다.",
@@ -3258,7 +3223,7 @@
       "negative": "올 때입니다"
     },
     {
-      "id": "spacing-297",
+      "id": "spacing-293",
       "pattern": "올것",
       "replacement": "올 것",
       "reason": "의존 명사 '것'는 앞말과 띄어 씁니다.",
@@ -3269,8 +3234,9 @@
       "negative": "올 것입니다"
     },
     {
-      "id": "spacing-298",
-      "pattern": "올뿐",
+      "id": "spacing-294",
+      "pattern": "올뿐(?!더러)",
+      "regex": true,
       "replacement": "올 뿐",
       "reason": "의존 명사 '뿐'는 앞말과 띄어 씁니다.",
       "example": "올뿐입니다 → 올 뿐입니다",
@@ -3280,7 +3246,7 @@
       "negative": "올 뿐입니다"
     },
     {
-      "id": "spacing-299",
+      "id": "spacing-295",
       "pattern": "볼수있",
       "replacement": "볼 수 있",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -3291,7 +3257,7 @@
       "negative": "볼 수 있습니다"
     },
     {
-      "id": "spacing-300",
+      "id": "spacing-296",
       "pattern": "볼수없",
       "replacement": "볼 수 없",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -3302,8 +3268,9 @@
       "negative": "볼 수 없습니다"
     },
     {
-      "id": "spacing-301",
-      "pattern": "볼때",
+      "id": "spacing-297",
+      "pattern": "볼때(?!기)",
+      "regex": true,
       "replacement": "볼 때",
       "reason": "의존 명사 '때'는 앞말과 띄어 씁니다.",
       "example": "볼때입니다 → 볼 때입니다",
@@ -3313,7 +3280,7 @@
       "negative": "볼 때입니다"
     },
     {
-      "id": "spacing-302",
+      "id": "spacing-298",
       "pattern": "볼것",
       "replacement": "볼 것",
       "reason": "의존 명사 '것'는 앞말과 띄어 씁니다.",
@@ -3324,8 +3291,9 @@
       "negative": "볼 것입니다"
     },
     {
-      "id": "spacing-303",
-      "pattern": "볼뿐",
+      "id": "spacing-299",
+      "pattern": "볼뿐(?!더러)",
+      "regex": true,
       "replacement": "볼 뿐",
       "reason": "의존 명사 '뿐'는 앞말과 띄어 씁니다.",
       "example": "볼뿐입니다 → 볼 뿐입니다",
@@ -3335,7 +3303,7 @@
       "negative": "볼 뿐입니다"
     },
     {
-      "id": "spacing-304",
+      "id": "spacing-300",
       "pattern": "쓸수있",
       "replacement": "쓸 수 있",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -3346,7 +3314,7 @@
       "negative": "쓸 수 있습니다"
     },
     {
-      "id": "spacing-305",
+      "id": "spacing-301",
       "pattern": "쓸수없",
       "replacement": "쓸 수 없",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -3357,7 +3325,7 @@
       "negative": "쓸 수 없습니다"
     },
     {
-      "id": "spacing-306",
+      "id": "spacing-302",
       "pattern": "쓸때",
       "replacement": "쓸 때",
       "reason": "의존 명사 '때'는 앞말과 띄어 씁니다.",
@@ -3368,7 +3336,7 @@
       "negative": "쓸 때입니다"
     },
     {
-      "id": "spacing-307",
+      "id": "spacing-303",
       "pattern": "쓸것",
       "replacement": "쓸 것",
       "reason": "의존 명사 '것'는 앞말과 띄어 씁니다.",
@@ -3379,8 +3347,9 @@
       "negative": "쓸 것입니다"
     },
     {
-      "id": "spacing-308",
-      "pattern": "쓸뿐",
+      "id": "spacing-304",
+      "pattern": "쓸뿐(?!더러)",
+      "regex": true,
       "replacement": "쓸 뿐",
       "reason": "의존 명사 '뿐'는 앞말과 띄어 씁니다.",
       "example": "쓸뿐입니다 → 쓸 뿐입니다",
@@ -3390,7 +3359,7 @@
       "negative": "쓸 뿐입니다"
     },
     {
-      "id": "spacing-309",
+      "id": "spacing-305",
       "pattern": "줄수있",
       "replacement": "줄 수 있",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -3401,7 +3370,7 @@
       "negative": "줄 수 있습니다"
     },
     {
-      "id": "spacing-310",
+      "id": "spacing-306",
       "pattern": "줄수없",
       "replacement": "줄 수 없",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -3412,7 +3381,7 @@
       "negative": "줄 수 없습니다"
     },
     {
-      "id": "spacing-311",
+      "id": "spacing-307",
       "pattern": "줄때",
       "replacement": "줄 때",
       "reason": "의존 명사 '때'는 앞말과 띄어 씁니다.",
@@ -3423,7 +3392,7 @@
       "negative": "줄 때입니다"
     },
     {
-      "id": "spacing-312",
+      "id": "spacing-308",
       "pattern": "줄것",
       "replacement": "줄 것",
       "reason": "의존 명사 '것'는 앞말과 띄어 씁니다.",
@@ -3434,8 +3403,9 @@
       "negative": "줄 것입니다"
     },
     {
-      "id": "spacing-313",
-      "pattern": "줄뿐",
+      "id": "spacing-309",
+      "pattern": "줄뿐(?!더러)",
+      "regex": true,
       "replacement": "줄 뿐",
       "reason": "의존 명사 '뿐'는 앞말과 띄어 씁니다.",
       "example": "줄뿐입니다 → 줄 뿐입니다",
@@ -3445,7 +3415,7 @@
       "negative": "줄 뿐입니다"
     },
     {
-      "id": "spacing-314",
+      "id": "spacing-310",
       "pattern": "읽을수있",
       "replacement": "읽을 수 있",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -3456,7 +3426,7 @@
       "negative": "읽을 수 있습니다"
     },
     {
-      "id": "spacing-315",
+      "id": "spacing-311",
       "pattern": "읽을수없",
       "replacement": "읽을 수 없",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -3467,7 +3437,7 @@
       "negative": "읽을 수 없습니다"
     },
     {
-      "id": "spacing-316",
+      "id": "spacing-312",
       "pattern": "읽을때",
       "replacement": "읽을 때",
       "reason": "의존 명사 '때'는 앞말과 띄어 씁니다.",
@@ -3478,7 +3448,7 @@
       "negative": "읽을 때입니다"
     },
     {
-      "id": "spacing-317",
+      "id": "spacing-313",
       "pattern": "읽을것",
       "replacement": "읽을 것",
       "reason": "의존 명사 '것'는 앞말과 띄어 씁니다.",
@@ -3489,8 +3459,9 @@
       "negative": "읽을 것입니다"
     },
     {
-      "id": "spacing-318",
-      "pattern": "읽을뿐",
+      "id": "spacing-314",
+      "pattern": "읽을뿐(?!더러)",
+      "regex": true,
       "replacement": "읽을 뿐",
       "reason": "의존 명사 '뿐'는 앞말과 띄어 씁니다.",
       "example": "읽을뿐입니다 → 읽을 뿐입니다",
@@ -3500,7 +3471,7 @@
       "negative": "읽을 뿐입니다"
     },
     {
-      "id": "spacing-319",
+      "id": "spacing-315",
       "pattern": "받을수있",
       "replacement": "받을 수 있",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -3511,7 +3482,7 @@
       "negative": "받을 수 있습니다"
     },
     {
-      "id": "spacing-320",
+      "id": "spacing-316",
       "pattern": "받을수없",
       "replacement": "받을 수 없",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -3522,7 +3493,7 @@
       "negative": "받을 수 없습니다"
     },
     {
-      "id": "spacing-321",
+      "id": "spacing-317",
       "pattern": "받을때",
       "replacement": "받을 때",
       "reason": "의존 명사 '때'는 앞말과 띄어 씁니다.",
@@ -3533,7 +3504,7 @@
       "negative": "받을 때입니다"
     },
     {
-      "id": "spacing-322",
+      "id": "spacing-318",
       "pattern": "받을것",
       "replacement": "받을 것",
       "reason": "의존 명사 '것'는 앞말과 띄어 씁니다.",
@@ -3544,8 +3515,9 @@
       "negative": "받을 것입니다"
     },
     {
-      "id": "spacing-323",
-      "pattern": "받을뿐",
+      "id": "spacing-319",
+      "pattern": "받을뿐(?!더러)",
+      "regex": true,
       "replacement": "받을 뿐",
       "reason": "의존 명사 '뿐'는 앞말과 띄어 씁니다.",
       "example": "받을뿐입니다 → 받을 뿐입니다",
@@ -3555,7 +3527,7 @@
       "negative": "받을 뿐입니다"
     },
     {
-      "id": "spacing-324",
+      "id": "spacing-320",
       "pattern": "먹을수있",
       "replacement": "먹을 수 있",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -3566,7 +3538,7 @@
       "negative": "먹을 수 있습니다"
     },
     {
-      "id": "spacing-325",
+      "id": "spacing-321",
       "pattern": "먹을수없",
       "replacement": "먹을 수 없",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -3577,7 +3549,7 @@
       "negative": "먹을 수 없습니다"
     },
     {
-      "id": "spacing-326",
+      "id": "spacing-322",
       "pattern": "먹을때",
       "replacement": "먹을 때",
       "reason": "의존 명사 '때'는 앞말과 띄어 씁니다.",
@@ -3588,7 +3560,7 @@
       "negative": "먹을 때입니다"
     },
     {
-      "id": "spacing-327",
+      "id": "spacing-323",
       "pattern": "먹을것",
       "replacement": "먹을 것",
       "reason": "의존 명사 '것'는 앞말과 띄어 씁니다.",
@@ -3599,8 +3571,9 @@
       "negative": "먹을 것입니다"
     },
     {
-      "id": "spacing-328",
-      "pattern": "먹을뿐",
+      "id": "spacing-324",
+      "pattern": "먹을뿐(?!더러)",
+      "regex": true,
       "replacement": "먹을 뿐",
       "reason": "의존 명사 '뿐'는 앞말과 띄어 씁니다.",
       "example": "먹을뿐입니다 → 먹을 뿐입니다",
@@ -3610,7 +3583,7 @@
       "negative": "먹을 뿐입니다"
     },
     {
-      "id": "spacing-329",
+      "id": "spacing-325",
       "pattern": "있을수있",
       "replacement": "있을 수 있",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -3621,7 +3594,7 @@
       "negative": "있을 수 있습니다"
     },
     {
-      "id": "spacing-330",
+      "id": "spacing-326",
       "pattern": "있을수없",
       "replacement": "있을 수 없",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -3632,7 +3605,7 @@
       "negative": "있을 수 없습니다"
     },
     {
-      "id": "spacing-331",
+      "id": "spacing-327",
       "pattern": "있을때",
       "replacement": "있을 때",
       "reason": "의존 명사 '때'는 앞말과 띄어 씁니다.",
@@ -3643,7 +3616,7 @@
       "negative": "있을 때입니다"
     },
     {
-      "id": "spacing-332",
+      "id": "spacing-328",
       "pattern": "있을것",
       "replacement": "있을 것",
       "reason": "의존 명사 '것'는 앞말과 띄어 씁니다.",
@@ -3654,8 +3627,9 @@
       "negative": "있을 것입니다"
     },
     {
-      "id": "spacing-333",
-      "pattern": "있을뿐",
+      "id": "spacing-329",
+      "pattern": "있을뿐(?!더러)",
+      "regex": true,
       "replacement": "있을 뿐",
       "reason": "의존 명사 '뿐'는 앞말과 띄어 씁니다.",
       "example": "있을뿐입니다 → 있을 뿐입니다",
@@ -3665,7 +3639,7 @@
       "negative": "있을 뿐입니다"
     },
     {
-      "id": "spacing-334",
+      "id": "spacing-330",
       "pattern": "없을수있",
       "replacement": "없을 수 있",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -3676,7 +3650,7 @@
       "negative": "없을 수 있습니다"
     },
     {
-      "id": "spacing-335",
+      "id": "spacing-331",
       "pattern": "없을수없",
       "replacement": "없을 수 없",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -3687,7 +3661,7 @@
       "negative": "없을 수 없습니다"
     },
     {
-      "id": "spacing-336",
+      "id": "spacing-332",
       "pattern": "없을때",
       "replacement": "없을 때",
       "reason": "의존 명사 '때'는 앞말과 띄어 씁니다.",
@@ -3698,7 +3672,7 @@
       "negative": "없을 때입니다"
     },
     {
-      "id": "spacing-337",
+      "id": "spacing-333",
       "pattern": "없을것",
       "replacement": "없을 것",
       "reason": "의존 명사 '것'는 앞말과 띄어 씁니다.",
@@ -3709,8 +3683,9 @@
       "negative": "없을 것입니다"
     },
     {
-      "id": "spacing-338",
-      "pattern": "없을뿐",
+      "id": "spacing-334",
+      "pattern": "없을뿐(?!더러)",
+      "regex": true,
       "replacement": "없을 뿐",
       "reason": "의존 명사 '뿐'는 앞말과 띄어 씁니다.",
       "example": "없을뿐입니다 → 없을 뿐입니다",
@@ -3720,7 +3695,7 @@
       "negative": "없을 뿐입니다"
     },
     {
-      "id": "spacing-339",
+      "id": "spacing-335",
       "pattern": "만들수있",
       "replacement": "만들 수 있",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -3731,7 +3706,7 @@
       "negative": "만들 수 있습니다"
     },
     {
-      "id": "spacing-340",
+      "id": "spacing-336",
       "pattern": "만들수없",
       "replacement": "만들 수 없",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -3742,7 +3717,7 @@
       "negative": "만들 수 없습니다"
     },
     {
-      "id": "spacing-341",
+      "id": "spacing-337",
       "pattern": "만들때",
       "replacement": "만들 때",
       "reason": "의존 명사 '때'는 앞말과 띄어 씁니다.",
@@ -3753,7 +3728,7 @@
       "negative": "만들 때입니다"
     },
     {
-      "id": "spacing-342",
+      "id": "spacing-338",
       "pattern": "만들것",
       "replacement": "만들 것",
       "reason": "의존 명사 '것'는 앞말과 띄어 씁니다.",
@@ -3764,8 +3739,9 @@
       "negative": "만들 것입니다"
     },
     {
-      "id": "spacing-343",
-      "pattern": "만들뿐",
+      "id": "spacing-339",
+      "pattern": "만들뿐(?!더러)",
+      "regex": true,
       "replacement": "만들 뿐",
       "reason": "의존 명사 '뿐'는 앞말과 띄어 씁니다.",
       "example": "만들뿐입니다 → 만들 뿐입니다",
@@ -3775,7 +3751,7 @@
       "negative": "만들 뿐입니다"
     },
     {
-      "id": "spacing-344",
+      "id": "spacing-340",
       "pattern": "찾을수있",
       "replacement": "찾을 수 있",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -3786,7 +3762,7 @@
       "negative": "찾을 수 있습니다"
     },
     {
-      "id": "spacing-345",
+      "id": "spacing-341",
       "pattern": "찾을수없",
       "replacement": "찾을 수 없",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -3797,7 +3773,7 @@
       "negative": "찾을 수 없습니다"
     },
     {
-      "id": "spacing-346",
+      "id": "spacing-342",
       "pattern": "찾을때",
       "replacement": "찾을 때",
       "reason": "의존 명사 '때'는 앞말과 띄어 씁니다.",
@@ -3808,7 +3784,7 @@
       "negative": "찾을 때입니다"
     },
     {
-      "id": "spacing-347",
+      "id": "spacing-343",
       "pattern": "찾을것",
       "replacement": "찾을 것",
       "reason": "의존 명사 '것'는 앞말과 띄어 씁니다.",
@@ -3819,8 +3795,9 @@
       "negative": "찾을 것입니다"
     },
     {
-      "id": "spacing-348",
-      "pattern": "찾을뿐",
+      "id": "spacing-344",
+      "pattern": "찾을뿐(?!더러)",
+      "regex": true,
       "replacement": "찾을 뿐",
       "reason": "의존 명사 '뿐'는 앞말과 띄어 씁니다.",
       "example": "찾을뿐입니다 → 찾을 뿐입니다",
@@ -3830,7 +3807,7 @@
       "negative": "찾을 뿐입니다"
     },
     {
-      "id": "spacing-349",
+      "id": "spacing-345",
       "pattern": "보낼수있",
       "replacement": "보낼 수 있",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -3841,7 +3818,7 @@
       "negative": "보낼 수 있습니다"
     },
     {
-      "id": "spacing-350",
+      "id": "spacing-346",
       "pattern": "보낼수없",
       "replacement": "보낼 수 없",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -3852,7 +3829,7 @@
       "negative": "보낼 수 없습니다"
     },
     {
-      "id": "spacing-351",
+      "id": "spacing-347",
       "pattern": "보낼때",
       "replacement": "보낼 때",
       "reason": "의존 명사 '때'는 앞말과 띄어 씁니다.",
@@ -3863,7 +3840,7 @@
       "negative": "보낼 때입니다"
     },
     {
-      "id": "spacing-352",
+      "id": "spacing-348",
       "pattern": "보낼것",
       "replacement": "보낼 것",
       "reason": "의존 명사 '것'는 앞말과 띄어 씁니다.",
@@ -3874,8 +3851,9 @@
       "negative": "보낼 것입니다"
     },
     {
-      "id": "spacing-353",
-      "pattern": "보낼뿐",
+      "id": "spacing-349",
+      "pattern": "보낼뿐(?!더러)",
+      "regex": true,
       "replacement": "보낼 뿐",
       "reason": "의존 명사 '뿐'는 앞말과 띄어 씁니다.",
       "example": "보낼뿐입니다 → 보낼 뿐입니다",
@@ -3885,7 +3863,7 @@
       "negative": "보낼 뿐입니다"
     },
     {
-      "id": "spacing-354",
+      "id": "spacing-350",
       "pattern": "확인할수있",
       "replacement": "확인할 수 있",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -3896,7 +3874,7 @@
       "negative": "확인할 수 있습니다"
     },
     {
-      "id": "spacing-355",
+      "id": "spacing-351",
       "pattern": "확인할수없",
       "replacement": "확인할 수 없",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -3907,7 +3885,7 @@
       "negative": "확인할 수 없습니다"
     },
     {
-      "id": "spacing-356",
+      "id": "spacing-352",
       "pattern": "확인할때",
       "replacement": "확인할 때",
       "reason": "의존 명사 '때'는 앞말과 띄어 씁니다.",
@@ -3918,7 +3896,7 @@
       "negative": "확인할 때입니다"
     },
     {
-      "id": "spacing-357",
+      "id": "spacing-353",
       "pattern": "확인할것",
       "replacement": "확인할 것",
       "reason": "의존 명사 '것'는 앞말과 띄어 씁니다.",
@@ -3929,8 +3907,9 @@
       "negative": "확인할 것입니다"
     },
     {
-      "id": "spacing-358",
-      "pattern": "확인할뿐",
+      "id": "spacing-354",
+      "pattern": "확인할뿐(?!더러)",
+      "regex": true,
       "replacement": "확인할 뿐",
       "reason": "의존 명사 '뿐'는 앞말과 띄어 씁니다.",
       "example": "확인할뿐입니다 → 확인할 뿐입니다",
@@ -3940,7 +3919,7 @@
       "negative": "확인할 뿐입니다"
     },
     {
-      "id": "spacing-359",
+      "id": "spacing-355",
       "pattern": "참여할수있",
       "replacement": "참여할 수 있",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -3951,7 +3930,7 @@
       "negative": "참여할 수 있습니다"
     },
     {
-      "id": "spacing-360",
+      "id": "spacing-356",
       "pattern": "참여할수없",
       "replacement": "참여할 수 없",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -3962,7 +3941,7 @@
       "negative": "참여할 수 없습니다"
     },
     {
-      "id": "spacing-361",
+      "id": "spacing-357",
       "pattern": "참여할때",
       "replacement": "참여할 때",
       "reason": "의존 명사 '때'는 앞말과 띄어 씁니다.",
@@ -3973,7 +3952,7 @@
       "negative": "참여할 때입니다"
     },
     {
-      "id": "spacing-362",
+      "id": "spacing-358",
       "pattern": "참여할것",
       "replacement": "참여할 것",
       "reason": "의존 명사 '것'는 앞말과 띄어 씁니다.",
@@ -3984,8 +3963,9 @@
       "negative": "참여할 것입니다"
     },
     {
-      "id": "spacing-363",
-      "pattern": "참여할뿐",
+      "id": "spacing-359",
+      "pattern": "참여할뿐(?!더러)",
+      "regex": true,
       "replacement": "참여할 뿐",
       "reason": "의존 명사 '뿐'는 앞말과 띄어 씁니다.",
       "example": "참여할뿐입니다 → 참여할 뿐입니다",
@@ -3995,7 +3975,7 @@
       "negative": "참여할 뿐입니다"
     },
     {
-      "id": "spacing-364",
+      "id": "spacing-360",
       "pattern": "제출할수있",
       "replacement": "제출할 수 있",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -4006,7 +3986,7 @@
       "negative": "제출할 수 있습니다"
     },
     {
-      "id": "spacing-365",
+      "id": "spacing-361",
       "pattern": "제출할수없",
       "replacement": "제출할 수 없",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -4017,7 +3997,7 @@
       "negative": "제출할 수 없습니다"
     },
     {
-      "id": "spacing-366",
+      "id": "spacing-362",
       "pattern": "제출할때",
       "replacement": "제출할 때",
       "reason": "의존 명사 '때'는 앞말과 띄어 씁니다.",
@@ -4028,7 +4008,7 @@
       "negative": "제출할 때입니다"
     },
     {
-      "id": "spacing-367",
+      "id": "spacing-363",
       "pattern": "제출할것",
       "replacement": "제출할 것",
       "reason": "의존 명사 '것'는 앞말과 띄어 씁니다.",
@@ -4039,8 +4019,9 @@
       "negative": "제출할 것입니다"
     },
     {
-      "id": "spacing-368",
-      "pattern": "제출할뿐",
+      "id": "spacing-364",
+      "pattern": "제출할뿐(?!더러)",
+      "regex": true,
       "replacement": "제출할 뿐",
       "reason": "의존 명사 '뿐'는 앞말과 띄어 씁니다.",
       "example": "제출할뿐입니다 → 제출할 뿐입니다",
@@ -4050,7 +4031,7 @@
       "negative": "제출할 뿐입니다"
     },
     {
-      "id": "spacing-369",
+      "id": "spacing-365",
       "pattern": "신청할수있",
       "replacement": "신청할 수 있",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -4061,7 +4042,7 @@
       "negative": "신청할 수 있습니다"
     },
     {
-      "id": "spacing-370",
+      "id": "spacing-366",
       "pattern": "신청할수없",
       "replacement": "신청할 수 없",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -4072,7 +4053,7 @@
       "negative": "신청할 수 없습니다"
     },
     {
-      "id": "spacing-371",
+      "id": "spacing-367",
       "pattern": "신청할때",
       "replacement": "신청할 때",
       "reason": "의존 명사 '때'는 앞말과 띄어 씁니다.",
@@ -4083,7 +4064,7 @@
       "negative": "신청할 때입니다"
     },
     {
-      "id": "spacing-372",
+      "id": "spacing-368",
       "pattern": "신청할것",
       "replacement": "신청할 것",
       "reason": "의존 명사 '것'는 앞말과 띄어 씁니다.",
@@ -4094,8 +4075,9 @@
       "negative": "신청할 것입니다"
     },
     {
-      "id": "spacing-373",
-      "pattern": "신청할뿐",
+      "id": "spacing-369",
+      "pattern": "신청할뿐(?!더러)",
+      "regex": true,
       "replacement": "신청할 뿐",
       "reason": "의존 명사 '뿐'는 앞말과 띄어 씁니다.",
       "example": "신청할뿐입니다 → 신청할 뿐입니다",
@@ -4105,7 +4087,7 @@
       "negative": "신청할 뿐입니다"
     },
     {
-      "id": "spacing-374",
+      "id": "spacing-370",
       "pattern": "방문할수있",
       "replacement": "방문할 수 있",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -4116,7 +4098,7 @@
       "negative": "방문할 수 있습니다"
     },
     {
-      "id": "spacing-375",
+      "id": "spacing-371",
       "pattern": "방문할수없",
       "replacement": "방문할 수 없",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -4127,7 +4109,7 @@
       "negative": "방문할 수 없습니다"
     },
     {
-      "id": "spacing-376",
+      "id": "spacing-372",
       "pattern": "방문할때",
       "replacement": "방문할 때",
       "reason": "의존 명사 '때'는 앞말과 띄어 씁니다.",
@@ -4138,7 +4120,7 @@
       "negative": "방문할 때입니다"
     },
     {
-      "id": "spacing-377",
+      "id": "spacing-373",
       "pattern": "방문할것",
       "replacement": "방문할 것",
       "reason": "의존 명사 '것'는 앞말과 띄어 씁니다.",
@@ -4149,8 +4131,9 @@
       "negative": "방문할 것입니다"
     },
     {
-      "id": "spacing-378",
-      "pattern": "방문할뿐",
+      "id": "spacing-374",
+      "pattern": "방문할뿐(?!더러)",
+      "regex": true,
       "replacement": "방문할 뿐",
       "reason": "의존 명사 '뿐'는 앞말과 띄어 씁니다.",
       "example": "방문할뿐입니다 → 방문할 뿐입니다",
@@ -4160,7 +4143,7 @@
       "negative": "방문할 뿐입니다"
     },
     {
-      "id": "spacing-379",
+      "id": "spacing-375",
       "pattern": "사용할수있",
       "replacement": "사용할 수 있",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -4171,7 +4154,7 @@
       "negative": "사용할 수 있습니다"
     },
     {
-      "id": "spacing-380",
+      "id": "spacing-376",
       "pattern": "사용할수없",
       "replacement": "사용할 수 없",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -4182,7 +4165,7 @@
       "negative": "사용할 수 없습니다"
     },
     {
-      "id": "spacing-381",
+      "id": "spacing-377",
       "pattern": "사용할때",
       "replacement": "사용할 때",
       "reason": "의존 명사 '때'는 앞말과 띄어 씁니다.",
@@ -4193,7 +4176,7 @@
       "negative": "사용할 때입니다"
     },
     {
-      "id": "spacing-382",
+      "id": "spacing-378",
       "pattern": "사용할것",
       "replacement": "사용할 것",
       "reason": "의존 명사 '것'는 앞말과 띄어 씁니다.",
@@ -4204,8 +4187,9 @@
       "negative": "사용할 것입니다"
     },
     {
-      "id": "spacing-383",
-      "pattern": "사용할뿐",
+      "id": "spacing-379",
+      "pattern": "사용할뿐(?!더러)",
+      "regex": true,
       "replacement": "사용할 뿐",
       "reason": "의존 명사 '뿐'는 앞말과 띄어 씁니다.",
       "example": "사용할뿐입니다 → 사용할 뿐입니다",
@@ -4215,7 +4199,7 @@
       "negative": "사용할 뿐입니다"
     },
     {
-      "id": "spacing-384",
+      "id": "spacing-380",
       "pattern": "준비할수있",
       "replacement": "준비할 수 있",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -4226,7 +4210,7 @@
       "negative": "준비할 수 있습니다"
     },
     {
-      "id": "spacing-385",
+      "id": "spacing-381",
       "pattern": "준비할수없",
       "replacement": "준비할 수 없",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -4237,7 +4221,7 @@
       "negative": "준비할 수 없습니다"
     },
     {
-      "id": "spacing-386",
+      "id": "spacing-382",
       "pattern": "준비할때",
       "replacement": "준비할 때",
       "reason": "의존 명사 '때'는 앞말과 띄어 씁니다.",
@@ -4248,7 +4232,7 @@
       "negative": "준비할 때입니다"
     },
     {
-      "id": "spacing-387",
+      "id": "spacing-383",
       "pattern": "준비할것",
       "replacement": "준비할 것",
       "reason": "의존 명사 '것'는 앞말과 띄어 씁니다.",
@@ -4259,8 +4243,9 @@
       "negative": "준비할 것입니다"
     },
     {
-      "id": "spacing-388",
-      "pattern": "준비할뿐",
+      "id": "spacing-384",
+      "pattern": "준비할뿐(?!더러)",
+      "regex": true,
       "replacement": "준비할 뿐",
       "reason": "의존 명사 '뿐'는 앞말과 띄어 씁니다.",
       "example": "준비할뿐입니다 → 준비할 뿐입니다",
@@ -4270,7 +4255,7 @@
       "negative": "준비할 뿐입니다"
     },
     {
-      "id": "spacing-389",
+      "id": "spacing-385",
       "pattern": "선택할수있",
       "replacement": "선택할 수 있",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -4281,7 +4266,7 @@
       "negative": "선택할 수 있습니다"
     },
     {
-      "id": "spacing-390",
+      "id": "spacing-386",
       "pattern": "선택할수없",
       "replacement": "선택할 수 없",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -4292,7 +4277,7 @@
       "negative": "선택할 수 없습니다"
     },
     {
-      "id": "spacing-391",
+      "id": "spacing-387",
       "pattern": "선택할때",
       "replacement": "선택할 때",
       "reason": "의존 명사 '때'는 앞말과 띄어 씁니다.",
@@ -4303,7 +4288,7 @@
       "negative": "선택할 때입니다"
     },
     {
-      "id": "spacing-392",
+      "id": "spacing-388",
       "pattern": "선택할것",
       "replacement": "선택할 것",
       "reason": "의존 명사 '것'는 앞말과 띄어 씁니다.",
@@ -4314,8 +4299,9 @@
       "negative": "선택할 것입니다"
     },
     {
-      "id": "spacing-393",
-      "pattern": "선택할뿐",
+      "id": "spacing-389",
+      "pattern": "선택할뿐(?!더러)",
+      "regex": true,
       "replacement": "선택할 뿐",
       "reason": "의존 명사 '뿐'는 앞말과 띄어 씁니다.",
       "example": "선택할뿐입니다 → 선택할 뿐입니다",
@@ -4325,7 +4311,7 @@
       "negative": "선택할 뿐입니다"
     },
     {
-      "id": "spacing-394",
+      "id": "spacing-390",
       "pattern": "참석할수있",
       "replacement": "참석할 수 있",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -4336,7 +4322,7 @@
       "negative": "참석할 수 있습니다"
     },
     {
-      "id": "spacing-395",
+      "id": "spacing-391",
       "pattern": "참석할수없",
       "replacement": "참석할 수 없",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -4347,7 +4333,7 @@
       "negative": "참석할 수 없습니다"
     },
     {
-      "id": "spacing-396",
+      "id": "spacing-392",
       "pattern": "참석할때",
       "replacement": "참석할 때",
       "reason": "의존 명사 '때'는 앞말과 띄어 씁니다.",
@@ -4358,7 +4344,7 @@
       "negative": "참석할 때입니다"
     },
     {
-      "id": "spacing-397",
+      "id": "spacing-393",
       "pattern": "참석할것",
       "replacement": "참석할 것",
       "reason": "의존 명사 '것'는 앞말과 띄어 씁니다.",
@@ -4369,8 +4355,9 @@
       "negative": "참석할 것입니다"
     },
     {
-      "id": "spacing-398",
-      "pattern": "참석할뿐",
+      "id": "spacing-394",
+      "pattern": "참석할뿐(?!더러)",
+      "regex": true,
       "replacement": "참석할 뿐",
       "reason": "의존 명사 '뿐'는 앞말과 띄어 씁니다.",
       "example": "참석할뿐입니다 → 참석할 뿐입니다",
@@ -4380,7 +4367,7 @@
       "negative": "참석할 뿐입니다"
     },
     {
-      "id": "spacing-399",
+      "id": "spacing-395",
       "pattern": "진행할수있",
       "replacement": "진행할 수 있",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -4391,7 +4378,7 @@
       "negative": "진행할 수 있습니다"
     },
     {
-      "id": "spacing-400",
+      "id": "spacing-396",
       "pattern": "진행할수없",
       "replacement": "진행할 수 없",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -4402,7 +4389,7 @@
       "negative": "진행할 수 없습니다"
     },
     {
-      "id": "spacing-401",
+      "id": "spacing-397",
       "pattern": "진행할때",
       "replacement": "진행할 때",
       "reason": "의존 명사 '때'는 앞말과 띄어 씁니다.",
@@ -4413,7 +4400,7 @@
       "negative": "진행할 때입니다"
     },
     {
-      "id": "spacing-402",
+      "id": "spacing-398",
       "pattern": "진행할것",
       "replacement": "진행할 것",
       "reason": "의존 명사 '것'는 앞말과 띄어 씁니다.",
@@ -4424,8 +4411,9 @@
       "negative": "진행할 것입니다"
     },
     {
-      "id": "spacing-403",
-      "pattern": "진행할뿐",
+      "id": "spacing-399",
+      "pattern": "진행할뿐(?!더러)",
+      "regex": true,
       "replacement": "진행할 뿐",
       "reason": "의존 명사 '뿐'는 앞말과 띄어 씁니다.",
       "example": "진행할뿐입니다 → 진행할 뿐입니다",
@@ -4435,7 +4423,7 @@
       "negative": "진행할 뿐입니다"
     },
     {
-      "id": "spacing-404",
+      "id": "spacing-400",
       "pattern": "변경할수있",
       "replacement": "변경할 수 있",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -4446,7 +4434,7 @@
       "negative": "변경할 수 있습니다"
     },
     {
-      "id": "spacing-405",
+      "id": "spacing-401",
       "pattern": "변경할수없",
       "replacement": "변경할 수 없",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -4457,7 +4445,7 @@
       "negative": "변경할 수 없습니다"
     },
     {
-      "id": "spacing-406",
+      "id": "spacing-402",
       "pattern": "변경할때",
       "replacement": "변경할 때",
       "reason": "의존 명사 '때'는 앞말과 띄어 씁니다.",
@@ -4468,7 +4456,7 @@
       "negative": "변경할 때입니다"
     },
     {
-      "id": "spacing-407",
+      "id": "spacing-403",
       "pattern": "변경할것",
       "replacement": "변경할 것",
       "reason": "의존 명사 '것'는 앞말과 띄어 씁니다.",
@@ -4479,8 +4467,9 @@
       "negative": "변경할 것입니다"
     },
     {
-      "id": "spacing-408",
-      "pattern": "변경할뿐",
+      "id": "spacing-404",
+      "pattern": "변경할뿐(?!더러)",
+      "regex": true,
       "replacement": "변경할 뿐",
       "reason": "의존 명사 '뿐'는 앞말과 띄어 씁니다.",
       "example": "변경할뿐입니다 → 변경할 뿐입니다",
@@ -4490,7 +4479,7 @@
       "negative": "변경할 뿐입니다"
     },
     {
-      "id": "spacing-409",
+      "id": "spacing-405",
       "pattern": "안내할수있",
       "replacement": "안내할 수 있",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -4501,7 +4490,7 @@
       "negative": "안내할 수 있습니다"
     },
     {
-      "id": "spacing-410",
+      "id": "spacing-406",
       "pattern": "안내할수없",
       "replacement": "안내할 수 없",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -4512,7 +4501,7 @@
       "negative": "안내할 수 없습니다"
     },
     {
-      "id": "spacing-411",
+      "id": "spacing-407",
       "pattern": "안내할때",
       "replacement": "안내할 때",
       "reason": "의존 명사 '때'는 앞말과 띄어 씁니다.",
@@ -4523,7 +4512,7 @@
       "negative": "안내할 때입니다"
     },
     {
-      "id": "spacing-412",
+      "id": "spacing-408",
       "pattern": "안내할것",
       "replacement": "안내할 것",
       "reason": "의존 명사 '것'는 앞말과 띄어 씁니다.",
@@ -4534,8 +4523,9 @@
       "negative": "안내할 것입니다"
     },
     {
-      "id": "spacing-413",
-      "pattern": "안내할뿐",
+      "id": "spacing-409",
+      "pattern": "안내할뿐(?!더러)",
+      "regex": true,
       "replacement": "안내할 뿐",
       "reason": "의존 명사 '뿐'는 앞말과 띄어 씁니다.",
       "example": "안내할뿐입니다 → 안내할 뿐입니다",
@@ -4545,7 +4535,7 @@
       "negative": "안내할 뿐입니다"
     },
     {
-      "id": "spacing-414",
+      "id": "spacing-410",
       "pattern": "연락할수있",
       "replacement": "연락할 수 있",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -4556,7 +4546,7 @@
       "negative": "연락할 수 있습니다"
     },
     {
-      "id": "spacing-415",
+      "id": "spacing-411",
       "pattern": "연락할수없",
       "replacement": "연락할 수 없",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -4567,7 +4557,7 @@
       "negative": "연락할 수 없습니다"
     },
     {
-      "id": "spacing-416",
+      "id": "spacing-412",
       "pattern": "연락할때",
       "replacement": "연락할 때",
       "reason": "의존 명사 '때'는 앞말과 띄어 씁니다.",
@@ -4578,7 +4568,7 @@
       "negative": "연락할 때입니다"
     },
     {
-      "id": "spacing-417",
+      "id": "spacing-413",
       "pattern": "연락할것",
       "replacement": "연락할 것",
       "reason": "의존 명사 '것'는 앞말과 띄어 씁니다.",
@@ -4589,8 +4579,9 @@
       "negative": "연락할 것입니다"
     },
     {
-      "id": "spacing-418",
-      "pattern": "연락할뿐",
+      "id": "spacing-414",
+      "pattern": "연락할뿐(?!더러)",
+      "regex": true,
       "replacement": "연락할 뿐",
       "reason": "의존 명사 '뿐'는 앞말과 띄어 씁니다.",
       "example": "연락할뿐입니다 → 연락할 뿐입니다",
@@ -4600,7 +4591,7 @@
       "negative": "연락할 뿐입니다"
     },
     {
-      "id": "spacing-419",
+      "id": "spacing-415",
       "pattern": "도착할수있",
       "replacement": "도착할 수 있",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -4611,7 +4602,7 @@
       "negative": "도착할 수 있습니다"
     },
     {
-      "id": "spacing-420",
+      "id": "spacing-416",
       "pattern": "도착할수없",
       "replacement": "도착할 수 없",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -4622,7 +4613,7 @@
       "negative": "도착할 수 없습니다"
     },
     {
-      "id": "spacing-421",
+      "id": "spacing-417",
       "pattern": "도착할때",
       "replacement": "도착할 때",
       "reason": "의존 명사 '때'는 앞말과 띄어 씁니다.",
@@ -4633,7 +4624,7 @@
       "negative": "도착할 때입니다"
     },
     {
-      "id": "spacing-422",
+      "id": "spacing-418",
       "pattern": "도착할것",
       "replacement": "도착할 것",
       "reason": "의존 명사 '것'는 앞말과 띄어 씁니다.",
@@ -4644,8 +4635,9 @@
       "negative": "도착할 것입니다"
     },
     {
-      "id": "spacing-423",
-      "pattern": "도착할뿐",
+      "id": "spacing-419",
+      "pattern": "도착할뿐(?!더러)",
+      "regex": true,
       "replacement": "도착할 뿐",
       "reason": "의존 명사 '뿐'는 앞말과 띄어 씁니다.",
       "example": "도착할뿐입니다 → 도착할 뿐입니다",
@@ -4655,7 +4647,7 @@
       "negative": "도착할 뿐입니다"
     },
     {
-      "id": "spacing-424",
+      "id": "spacing-420",
       "pattern": "출발할수있",
       "replacement": "출발할 수 있",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -4666,7 +4658,7 @@
       "negative": "출발할 수 있습니다"
     },
     {
-      "id": "spacing-425",
+      "id": "spacing-421",
       "pattern": "출발할수없",
       "replacement": "출발할 수 없",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -4677,7 +4669,7 @@
       "negative": "출발할 수 없습니다"
     },
     {
-      "id": "spacing-426",
+      "id": "spacing-422",
       "pattern": "출발할때",
       "replacement": "출발할 때",
       "reason": "의존 명사 '때'는 앞말과 띄어 씁니다.",
@@ -4688,7 +4680,7 @@
       "negative": "출발할 때입니다"
     },
     {
-      "id": "spacing-427",
+      "id": "spacing-423",
       "pattern": "출발할것",
       "replacement": "출발할 것",
       "reason": "의존 명사 '것'는 앞말과 띄어 씁니다.",
@@ -4699,8 +4691,9 @@
       "negative": "출발할 것입니다"
     },
     {
-      "id": "spacing-428",
-      "pattern": "출발할뿐",
+      "id": "spacing-424",
+      "pattern": "출발할뿐(?!더러)",
+      "regex": true,
       "replacement": "출발할 뿐",
       "reason": "의존 명사 '뿐'는 앞말과 띄어 씁니다.",
       "example": "출발할뿐입니다 → 출발할 뿐입니다",
@@ -4710,7 +4703,7 @@
       "negative": "출발할 뿐입니다"
     },
     {
-      "id": "spacing-429",
+      "id": "spacing-425",
       "pattern": "배울수있",
       "replacement": "배울 수 있",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -4721,7 +4714,7 @@
       "negative": "배울 수 있습니다"
     },
     {
-      "id": "spacing-430",
+      "id": "spacing-426",
       "pattern": "배울수없",
       "replacement": "배울 수 없",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -4732,7 +4725,7 @@
       "negative": "배울 수 없습니다"
     },
     {
-      "id": "spacing-431",
+      "id": "spacing-427",
       "pattern": "배울때",
       "replacement": "배울 때",
       "reason": "의존 명사 '때'는 앞말과 띄어 씁니다.",
@@ -4743,7 +4736,7 @@
       "negative": "배울 때입니다"
     },
     {
-      "id": "spacing-432",
+      "id": "spacing-428",
       "pattern": "배울것",
       "replacement": "배울 것",
       "reason": "의존 명사 '것'는 앞말과 띄어 씁니다.",
@@ -4754,8 +4747,9 @@
       "negative": "배울 것입니다"
     },
     {
-      "id": "spacing-433",
-      "pattern": "배울뿐",
+      "id": "spacing-429",
+      "pattern": "배울뿐(?!더러)",
+      "regex": true,
       "replacement": "배울 뿐",
       "reason": "의존 명사 '뿐'는 앞말과 띄어 씁니다.",
       "example": "배울뿐입니다 → 배울 뿐입니다",
@@ -4765,7 +4759,7 @@
       "negative": "배울 뿐입니다"
     },
     {
-      "id": "spacing-434",
+      "id": "spacing-430",
       "pattern": "도울수있",
       "replacement": "도울 수 있",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -4776,7 +4770,7 @@
       "negative": "도울 수 있습니다"
     },
     {
-      "id": "spacing-435",
+      "id": "spacing-431",
       "pattern": "도울수없",
       "replacement": "도울 수 없",
       "reason": "의존 명사 '수'는 앞말과 띄어 씁니다.",
@@ -4787,7 +4781,7 @@
       "negative": "도울 수 없습니다"
     },
     {
-      "id": "spacing-436",
+      "id": "spacing-432",
       "pattern": "도울때",
       "replacement": "도울 때",
       "reason": "의존 명사 '때'는 앞말과 띄어 씁니다.",
@@ -4798,7 +4792,7 @@
       "negative": "도울 때입니다"
     },
     {
-      "id": "spacing-437",
+      "id": "spacing-433",
       "pattern": "도울것",
       "replacement": "도울 것",
       "reason": "의존 명사 '것'는 앞말과 띄어 씁니다.",
@@ -4809,8 +4803,9 @@
       "negative": "도울 것입니다"
     },
     {
-      "id": "spacing-438",
-      "pattern": "도울뿐",
+      "id": "spacing-434",
+      "pattern": "도울뿐(?!더러)",
+      "regex": true,
       "replacement": "도울 뿐",
       "reason": "의존 명사 '뿐'는 앞말과 띄어 씁니다.",
       "example": "도울뿐입니다 → 도울 뿐입니다",
@@ -4820,8 +4815,8 @@
       "negative": "도울 뿐입니다"
     },
     {
-      "id": "context-439",
-      "pattern": "[가-힣]+로서",
+      "id": "context-435",
+      "pattern": "(?<![가-힣])[가-힣]+로서",
       "regex": true,
       "replacement": null,
       "reason": "지위·자격에는 로서, 수단·방법에는 로써를 씁니다.",
@@ -4831,8 +4826,8 @@
       "negative": "학교에 갑니다."
     },
     {
-      "id": "context-440",
-      "pattern": "[가-힣]+로써",
+      "id": "context-436",
+      "pattern": "(?<![가-힣])[가-힣]+로써",
       "regex": true,
       "replacement": null,
       "reason": "수단·방법에는 로써, 지위·자격에는 로서를 씁니다.",
@@ -4842,8 +4837,8 @@
       "negative": "학교에 갑니다."
     },
     {
-      "id": "context-441",
-      "pattern": "안 [가-힣]+",
+      "id": "context-437",
+      "pattern": "(?<![가-힣])안 [가-힣]+",
       "regex": true,
       "replacement": null,
       "reason": "안은 부정을 나타내는 부사이고, 않은 아니하다의 준말입니다. 문맥을 확인하세요.",
@@ -4853,8 +4848,8 @@
       "negative": "학교에 갑니다."
     },
     {
-      "id": "context-442",
-      "pattern": "[가-힣]*않[가-힣]*",
+      "id": "context-438",
+      "pattern": "(?<![가-힣])[가-힣]*않[가-힣]*",
       "regex": true,
       "replacement": null,
       "reason": "않은 아니하다의 준말입니다. 안과 구별하여 문맥을 확인하세요.",
@@ -4864,19 +4859,8 @@
       "negative": "학교에 갑니다."
     },
     {
-      "id": "context-443",
-      "pattern": "어떻게|어떡해",
-      "regex": true,
-      "replacement": null,
-      "reason": "방법을 물을 때는 어떻게, 어떻게 해의 준말은 어떡해입니다.",
-      "category": "확인 필요",
-      "auto": false,
-      "positive": "어떻게 오셨어요?",
-      "negative": "학교에 갑니다."
-    },
-    {
-      "id": "context-444",
-      "pattern": "[가-힣]+든지|[가-힣]+던지",
+      "id": "context-439",
+      "pattern": "(?<![가-힣])[가-힣]+(?:든지|던지)",
       "regex": true,
       "replacement": null,
       "reason": "선택에는 든지, 지난 일을 떠올릴 때는 던지를 씁니다.",

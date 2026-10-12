@@ -7,7 +7,8 @@ function scan(text,rules=database.rules){if(typeof text!=='string'||text.length>
   if(r.boundary==='word'&&end<text.length&&/[가-힣A-Za-z0-9]/.test(text[end]))continue;
   found.push({id:`${r.id}:${start}`,ruleId:r.id,start,end,original:match[0],suggestion:r.replacement,reason:r.reason,example:r.example||'',category:r.category,source:r.auto===false?'context':'rule',auto:r.auto!==false&&typeof r.replacement==='string'});
  }}
- found.sort((a,b)=>(b.end-b.start)-(a.end-a.start)||Number(b.auto)-Number(a.auto));const accepted=[];for(const issue of found)if(!accepted.some(a=>a.start<issue.end&&issue.start<a.end))accepted.push(issue);return accepted.sort((a,b)=>a.start-b.start);
+ // Corrections first so a long context reminder never hides a real error inside it.
+ found.sort((a,b)=>Number(b.auto)-Number(a.auto)||(b.end-b.start)-(a.end-a.start));const accepted=[];for(const issue of found)if(!accepted.some(a=>a.start<issue.end&&issue.start<a.end))accepted.push(issue);return accepted.sort((a,b)=>a.start-b.start);
 }
 function apply(text,issues,{all=false}={}){const selected=issues.filter(i=>!all||i.source==='rule'&&i.auto).sort((a,b)=>b.start-a.start);let last=text.length;for(const i of selected){if(!Number.isInteger(i.start)||!Number.isInteger(i.end)||i.start<0||i.end>last||text.slice(i.start,i.end)!==i.original||typeof i.suggestion!=='string')throw Error('본문이 바뀌었습니다. 다시 검사해 주세요.');text=text.slice(0,i.start)+i.suggestion+text.slice(i.end);last=i.start;}return text;}
 module.exports={scan,apply,database};

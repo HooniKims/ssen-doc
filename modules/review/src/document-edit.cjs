@@ -6,8 +6,15 @@ const crypto=require('node:crypto');
 const {diffChars}=require('diff');
 const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
 const escape=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\r/g,'&#13;');
-const decode=s=>s.replace(/&(#x[\da-f]+|#\d+|amp|lt|gt|quot|apos);/gi,(_,v)=>v[0]==='#'?String.fromCodePoint(parseInt(v.slice(v[1]?.toLowerCase()==='x'?2:1),v[1]?.toLowerCase()==='x'?16:10)):({amp:'&',lt:'<',gt:'>',quot:'"',apos:"'"}[v]));
+const codePoint=n=>{try{return String.fromCodePoint(n);}catch{throw new Error('문서에 올바르지 않은 문자 참조가 있습니다. 원본 프로그램에서 수정해 주세요.');}};
+const decode=s=>s.replace(/&(#x[\da-f]+|#\d+|amp|lt|gt|quot|apos);/gi,(_,v)=>v[0]==='#'?codePoint(parseInt(v.slice(v[1]?.toLowerCase()==='x'?2:1),v[1]?.toLowerCase()==='x'?16:10)):({amp:'&',lt:'<',gt:'>',quot:'"',apos:"'"}[v]));
 const fail=message=>{throw new Error(message);};
+// UTF-8 only: re-encoding another charset would silently corrupt untouched text.
+function utf8(bytes){const text=strFromU8(bytes);if(/^﻿?\s*<\?xml[^>]*\bencoding\s*=\s*["'](?!utf-?8["'])/i.test(text.slice(0,200))||Buffer.compare(Buffer.from(strToU8(text)),Buffer.from(bytes))!==0)fail('UTF-8이 아닌 문서는 원본 프로그램에서 수정해 주세요.');return text;}
+// Shared formulas repeat <f> in every member cell; only array and data-table formulas own a whole range.
+const rangeFormulas=tree=>tree.all.filter(n=>n.local==='f'&&['array','dataTable'].includes(attr(tree,n,'t'))&&attr(tree,n,'ref')).map(n=>attr(tree,n,'ref'));
+const sharedTrees=new WeakMap();
+function sharedStrings(files){if(!sharedTrees.has(files))sharedTrees.set(files,indexXml(utf8(files['xl/sharedStrings.xml'])));return sharedTrees.get(files);}
 function archive(buffer){
   if(buffer.length>50*1024*1024)fail('50MB 이하 파일만 수정할 수 있습니다.');
   let size=0;const seen=new Set();
@@ -106,7 +113,7 @@ function xlsxTarget(files,tree,source){
   if(tree.all.some(n=>n.local==='sheetProtection'))fail('보호된 시트는 엑셀에서 보호 설정을 확인해 주세요.');
   const found=tree.all.filter(n=>n.local==='c'&&attr(tree,n,'r')===source.ref);if(found.length!==1)fail('셀 위치가 명확하지 않습니다.');
   const cell=found[0],formula=cell.children.find(n=>n.local==='f');
-  if(formula||tree.all.some(n=>n.local==='f'&&attr(tree,n,'ref')&&inRange(source.ref,attr(tree,n,'ref'))))fail('수식 또는 배열 수식 셀입니다. 수량·단가 등 입력 셀을 수정하거나 엑셀에서 계산식을 편집해 주세요.');
+  if(formula||rangeFormulas(tree).some(range=>inRange(source.ref,range)))fail('수식 또는 배열 수식 셀입니다. 수량·단가 등 입력 셀을 수정하거나 엑셀에서 계산식을 편집해 주세요.');
   if(attr(tree,cell,'cm')||attr(tree,cell,'vm'))fail('확장 데이터가 있는 셀은 엑셀에서 수정해 주세요.');
   const value=cell.children.find(n=>n.local==='v'),type=attr(tree,cell,'t')||'n';
   if(type==='n'){
@@ -117,7 +124,7 @@ function xlsxTarget(files,tree,source){
   let stringTree=tree,stringNode=cell.children.find(n=>n.local==='is');
   if(type==='s'){
     if(!files['xl/sharedStrings.xml']||!value)fail('공유 문자열을 찾을 수 없습니다.');
-    stringTree=indexXml(strFromU8(files['xl/sharedStrings.xml']));
+    stringTree=sharedStrings(files);
     const i=Number(textOf(tree,value));if(!Number.isInteger(i)||i<0)fail('공유 문자열 번호가 올바르지 않습니다.');
     stringNode=stringTree.all.filter(n=>n.local==='si')[i];
   }
@@ -126,27 +133,32 @@ function xlsxTarget(files,tree,source){
   const textNodes=descendants(stringNode).filter(n=>n.local==='t');
   return {cell,value,shared:type==='s',stringTree,stringNode,textNodes,type:'text',text:textNodes.map(n=>textOf(stringTree,n)).join(''),hint:'선택한 셀만 수정합니다. 다른 셀에서 같은 문구를 사용해도 함께 바뀌지 않습니다.'};
 }
-function prepareEdit(buffer,filePath,source){
+function context(buffer,filePath){const parsed=parseDocument(buffer,filePath);return {files:archive(buffer),blocks:parsed.blocks.flatMap(b=>b.cells||[b]),trees:new Map()};}
+function locate(ctx,source){
   if(!source||!['hwpx-paragraph','hwpx-cell','xlsx-cell'].includes(source.kind))fail('수정할 원문 위치를 찾을 수 없습니다.');
-  const parsed=parseDocument(buffer,filePath);
-  const match=parsed.blocks.flatMap(b=>b.cells||[b]).filter(b=>JSON.stringify(b.source)===JSON.stringify(source));
+  const match=ctx.blocks.filter(b=>JSON.stringify(b.source)===JSON.stringify(source));
   if(match.length!==1)fail('수정할 위치가 명확하지 않습니다. 다시 검사해 주세요.');
-  const files=archive(buffer);if(!files[source.part])fail('문서 본문을 찾을 수 없습니다.');
-  const tree=indexXml(strFromU8(files[source.part]));
-  const target=source.kind.startsWith('hwpx-')?hwpxTarget(tree,source):xlsxTarget(files,tree,source);
+  if(!ctx.files[source.part])fail('문서 본문을 찾을 수 없습니다.');
+  if(!ctx.trees.has(source.part))ctx.trees.set(source.part,indexXml(utf8(ctx.files[source.part])));
+  const tree=ctx.trees.get(source.part);
+  const target=source.kind.startsWith('hwpx-')?hwpxTarget(tree,source):xlsxTarget(ctx.files,tree,source);
   if(target.text.length>10000)fail('10,000자를 넘는 문단·셀은 원본 프로그램에서 수정해 주세요.');
-  return {files,tree,target,text:target.text,type:target.type,hint:target.hint,sha256:hash(buffer)};
+  return {tree,target};
+}
+function prepareEdit(buffer,filePath,source){
+  const ctx=context(buffer,filePath),{tree,target}=locate(ctx,source);
+  return {files:ctx.files,tree,target,text:target.text,type:target.type,hint:target.hint,sha256:hash(buffer)};
 }
 function clearFormulaCaches(files){
   let changed=false;
   for(const name of Object.keys(files).filter(n=>/^xl\/worksheets\/[^/]+\.xml$/.test(n))){
-    const tree=indexXml(strFromU8(files[name])),edits=[];
-    const ranges=tree.all.filter(n=>n.local==='f'&&attr(tree,n,'ref')).map(n=>attr(tree,n,'ref'));
+    const tree=indexXml(utf8(files[name])),edits=[];
+    const ranges=rangeFormulas(tree);
     for(const cell of tree.all.filter(n=>n.local==='c'))if(cell.children.some(n=>n.local==='f')||ranges.some(range=>inRange(attr(tree,cell,'r'),range)))for(const v of cell.children.filter(n=>n.local==='v'))edits.push([v.start,v.end,'']);
     if(edits.length){files[name]=strToU8(patches(tree.source,edits));changed=true;}
   }
   if(changed){
-    const tree=indexXml(strFromU8(files['xl/workbook.xml'])),calc=tree.all.find(n=>n.local==='calcPr');
+    const tree=indexXml(utf8(files['xl/workbook.xml'])),calc=tree.all.find(n=>n.local==='calcPr');
     if(calc){let open=tree.source.slice(calc.start,calc.open);for(const [k,v] of Object.entries({calcMode:'auto',fullCalcOnLoad:'1',forceFullCalc:'1'}))open=setAttr(open,k,v);files['xl/workbook.xml']=strToU8(patches(tree.source,[[calc.start,calc.open,open]]));}
     else {const root=tree.all[0],prefix=root.name.includes(':')?root.name.split(':')[0]+':':'';const before=root.children.find(n=>['oleSize','customWorkbookViews','pivotCaches','smartTagPr','smartTagTypes','webPublishing','fileRecoveryPr','webPublishObjects','extLst'].includes(n.local));const at=before?.start??root.close;files['xl/workbook.xml']=strToU8(patches(tree.source,[[at,at,`<${prefix}calcPr calcMode="auto" fullCalcOnLoad="1" forceFullCalc="1"/>`]]));}
   }
@@ -169,12 +181,10 @@ function refreshHwpxPreview(files){
   }
   return staleImage;
 }
-function applyEdit(buffer,filePath,source,next,expectedHash){
-  if(expectedHash&&hash(buffer)!==expectedHash)fail('검사 후 원본 파일이 변경되었습니다. 다시 검사한 뒤 수정해 주세요.');
-  if(typeof next!=='string'||!next.trim()||next.length>10000||/[\x00-\x08\x0B\x0C\x0E-\x1F]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/u.test(next))fail('저장할 내용을 확인해 주세요. 빈 값·제어 문자·10,000자 초과 내용은 저장할 수 없습니다.');
-  const {files,tree,target}=prepareEdit(buffer,filePath,source);
+function editsFor(tree,target,source,next){
+  if(typeof next!=='string'||!next.trim()||next.length>10000||/[\x00-\x08\x0B\x0C\x0E-\x1F\uFFFE\uFFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/u.test(next))fail('저장할 내용을 확인해 주세요. 빈 값·제어 문자·10,000자 초과 내용은 저장할 수 없습니다.');
   if(next===target.text)fail('변경한 내용이 없습니다.');
-  let edits=[],recalculate=false,stalePreview=false;
+  const edits=[];
   if(source.kind.startsWith('hwpx-')){
     const parts=next.replace(/\r\n/g,'\n').split('\n');if(parts.length!==target.groups.length)fail('원래 문단 수를 유지해 주세요. 문단 추가·삭제는 한글에서 할 수 있습니다.');
     target.groups.forEach((group,i)=>{if(parts[i]!==target.values[i]){edits.push(...editRuns(tree,group,parts[i]));for(const n of target.paragraphs[i].children.filter(n=>n.local==='linesegarray'))edits.push([n.start,n.end,'']);}});
@@ -193,8 +203,17 @@ function applyEdit(buffer,filePath,source,next,expectedHash){
     edits.push([target.cell.start,target.cell.open,open],[target.value.start,target.value.end,inline]);
   }else edits.push(...editRuns(tree,target.textNodes,next));
   if(!edits.length)fail('변경한 내용이 없습니다.');
-  files[source.part]=strToU8(patches(tree.source,edits));
-  if(source.kind==='xlsx-cell')recalculate=clearFormulaCaches(files);
+  return edits;
+}
+// One unzip, validation and zip for the whole batch: per-edit rebuilds made 100 edits time out on long documents.
+function applyEdits(buffer,filePath,changes,expectedHash){
+  if(expectedHash&&hash(buffer)!==expectedHash)fail('검사 후 원본 파일이 변경되었습니다. 다시 검사한 뒤 수정해 주세요.');
+  if(!Array.isArray(changes)||!changes.length||changes.length>100)fail('한 번에 수정한 문단·셀 1~100개를 저장할 수 있습니다.');
+  const ctx=context(buffer,filePath),files=ctx.files,byPart=new Map();
+  for(const {source,text} of changes){const {tree,target}=locate(ctx,source);if(!byPart.has(source.part))byPart.set(source.part,[]);byPart.get(source.part).push(...editsFor(tree,target,source,text));}
+  for(const [part,edits] of byPart)files[part]=strToU8(patches(ctx.trees.get(part).source,edits));
+  let recalculate=false,stalePreview=false;
+  if(changes[0].source.kind==='xlsx-cell')recalculate=clearFormulaCaches(files);
   else stalePreview=refreshHwpxPreview(files);
   for(const [name,bytes] of Object.entries(files))if(/\.xml$/i.test(name))xml(bytes);
   const output=Object.create(null);
@@ -202,8 +221,9 @@ function applyEdit(buffer,filePath,source,next,expectedHash){
   for(const [name,bytes] of Object.entries(files))if(name!=='mimetype')output[name]=name==='version.xml'?[bytes,{level:0}]:bytes;
   const result=Buffer.from(zipSync(output,{level:6}));
   if(result.length>50*1024*1024)fail('수정본이 50MB를 초과합니다. 원본 프로그램에서 저장해 주세요.');
-  const verify=prepareEdit(result,filePath,source);
-  if(target.type!=='number'&&target.type!=='date'&&verify.text!==next.replace(/\r\n/g,'\n'))fail('수정본의 내용을 확인하지 못했습니다. 파일을 저장하지 않았습니다.');
+  const verify=context(result,filePath);
+  for(const {source,text} of changes){const {target}=locate(verify,source);if(target.type!=='number'&&target.type!=='date'&&target.text!==text.replace(/\r\n/g,'\n'))fail('수정본의 내용을 확인하지 못했습니다. 파일을 저장하지 않았습니다.');}
   return {buffer:result,recalculate,stalePreview};
 }
-module.exports={prepareEdit,applyEdit,hash,indexXml};
+function applyEdit(buffer,filePath,source,next,expectedHash){return applyEdits(buffer,filePath,[{source,text:next}],expectedHash);}
+module.exports={prepareEdit,applyEdit,applyEdits,hash,indexXml};

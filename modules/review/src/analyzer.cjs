@@ -5,24 +5,29 @@ const normalize=s=>String(s).normalize('NFKC').replace(/\s+/g,' ').trim();
 const number=s=>Number(String(s).replace(/[,\s]/g,''));
 function labelKind(label) {
   const s=label.replace(/\s/g,'');
+  const unit=()=>['money',/식사|식비|급식/.test(s)?'식사 단가':/교통|차량/.test(s)?'교통 단가':'1인당 단가'];
   if(/(신청|제출|회신|접수).*(기한|마감|일)|마감일/.test(s)) return ['date','마감일'];
   if(/행사일|실시일|일시|일정|체험일|날짜/.test(s)) return ['date','행사일'];
+  // Money words come before 학생·교사 so '학생 1인당 단가' is not read as a head count.
+  if(/단가/.test(s)||/1인당|인당/.test(s)&&/금액|비용|비$|원$/.test(s)) return unit();
+  if(/총액|총예산|총금액|소요예산|금액|비용/.test(s)) return ['money','예산 총액'];
   if(/교사|교원|인솔/.test(s)&&/인원|명|수|교사|인솔/.test(s)) return ['people','인솔 인원'];
   if(/학생/.test(s)&&/인원|수|학생/.test(s)) return ['people','학생 인원'];
   if(/총인원|전체인원/.test(s)) return ['people','전체 인원'];
   if(/참가인원|참여인원|참가자|참여자|대상인원|예정인원|^인원$/.test(s)) return ['people','참가 인원'];
   if(/장소|목적지/.test(s)) return ['place','행사 장소'];
   if(/총액|총예산|총금액|예산합계|합계|총계|소요예산/.test(s)) return ['money','예산 총액'];
-  if(/단가|1인당|인당/.test(s)) return ['money',/식사|식비|급식/.test(s)?'식사 단가':/교통|차량/.test(s)?'교통 단가':'1인당 단가'];
+  if(/1인당|인당/.test(s)) return unit();
   return null;
 }
 function analyze(documents,options={}) {
   const year=Number(options.year)||new Date().getFullYear();
   if(year<2000||year>2100) throw new Error('기준 연도는 2000~2100년 사이로 설정해 주세요.');
-  const facts=[],issues=[],coverage=[];
+  const facts=[],issues=[],coverage=[],seen=new Set();
   function fact(doc,block,kind,key,value,display,location) {
     const f={documentId:doc.id,fileName:doc.name,kind,key,value:String(value),display:String(display),location:location||block.location,excerpt:block.text};
-    if(!facts.some(x=>x.documentId===f.documentId&&x.key===f.key&&x.value===f.value&&x.location===f.location)) facts.push(f);
+    const id=JSON.stringify([f.documentId,f.key,f.value,f.location]);
+    if(!seen.has(id)){seen.add(id);facts.push(f);}
     return f;
   }
   function issue(kind,title,description,evidence,severity='warning') {

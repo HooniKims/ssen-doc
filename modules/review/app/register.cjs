@@ -6,7 +6,7 @@ const fs=require('node:fs/promises'),path=require('node:path'),crypto=require('n
 const {Worker}=require('node:worker_threads');
 const {reportHtml,reportCsv}=require('../src/report.cjs');
 const {saveCopy}=require('../src/edit-storage.cjs');
-let win,lastReport,activeWorker,demoDirectory,updater,lastDocuments=[],pendingEdit,editSaving=false;const registered=new Map();
+let win,lastReport,activeWorker,demoDirectory,lastDocuments=[],pendingEdit,editSaving=false;const registered=new Map();
 const safe=fn=>async(event,...args)=>{
   if(event.sender!==win?.webContents||event.senderFrame!==win.webContents.mainFrame)throw new Error('허용되지 않은 요청입니다.');
   try{return await fn(...args);}catch(e){return {error:e.message||'작업을 완료하지 못했습니다.'};}
@@ -50,7 +50,7 @@ function editTask(action,data){return new Promise((resolve,reject)=>{
 });}
 
 win={webContents:contents};
-  ipcMain.handle('files:select',safe(async()=>{const r=await dialog.showOpenDialog(win,{title:'함께 검사할 문서 선택',properties:['openFile','multiSelections'],filters:[{name:'학교 문서',extensions:['hwpx','xlsx']}]});return r.canceled?{files:[],errors:[]}:register(r.filePaths);}));
+  ipcMain.handle('files:select',safe(async()=>{const r=await dialog.showOpenDialog(host,{title:'함께 검사할 문서 선택',properties:['openFile','multiSelections'],filters:[{name:'학교 문서',extensions:['hwpx','xlsx']}]});return r.canceled?{files:[],errors:[]}:register(r.filePaths);}));
   ipcMain.handle('files:add',safe(register));
   ipcMain.handle('files:demo',safe(async()=>{
     if(!demoDirectory)demoDirectory=await copySamples(await fs.mkdtemp(path.join(app.getPath('temp'),'moa-samples-')));
@@ -81,7 +81,7 @@ win={webContents:contents};
     try{
       const ext=path.extname(edit.filePath),stem=path.basename(edit.filePath,ext).replace(/_수정본(?:_\d+)?$/,'');
       const stamp=new Date().toISOString().replace(/\D/g,'').slice(0,14);
-      const destination=await dialog.showSaveDialog(win,{title:'수정본 저장',defaultPath:path.join(path.dirname(edit.filePath),`${stem}_수정본_${stamp}${ext}`),filters:[{name:ext.slice(1).toUpperCase(),extensions:[ext.slice(1)]}]});
+      const destination=await dialog.showSaveDialog(host,{title:'수정본 저장',defaultPath:path.join(path.dirname(edit.filePath),`${stem}_수정본_${stamp}${ext}`),filters:[{name:ext.slice(1).toUpperCase(),extensions:[ext.slice(1)]}]});
       if(destination.canceled)return {canceled:true};
       const result=await editTask('apply',{...edit,text});
       const saved=await saveCopy(destination.filePath,edit.filePath,[...registered.values()],result.buffer);
@@ -96,16 +96,16 @@ win={webContents:contents};
     if(!lastReport)throw new Error('먼저 검사를 실행해 주세요.');
     if(!['html','csv'].includes(type))throw new Error('지원하지 않는 형식입니다.');
     const report=structuredClone(lastReport);report.issues.forEach(i=>{i.status=statuses?.[i.id]==='reviewed'?'reviewed':'pending';});
-    const r=await dialog.showSaveDialog(win,{title:'검사 결과 저장',defaultPath:`쎈Pick_${report.year}_${new Date().toISOString().slice(0,10)}.${type}`,filters:[{name:type==='html'?'웹 문서':'CSV (엑셀에서 열기)',extensions:[type]}]});
+    const r=await dialog.showSaveDialog(host,{title:'검사 결과 저장',defaultPath:`쎈Pick_${report.year}_${new Date().toISOString().slice(0,10)}.${type}`,filters:[{name:type==='html'?'웹 문서':'CSV (엑셀에서 열기)',extensions:[type]}]});
     if(r.canceled)return {canceled:true};
     // 입력 원본을 출력 대상으로 선택해도 덮어쓰지 않음
     if(!r.filePath.toLowerCase().endsWith('.'+type))throw new Error(`.${type} 확장자로 저장해 주세요.`);
     await fs.writeFile(r.filePath,type==='html'?reportHtml(report):reportCsv(report),'utf8');return {ok:true,path:r.filePath};
   }));
   ipcMain.handle('samples:export',safe(async()=>{
-    const r=await dialog.showOpenDialog(win,{title:'예제 파일을 저장할 폴더',properties:['openDirectory','createDirectory']});if(r.canceled)return {canceled:true};
+    const r=await dialog.showOpenDialog(host,{title:'예제 파일을 저장할 폴더',properties:['openDirectory','createDirectory']});if(r.canceled)return {canceled:true};
     const destination=await fs.mkdtemp(path.join(r.filePaths[0],'쎈Pick_예제_'));await copySamples(destination);return {ok:true,path:destination};
   }));
 
-return {busy:()=>Boolean(activeWorker||editSaving),stop:()=>activeWorker?.terminate()};
+return {busy:()=>Boolean(activeWorker||editSaving),stop:async()=>{await activeWorker?.terminate();}};
 };

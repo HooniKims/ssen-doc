@@ -68,3 +68,12 @@ test('falling back to the original archive retains failed-image diagnostics',asy
   const folder=await directory(t),input=await fixture(folder,{items:item('bad','BinData/bad.jpg','image/jpeg'),extra:[['BinData/bad.jpg','NOT_AN_IMAGE']],compressionLevel:9});
   const result=await optimizeFile(input);assert.equal(result.saved,0);assert.equal(result.changed,0);assert.match(result.records[0].reason,/읽지 못해/);assert.deepEqual(await fs.readFile(result.path),await fs.readFile(input));
 });
+test('XML with a byte order mark is read and broken XML gets a Korean message',()=>{
+  const {parseXml}=require('../src/archive.cjs');
+  assert.equal(parseXml(Buffer.from('\uFEFF<?xml version="1.0"?><a/>'),'s.xml').documentElement.nodeName,'a');
+  assert.throws(()=>parseXml(Buffer.from('<a><b></a>'),'x.xml'),/x\.xml: 올바르지 않은 XML/);
+});
+test('image references resolve both encoded and literal percent names',()=>{
+  const {resolveItem}=require('../src/manifest.cjs'),names=new Set(['BinData/100%.png','BinData/한.png']);
+  assert.equal(resolveItem('BinData/100%.png',names),'BinData/100%.png');assert.equal(resolveItem('BinData/%ED%95%9C.png',names),'BinData/한.png');assert.equal(resolveItem('../../BinData/100%.png',names),null);
+});

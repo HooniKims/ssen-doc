@@ -1,11 +1,11 @@
 'use strict';
+const BUILD_TAG='e98eadad162b';
 module.exports=function registerModule(host, contents){
 const ipcMain={handle:(channel,fn)=>require('electron').ipcMain.handle('lite:'+channel,fn)};
-'use strict';
 const {app,dialog,shell}=require('electron');
 const fs=require('node:fs/promises'),path=require('node:path'),crypto=require('node:crypto');
 const {Worker}=require('node:worker_threads');
-let win,activeWorker,updater,outputFolder=null,demoDirectory,closing=false;
+let win,activeWorker,outputFolder=null,demoDirectory;
 const registered=new Map(),outputs=new Map();
 const safe=fn=>async(event,...args)=>{
   if(event.sender!==win?.webContents||event.senderFrame!==win.webContents.mainFrame)throw Error('허용되지 않은 요청입니다.');
@@ -47,7 +47,7 @@ function batch(files,settings){return new Promise((resolve,reject)=>{
 });}
 
 win={webContents:contents};
-  ipcMain.handle('files:select',safe(async()=>{const r=await dialog.showOpenDialog(win,{title:'가볍게 만들 HWPX 문서',properties:['openFile','multiSelections'],filters:[{name:'한글 문서',extensions:['hwpx']}]});return r.canceled?{files:[],errors:[]}:register(r.filePaths);}));
+  ipcMain.handle('files:select',safe(async()=>{const r=await dialog.showOpenDialog(host,{title:'가볍게 만들 HWPX 문서',properties:['openFile','multiSelections'],filters:[{name:'한글 문서',extensions:['hwpx']}]});return r.canceled?{files:[],errors:[]}:register(r.filePaths);}));
   ipcMain.handle('files:add',safe(register));
   ipcMain.handle('files:remove',safe(id=>{if(activeWorker)throw Error('처리 중에는 목록을 바꿀 수 없습니다.');registered.delete(id);outputs.delete(id);return {ok:true};}));
   ipcMain.handle('files:clear',safe(()=>{if(activeWorker)throw Error('처리 중에는 목록을 바꿀 수 없습니다.');registered.clear();outputs.clear();return {ok:true};}));
@@ -55,7 +55,7 @@ win={webContents:contents};
     if(!demoDirectory){demoDirectory=await fs.mkdtemp(path.join(app.getPath('temp'),'ssen-lite-example-'));const source=path.join(__dirname,'../assets/samples');for(const name of await fs.readdir(source))if(name.endsWith('.hwpx'))await fs.writeFile(path.join(demoDirectory,name),await fs.readFile(path.join(source,name)),{flag:'wx'});}
     return register((await fs.readdir(demoDirectory)).filter(n=>n.endsWith('.hwpx')&&!n.includes('_가볍게')).map(n=>path.join(demoDirectory,n)));
   }));
-  ipcMain.handle('folder:choose',safe(async()=>{if(activeWorker)throw Error('처리 중에는 저장 위치를 바꿀 수 없습니다.');const r=await dialog.showOpenDialog(win,{title:'결과를 저장할 폴더',properties:['openDirectory','createDirectory']});if(!r.canceled)outputFolder=r.filePaths[0];return {path:outputFolder};}));
+  ipcMain.handle('folder:choose',safe(async()=>{if(activeWorker)throw Error('처리 중에는 저장 위치를 바꿀 수 없습니다.');const r=await dialog.showOpenDialog(host,{title:'결과를 저장할 폴더',properties:['openDirectory','createDirectory']});if(!r.canceled)outputFolder=r.filePaths[0];return {path:outputFolder};}));
   ipcMain.handle('folder:reset',safe(()=>{if(activeWorker)throw Error('현재 작업이 끝난 뒤 바꿔 주세요.');outputFolder=null;return {path:null};}));
   ipcMain.handle('task:start',safe(async(ids,preset)=>{
     if(activeWorker)throw Error('현재 작업이 진행 중입니다.');
@@ -67,5 +67,6 @@ win={webContents:contents};
   ipcMain.handle('result:show',safe(async id=>{const file=outputs.get(id);if(!file)throw Error('저장된 결과가 없습니다.');await fs.access(file);shell.showItemInFolder(file);return {ok:true};}));
   ipcMain.handle('result:open',safe(async id=>{const file=outputs.get(id);if(!file)throw Error('저장된 결과가 없습니다.');const error=await shell.openPath(file);if(error)throw Error('문서를 열지 못했습니다. HWPX 연결 프로그램을 확인해 주세요.');return {ok:true};}));
 
-return {busy:()=>Boolean(activeWorker),stop:()=>activeWorker?.terminate()};
+// Cancel first so the optimizer removes its temporary files; terminate only if it hangs.
+return {busy:()=>Boolean(activeWorker),stop:()=>{const w=activeWorker;if(!w)return Promise.resolve();return new Promise(resolve=>{const timer=setTimeout(()=>void w.terminate(),10000);w.once('exit',()=>{clearTimeout(timer);resolve();});w.postMessage('cancel');});}};
 };

@@ -2,7 +2,7 @@ const {test}=require('node:test'),assert=require('node:assert/strict');
 const fs=require('node:fs/promises'),path=require('node:path'),os=require('node:os');
 const {zipSync,unzipSync,strToU8,strFromU8}=require('fflate');
 const {parseDocument}=require('../src/documents.cjs');
-const {prepareEdit,applyEdit}=require('../src/document-edit.cjs');
+const {prepareEdit,applyEdit,applyEdits}=require('../src/document-edit.cjs');
 const {saveCopy}=require('../src/edit-storage.cjs');
 const zip=parts=>Buffer.from(zipSync(Object.fromEntries(Object.entries(parts).map(([name,value])=>[name,typeof value==='string'?strToU8(value):value]))));
 const para=t=>`<hp:p><hp:run charPrIDRef="4"><hp:t>${t}</hp:t></hp:run></hp:p>`;
@@ -102,4 +102,22 @@ test('saveCopy never overwrites an input, existing file or hard-link alias',asyn
     await saveCopy(path.join(dir,'copy.hwpx'),original,[original],Buffer.from('new'));
     assert.equal(await fs.readFile(original,'utf8'),'original');assert.equal(await fs.readFile(other,'utf8'),'existing');assert.equal(await fs.readFile(path.join(dir,'copy.hwpx'),'utf8'),'new');
   }finally{await fs.rm(dir,{recursive:true,force:true});}
+});
+test('a batch of edits is saved in one pass and every edit is verified',()=>{
+  const b=hwpx(Array.from({length:300},(_,i)=>para(`${i}번: 참가 ${i}명`)).join('')),blocks=parseDocument(b,'a.hwpx').blocks.flatMap(x=>x.cells||[x]);
+  const changes=[0,150,299].map(i=>({source:blocks[i].source,text:`${i}번: 참가 ${i+1}명`}));
+  const r=applyEdits(b,'a.hwpx',changes),after=parseDocument(r.buffer,'a.hwpx').blocks.flatMap(x=>x.cells||[x]);
+  for(const i of [0,150,299])assert.equal(after[i].text,`${i}번: 참가 ${i+1}명`);assert.equal(after[1].text,'1번: 참가 1명');
+  assert.throws(()=>applyEdits(b,'a.hwpx',[changes[0],changes[0]]),/겹칩니다/);assert.throws(()=>applyEdits(b,'a.hwpx',[]),/1~100/);
+});
+test('shared formulas keep constants that sit inside their range',()=>{
+  const b=xlsx('<row r="1"><c r="A1" t="inlineStr"><is><t>메모</t></is></c><c r="C1"><f t="shared" ref="C1:C3" si="0">B1*2</f><v>2</v></c></row><row r="2"><c r="C2"><v>42</v></c></row><row r="3"><c r="C3"><f t="shared" si="0"/><v>6</v></c></row>');
+  const out=entries(applyEdit(b,'a.xlsx',source(b,'a.xlsx',0),'메모2').buffer)['xl/worksheets/sheet1.xml'];
+  assert.match(out,/<c r="C2"><v>42<\/v><\/c>/);assert.match(out,/<c r="C3"><f t="shared" si="0"\/><\/c>/);
+  assert.equal(prepareEdit(b,'a.xlsx',source(b,'a.xlsx',2)).text,'42');
+});
+test('non UTF-8 parts and XML-forbidden characters are refused',()=>{
+  const legacy=zip({mimetype:'application/hwp+zip','Contents/section0.xml':Buffer.concat([Buffer.from('<?xml version="1.0" encoding="EUC-KR"?><hs:sec xmlns:hs="s" xmlns:hp="p"><hp:p><hp:run><hp:t>A</hp:t></hp:run></hp:p></hs:sec>')])});
+  assert.throws(()=>applyEdit(legacy,'a.hwpx',source(legacy),'B'),/UTF-8/);
+  const b=hwpx(para('인원: 120명'));assert.throws(()=>applyEdit(b,'a.hwpx',source(b),'인원\uFFFE'),/내용/);
 });

@@ -18,10 +18,12 @@ function parseManifest(xml,executable=path.join(__dirname,'../native/bin/ssen-hw
 }
 function resolveItem(href,entries){
   if(typeof href!=='string'||/[?#\\]/.test(href)||/^[a-z]+:/i.test(href))return null;
-  let decoded;try{decoded=decodeURIComponent(href);}catch{return null;}
-  const normalized=path.posix.normalize(decoded);
-  for(const candidate of [normalized,path.posix.normalize(path.posix.join('Contents',decoded))]){
-    if(!candidate.startsWith('../')&&!candidate.startsWith('/')&&entries.has(candidate))return candidate;
+  // Try the decoded name first, then the literal one for files such as 'BinData/100%.png'.
+  let decoded=null;try{decoded=decodeURIComponent(href);}catch{}
+  for(const name of decoded&&decoded!==href?[decoded,href]:[href]){
+    for(const candidate of [path.posix.normalize(name),path.posix.normalize(path.posix.join('Contents',name))]){
+      if(!candidate.startsWith('../')&&!candidate.startsWith('/')&&entries.has(candidate))return candidate;
+    }
   }
   return null;
 }

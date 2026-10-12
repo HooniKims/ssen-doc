@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-10T04:42:37.388Z",
+  "date": "2026-10-12T04:12:06.147Z",
   "testAutomationFlag": false,
   "checks": [
     "paste, first AI notice, skip, spelling, spacing, rule apply, clipboard",
@@ -9,7 +9,8 @@
     },
     "real HWPX image compression using packaged native engine",
     "text retained across all three features",
+    "copyright line and license toggle",
     "HTTP HTTPS WS WSS requests blocked"
   ],
-  "completed": "2026-10-10T04:42:42.114Z"
+  "completed": "2026-10-12T04:12:11.869Z"
 }

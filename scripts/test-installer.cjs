@@ -4,7 +4,7 @@ function run(file,args){return new Promise((resolve,reject)=>{const p=spawn(file
 (async()=>{
  const root=path.resolve('_workspace/install-test'),profile=path.resolve('_workspace/installed-profile');await fs.mkdir(root,{recursive:true});
  await run(path.resolve(process.env.SSENDOC_RELEASE_DIR||'release',`SsenDoc-Setup-${require('../package.json').version}.exe`),['/S','/D='+root]);
- const executable=path.join(root,'SsenDoc.exe');assert.ok((await fs.stat(executable)).size>1000000);
+ const executable=path.join(root,'SsenDoc.exe');assert.ok((await fs.stat(executable)).size>1000000);const licenseFile=path.join(root,'LICENSE.txt');assert.deepEqual(await fs.readFile(licenseFile),await fs.readFile('build/LICENSE.txt'));
  const env={...process.env,SSENDOC_TEST_DATA:profile};delete env.ELECTRON_RUN_AS_NODE;delete env.SSENDOC_TEST_HIDDEN;
  const app=await _electron.launch({executablePath:executable,args:[],env});let report;
  try{
@@ -13,8 +13,8 @@ function run(file,args){return new Promise((resolve,reject)=>{const p=spawn(file
   await view("document.querySelector('#text-input').value='회의가 됬어요. 참여할수있습니다.';document.querySelector('#text-input').dispatchEvent(new Event('input'));document.querySelector('#scan').click()");
   await expect.poll(()=>view("Number(document.querySelector('#issue-count').textContent)")).toBeGreaterThan(0);
   await view("if(document.querySelector('#model-dialog').open)document.querySelector('#model-skip').click();document.querySelector('#apply-all').click()");await expect.poll(()=>view("document.querySelector('#text-input').value")).toBe('회의가 됐어요. 참여할 수 있습니다.');
-  const update=await view('window.doc.updateState()');assert.equal(update.mode,'installed');const liveUpdate=await view('window.doc.checkUpdate()');
-  report={date:new Date().toISOString(),installation:'NSIS silent install exit 0',executable,spellAndSpacing:'passed',testAutomationFlag:false,updateMode:update.mode,liveUpdate};
+  const update=await view('window.doc.updateState()');assert.equal(update.mode,'installed');const {origin:_origin,...liveUpdate}=await view('window.doc.checkUpdate()');
+  report={date:new Date().toISOString(),installation:'NSIS silent install exit 0',license:'LICENSE.txt installed',executable,spellAndSpacing:'passed',testAutomationFlag:false,updateMode:update.mode,liveUpdate};
  }finally{await app.evaluate(({BrowserWindow})=>{for(const w of BrowserWindow.getAllWindows()){w.removeAllListeners('close');w.destroy();}}).catch(()=>{});await app.close();}
- const uninstall=(await fs.readdir(root)).find(f=>/^Uninstall.*\.exe$/.test(f));assert.ok(uninstall);await run(path.join(root,uninstall),['/S']);await expect.poll(()=>fs.stat(executable).then(()=>true).catch(()=>false),{timeout:30000}).toBe(false);report.uninstall='exit 0; installed executable removed';await fs.writeFile('docs/INSTALL-VERIFICATION.json',JSON.stringify(report,null,2));console.log(report);
+ const uninstall=(await fs.readdir(root)).find(f=>/^Uninstall.*\.exe$/.test(f));assert.ok(uninstall);await run(path.join(root,uninstall),['/S']);await expect.poll(()=>fs.stat(executable).then(()=>true).catch(()=>false),{timeout:30000}).toBe(false);assert.equal(await fs.stat(licenseFile).then(()=>true).catch(()=>false),false);report.uninstall='exit 0; installed executable and LICENSE.txt removed';await fs.writeFile('docs/INSTALL-VERIFICATION.json',JSON.stringify(report,null,2));console.log(report);
 })().catch(e=>{console.error(e);process.exitCode=1;});

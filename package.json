@@ -1,8 +1,9 @@
 {
   "name": "ssen-doc",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "학교 문서 맞춤법 검사·문서 대조·용량 줄이기",
   "author": "HooniKim",
+  "license": "SEE LICENSE IN LICENSE",
   "private": true,
   "main": "app/main.cjs",
   "scripts": {
@@ -11,7 +12,7 @@
     "test:ui": "playwright test",
     "test:ai": "node scripts/test-local-ai.cjs",
     "build:native": "node scripts/build-native.cjs",
-    "dist": "npm run build:native && electron-builder --win nsis zip --x64 --publish never"
+    "dist": "npm run build:native && node scripts/prepare-license.cjs && electron-builder --win nsis zip --x64 --publish never"
   },
   "dependencies": {
     "@xmldom/xmldom": "^0.9.12",
@@ -32,6 +33,7 @@
   "build": {
     "appId": "kr.hoonikim.ssendoc",
     "productName": "쎈doc",
+    "copyright": "Copyright 2026 상명초 김승현, 등촌중 김형훈",
     "directories": {
       "output": "release"
     },
@@ -48,7 +50,14 @@
       "!node_modules/@node-llama-cpp/win-x64-cuda-ext/**/*",
       "!node_modules/@node-llama-cpp/win-x64-vulkan/**/*",
       "README.md",
+      "LICENSE",
       "THIRD-PARTY-NOTICES.md"
+    ],
+    "extraFiles": [
+      {
+        "from": "build/LICENSE.txt",
+        "to": "LICENSE.txt"
+      }
     ],
     "extraResources": [
       {
@@ -88,6 +97,7 @@
         "ko_KR"
       ],
       "include": "build/installer.nsh",
+      "license": "build/LICENSE.txt",
       "installerSidebar": "build/installer/sidebar.bmp",
       "installerHeader": "build/installer/header.bmp"
     }

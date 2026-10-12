@@ -38,10 +38,11 @@ async function readEntry(zip,entry){
   return buffer;
 }
 function parseXml(buffer,name){
-  const text=buffer.toString('utf8');
+  const text=buffer.toString('utf8').replace(/^﻿/,'');
   if(/<!DOCTYPE|<!ENTITY/i.test(text))throw Error(`${name}: 외부 엔터티를 포함한 XML은 지원하지 않습니다.`);
   let problem;
-  const doc=new DOMParser({onError:(level,message)=>{problem=message;}}).parseFromString(text,'application/xml');
+  // xmldom throws on some fatal errors instead of reporting them.
+  let doc;try{doc=new DOMParser({onError:(level,message)=>{problem=message;}}).parseFromString(text,'application/xml');}catch(e){problem=e.message;}
   if(problem||!doc?.documentElement)throw Error(`${name}: 올바르지 않은 XML입니다.`);
   return doc;
 }

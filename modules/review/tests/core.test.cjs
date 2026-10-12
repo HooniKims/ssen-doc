@@ -1,6 +1,6 @@
 const {test}=require('node:test');const assert=require('node:assert/strict');
 const fs=require('node:fs'),path=require('node:path');const {zipSync,strToU8}=require('fflate');
-const {parseDocument,unpack,xml,excelDate}=require('../src/documents.cjs');const {analyze}=require('../src/analyzer.cjs');const {reportCsv,reportHtml}=require('../src/report.cjs');
+const {parseDocument,unpack,xml,excelDate}=require('../src/documents.cjs');const {analyze,labelKind}=require('../src/analyzer.cjs');const {reportCsv,reportHtml}=require('../src/report.cjs');
 const zip=obj=>Buffer.from(zipSync(Object.fromEntries(Object.entries(obj).map(([k,v])=>[k,strToU8(v)]))));
 const para=s=>`<hp:p><hp:run><hp:t>${s}</hp:t></hp:run></hp:p>`;
 const hwpx=(s,extra={})=>zip({'Contents/section0.xml':`<hs:sec xmlns:hs="s" xmlns:hp="p">${s}</hs:sec>`,...extra});
@@ -41,3 +41,4 @@ test('explicit years outside the 2000s are read in full without partial matches'
   for(const year of [1999,2100]){const r=analyze([doc([`행사일: ${year}-10-23`])],{year:2100});assert.equal(r.facts[0]?.value,`${year}-10-23`);}
   for(const value of ['2026-10-230','20260-10-23'])assert.equal(analyze([doc(['행사일: '+value])],{year:2026}).facts.length,0);
 });
+test('money labels that mention 학생 or 교사 are not head counts',()=>{for(const [label,key] of [['학생 1인당 단가','1인당 단가'],['학생 체험비 총액','예산 총액'],['교사 연수비 총액','예산 총액'],['인솔 교사 식비 단가','식사 단가'],['학생 수 합계','학생 인원'],['인솔 교사','인솔 인원']])assert.equal(labelKind(label)?.[1],key,label);});

@@ -70,3 +70,15 @@ NSIS 실제 설치 후 자동 업데이트 모드를 확인하는 과정에서 `
 - NSIS·ZIP 빌드 성공. 패키지 81개 파일과 소스 바이트 일치, 앱 버전 1.0.1, Qwen 단일 카탈로그, CPU 모듈만 포함, GGUF 미포함을 확인했다. `PACKAGE-VERIFICATION.json`.
 - 1.0.1 NSIS를 테스트 경로에 설치해 맞춤법·띄어쓰기 교정, 설치형 업데이트 모드와 GitHub 조회 응답, 제거 성공을 확인했다. `INSTALL-VERIFICATION.json`. 상위 버전으로 실제 교체하는 업데이트 검증은 별도다.
 - 실제 Qwen 다운로드·재개·CPU 추론의 전체 검증 기록은 같은 모델과 로직을 사용한 1.0.0 기록이다. 이번 변경으로 AI 정확도가 향상되었다고 주장하지 않는다.
+
+## 1.0.2 — 이용약관 적용과 점검 수정
+
+- 자체 이용약관 `LICENSE`를 적용했다. 설치 화면 약관 페이지(환영 다음, [동의함] 필요, 업데이트 설치 때는 건너뜀), 설치 폴더 `LICENSE.txt`, 설치본·실행 파일 LegalCopyright, 설정 · 업데이트 창의 저작권 줄과 [이용약관 보기]를 넣었다.
+- 단위 테스트 570개, UI 테스트 7개(약관 펼침·닫힘 포함) 통과. `ui-license.png`.
+- 빌드 후 패키지 78개 파일과 소스 바이트 일치, asar 안 `LICENSE`, 설치 폴더용 `LICENSE.txt`(UTF-16LE)와 원문 일치를 확인했다. `PACKAGE-VERIFICATION.json`.
+- 설치본을 풀어 `LICENSE.txt`가 재료와 같음을 확인했다. 설치본과 `SsenDoc.exe`의 LegalCopyright는 `Copyright 2026 상명초 김승현, 등촌중 김형훈`이다. 게시자(CompanyName)는 기존 `HooniKim`을 유지했다.
+- 실제 설치 화면에서 약관 페이지를 캡처했다. `ui-installer-license.png`.
+- 배포판 실행에서 맞춤법·HTML 저장·문서 대조·HWPX 압축·약관 펼침/닫힘·네트워크 차단을 확인했다. `PACKAGED-UI-VERIFICATION.json`.
+- 무인 설치 후 `LICENSE.txt` 설치, 맞춤법 교정, 업데이트 모드, 제거 시 `LICENSE.txt` 삭제를 확인했다. `INSTALL-VERIFICATION.json`.
+- 공개 1.0.1 설치본(SHA-256 `0849a29e…`)을 설치한 위에 1.0.2를 덮어 설치해 버전 1.0.2, `LICENSE.txt`, 저작권 줄을 확인하고 제거했다.
+- 시험 중 만든 이용자 결과물(TXT·HTML 교정문, HWPX·XLSX 교정본, 압축 HWPX 19개)에 앱 코드의 출처 표식이 들어가지 않았음을 확인했다.

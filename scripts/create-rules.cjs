@@ -325,17 +325,20 @@ const pairs=`됬|됐
 안되요|안 돼요`;
 // Conservative corrections. Whole-token cases protect compounds and names.
 const whole=new Set(['구지','요세','어제께','거에요','일부로','나무래','찌게','떡볶기','효률','규률','률동']);
-const excluded=new Set(['간간히','번번히','지긋히','나무랬','가르켜 주','곤욕스럽','곤혹을 치르','어떻하','어제께','일부로','떡볶기']);
-for(const line of pairs.split('\n')){const [pattern,replacement]=line.split('|');if(pattern===replacement||excluded.has(pattern)||rules.some(r=>r.pattern===pattern))continue;rules.push({id:`spelling-${rules.length+1}`,pattern,replacement,reason:`이 문맥에서는 '${replacement}'로 적습니다.`,example:`${pattern} → ${replacement}`,category:'자주 틀리는 말',boundary:whole.has(pattern)?'word':'none',positive:pattern,negative:replacement});}
+const excluded=new Set(['간간히','번번히','지긋히','나무랬','가르켜 주','곤욕스럽','곤혹을 치르','어떻하','어제께','일부로','떡볶기','꺼림직','오손도손','건들지 마','싫증나다']);
+// Patterns that also spell correct words: limit the match or leave the choice to the user.
+const tuned={'절때':{boundary:'left'},'금새':{boundary:'left'},'희안':{boundary:'left'},'않되':{auto:false},'갈려고':{auto:false},'줄려고':{auto:false},'쓸려고':{auto:false},'예기했':{auto:false},'제작년':{regex:true,match:'제작년(?!도)'}};
+for(const line of pairs.split('\n')){const [pattern,replacement]=line.split('|');if(pattern===replacement||excluded.has(pattern)||rules.some(r=>r.pattern===pattern))continue;const t=tuned[pattern]||{};rules.push({id:`spelling-${rules.length+1}`,pattern:t.match||pattern,...(t.regex?{regex:true}:{}),replacement,reason:`이 문맥에서는 '${replacement}'로 적습니다.`,example:`${pattern} → ${replacement}`,category:'자주 틀리는 말',boundary:t.boundary||(whole.has(pattern)?'word':'none'),...(t.auto===false?{auto:false}:{}),positive:pattern,negative:replacement});}
 // Each phrase has its own editable JSON entry and a positive/negative regression fixture.
 for(const modifier of ['할','될','갈','올','볼','쓸','줄','읽을','받을','먹을','있을','없을','만들','찾을','보낼','확인할','참여할','제출할','신청할','방문할','사용할','준비할','선택할','참석할','진행할','변경할','안내할','연락할','도착할','출발할','배울','도울']){
  for(const [ending,spaced] of [['수있','수 있'],['수없','수 없'],['때','때'],['것','것'],['뿐','뿐']]){
   const pattern=modifier+ending,replacement=modifier+' '+spaced;
   if(rules.some(r=>r.pattern===pattern))continue;
   const tail=ending==='때'?'입니다':ending==='것'?'입니다':ending==='뿐'?'입니다':'습니다';
-  rules.push({id:`spacing-${rules.length+1}`,pattern,replacement,reason:`의존 명사 '${ending.startsWith('수')?'수':ending}'는 앞말과 띄어 씁니다.`,example:`${pattern+tail} → ${replacement+tail}`,category:'띄어쓰기',boundary:'left',positive:pattern+tail,negative:replacement+tail});
+  const guard=ending==='뿐'?'(?!더러)':pattern==='볼때'?'(?!기)':'';
+  rules.push({id:`spacing-${rules.length+1}`,pattern:pattern+guard,...(guard?{regex:true}:{}),replacement,reason:`의존 명사 '${ending.startsWith('수')?'수':ending}'는 앞말과 띄어 씁니다.`,example:`${pattern+tail} → ${replacement+tail}`,category:'띄어쓰기',boundary:'left',positive:pattern+tail,negative:replacement+tail});
  }
 }
-for(const [pattern,note] of [['[가-힣]+로서','지위·자격에는 로서, 수단·방법에는 로써를 씁니다.'],['[가-힣]+로써','수단·방법에는 로써, 지위·자격에는 로서를 씁니다.'],['안 [가-힣]+','안은 부정을 나타내는 부사이고, 않은 아니하다의 준말입니다. 문맥을 확인하세요.'],['[가-힣]*않[가-힣]*','않은 아니하다의 준말입니다. 안과 구별하여 문맥을 확인하세요.'],['어떻게|어떡해','방법을 물을 때는 어떻게, 어떻게 해의 준말은 어떡해입니다.'],['[가-힣]+든지|[가-힣]+던지','선택에는 든지, 지난 일을 떠올릴 때는 던지를 씁니다.']])rules.push({id:`context-${rules.length+1}`,pattern,regex:true,replacement:null,reason:note,category:'확인 필요',auto:false,positive:pattern.startsWith('어떻게')?'어떻게 오셨어요?':pattern.startsWith('안 ')?'안 갑니다':pattern.includes('로서')?'교사로서':pattern.includes('로써')?'대화로써':pattern.includes('않')?'하지 않습니다':'가든지',negative:'학교에 갑니다.'});
+for(const [pattern,note] of [['(?<![가-힣])[가-힣]+로서','지위·자격에는 로서, 수단·방법에는 로써를 씁니다.'],['(?<![가-힣])[가-힣]+로써','수단·방법에는 로써, 지위·자격에는 로서를 씁니다.'],['(?<![가-힣])안 [가-힣]+','안은 부정을 나타내는 부사이고, 않은 아니하다의 준말입니다. 문맥을 확인하세요.'],['(?<![가-힣])[가-힣]*않[가-힣]*','않은 아니하다의 준말입니다. 안과 구별하여 문맥을 확인하세요.'],['(?<![가-힣])[가-힣]+(?:든지|던지)','선택에는 든지, 지난 일을 떠올릴 때는 던지를 씁니다.']])rules.push({id:`context-${rules.length+1}`,pattern,regex:true,replacement:null,reason:note,category:'확인 필요',auto:false,positive:pattern.includes('안 ')?'안 갑니다':pattern.includes('로서')?'교사로서':pattern.includes('로써')?'대화로써':pattern.includes('않')?'하지 않습니다':'가든지',negative:'학교에 갑니다.'});
 fs.mkdirSync(path.resolve(__dirname,'../src/rules'),{recursive:true});fs.writeFileSync(path.resolve(__dirname,'../src/rules/rules.json'),JSON.stringify({version:'1.0.0',rules},null,2)+'\n');
 console.log(`Created ${rules.length} rules`);

@@ -10,7 +10,8 @@ function xml(bytes) {
   const source = strFromU8(bytes);
   if (/<!DOCTYPE|<!ENTITY/i.test(source)) throw new Error('외부 엔티티가 포함된 XML은 읽을 수 없습니다.');
   const errors=[];
-  const doc=new DOMParser({onError:(level,msg)=>{ if(level!=='warning') errors.push(msg); }}).parseFromString(source,'text/xml');
+  let doc;
+  try { doc=new DOMParser({onError:(level,msg)=>{ if(level!=='warning') errors.push(msg); }}).parseFromString(source,'text/xml'); } catch(e) { errors.push(e.message); }
   if(errors.length || !doc.documentElement) throw new Error('문서 내부 XML이 손상되었습니다.');
   return doc;
 }
@@ -84,7 +85,7 @@ function parseXlsx(files) {
     for(const row of nodes(sd,'row')) {
       const cells=children(row,'c').map(c=>{
         const ref=c.getAttribute('r'),type=c.getAttribute('t'),f=children(c,'f')[0],v=children(c,'v')[0];
-        let value=type==='s'?(shared[Number(text(v))]??''):type==='inlineStr'?nodes(c,'t').map(t=>t.textContent||'').join(''):text(v);
+        let value=type==='s'?(v?shared[Number(text(v))]??'':''):type==='inlineStr'?nodes(c,'t').map(t=>t.textContent||'').join(''):text(v);
         if(type==='e') {warnings.push(`${sn}!${ref}: 엑셀 오류값 ${value}`);value='';}
         if(f&&!v) warnings.push(`${sn}!${ref}: 수식 결과가 없습니다. 엑셀에서 재계산 후 저장해 주세요.`);
         if(dateStyles.has(Number(c.getAttribute('s')))&&value&&type!=='s'&&type!=='inlineStr') value=excelDate(value,date1904);
