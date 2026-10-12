@@ -10,6 +10,6 @@ const {createUpdater}=require('../app/updater.cjs');
   const local=fs.readFileSync(releaseDir+'/'+a.name),digest='sha256:'+crypto.createHash('sha256').update(local).digest('hex');assert.equal(a.digest,digest);assert.equal(a.size,local.length);
   return {name:a.name,bytes:a.size,digest,status:head.status};
  }));assert.equal(assets.length,5);
- const updater=createUpdater({app:{isPackaged:true,getVersion:()=> version},isInstalled:false});const zipUpdate=await updater.check();assert.equal(zipUpdate.phase,'latest');
+ const updater=createUpdater({app:{isPackaged:true,getVersion:()=> version},isInstalled:false});const {origin:_origin,...zipUpdate}=await updater.check();assert.equal(zipUpdate.phase,'latest');
  const report={date:new Date().toISOString(),url:release.html_url,draft:release.draft,assets,zipUpdate};fs.writeFileSync('docs/RELEASE-PUBLICATION.json',JSON.stringify(report,null,2));console.log(report);
 })().catch(e=>{console.error(e);process.exitCode=1;});

@@ -82,3 +82,5 @@ NSIS 실제 설치 후 자동 업데이트 모드를 확인하는 과정에서 `
 - 무인 설치 후 `LICENSE.txt` 설치, 맞춤법 교정, 업데이트 모드, 제거 시 `LICENSE.txt` 삭제를 확인했다. `INSTALL-VERIFICATION.json`.
 - 공개 1.0.1 설치본(SHA-256 `0849a29e…`)을 설치한 위에 1.0.2를 덮어 설치해 버전 1.0.2, `LICENSE.txt`, 저작권 줄을 확인하고 제거했다.
 - 시험 중 만든 이용자 결과물(TXT·HTML 교정문, HWPX·XLSX 교정본, 압축 HWPX 19개)에 앱 코드의 출처 표식이 들어가지 않았음을 확인했다.
+- 공개 게시 후 5개 자산(설치형 EXE·ZIP·latest.yml·blockmap·SHA256SUMS.txt)의 다운로드 응답 200과 해시 일치를 확인했다. `RELEASE-PUBLICATION.json`.
+- 공개 1.0.1을 설치해 앱 안 업데이트 확인을 실행했다. 1.0.2를 찾고, 내려받은 뒤 electron-updater의 SHA-512 확인을 통과해 "재시작하여 설치" 단계(ready)까지 진행됨을 확인했다. 재시작 후 실제 교체는 덮어 설치 시험으로 갈음했다.

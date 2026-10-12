@@ -1,47 +1,47 @@
 {
-  "date": "2026-10-10T04:47:40.031Z",
-  "url": "https://github.com/HooniKims/ssen-doc/releases/tag/v1.0.1",
+  "date": "2026-10-12T04:19:38.382Z",
+  "url": "https://github.com/HooniKims/ssen-doc/releases/tag/v1.0.2",
   "draft": false,
   "assets": [
     {
       "name": "latest.yml",
       "bytes": 343,
-      "digest": "sha256:5c22904397e8dbe5d2e27a0c2ae186d0ca9315c95e900e9c136e4b6ea91e5284",
+      "digest": "sha256:2c65afded82056213137b132caff6bf4b7c61d1f1b23992f41a4ac4001affe96",
       "status": 200
     },
     {
       "name": "SHA256SUMS.txt",
       "bytes": 178,
-      "digest": "sha256:736d2be7da3aded2b6ff0ce2e2e134eca42eb002ea8e9e937999ae81b3c3d21d",
+      "digest": "sha256:d2d436f5d2e8b3b3d5bb399447a736fedea1d2715afd182ef60f006c1bec57f7",
       "status": 200
     },
     {
-      "name": "SsenDoc-1.0.1-x64.zip",
-      "bytes": 228410481,
-      "digest": "sha256:12c524fa67ead749287131d65968d622f39002ac10fd5fcffa850fb81729d3e6",
+      "name": "SsenDoc-1.0.2-x64.zip",
+      "bytes": 228414659,
+      "digest": "sha256:20b6249fc066d53d619af3d1dcefc615e95f488eb5afa9bceb4e20a7ea0bcd12",
       "status": 200
     },
     {
-      "name": "SsenDoc-Setup-1.0.1.exe",
-      "bytes": 184357956,
-      "digest": "sha256:0849a29e5ecf43f06f7c7f0d799363f8a2a712662318ce3a6232ec265d9a1727",
+      "name": "SsenDoc-Setup-1.0.2.exe",
+      "bytes": 184383697,
+      "digest": "sha256:240e208b7de18d752d3da81cd37b005b6380b280d4384dc8a4f618f862c9e585",
       "status": 200
     },
     {
-      "name": "SsenDoc-Setup-1.0.1.exe.blockmap",
-      "bytes": 192992,
-      "digest": "sha256:1f1fafed58243a9666d909935c39bca2c15ad0c60c205d730ece25c07cea2fa2",
+      "name": "SsenDoc-Setup-1.0.2.exe.blockmap",
+      "bytes": 193229,
+      "digest": "sha256:f679eeadbd0f607ef7be59d4d87a88fd80f9528beacaab5b8ce8f12a53452bdf",
       "status": 200
     }
   ],
   "zipUpdate": {
     "mode": "zip",
     "phase": "latest",
-    "current": "1.0.1",
+    "current": "1.0.2",
     "available": null,
     "progress": 0,
     "message": "최신 버전입니다.",
     "releaseUrl": "https://github.com/HooniKims/ssen-doc/releases/latest",
-    "checkedAt": 1791607660031
+    "checkedAt": 1791778778382
   }
 }
