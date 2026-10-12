@@ -9,7 +9,7 @@ const {sha256}=require('../src/ai/model-manager.cjs'),catalog=require('../src/ai
  try{
   await expect.poll(()=>app.windows().find(p=>p.url().endsWith('/app/index.html')&&!p.url().includes('/modules/'))?.url(),{timeout:30000}).toBeTruthy();
   const page=app.windows().find(p=>p.url().endsWith('/app/index.html')&&!p.url().includes('/modules/'));await page.waitForFunction(()=>document.documentElement.dataset.ready==='true');
-  await page.locator('#open-models').click();await page.locator('#model-download').click();
+  await page.waitForFunction(()=>document.documentElement.dataset.ready==='true');if(await page.locator('#model-dialog').isVisible())await page.locator('#model-skip').click();await page.locator('#open-models').click();await page.locator('#model-download').click();
   await expect.poll(()=>page.evaluate(async()=> (await window.doc.modelInfo()).received),{timeout:90000}).toBeGreaterThan(1024*1024);
   await page.locator('#model-pause').click();await expect(page.locator('#model-download')).toHaveText('다운로드 재개');
   const paused=await page.evaluate(()=>window.doc.modelInfo());assert.equal(paused.phase,'paused');report.checks.push({pauseBytes:paused.received});
