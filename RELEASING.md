@@ -1,5 +1,15 @@
 # 배포 절차
 
+1.1.0부터 공통 인증 서버의 `ssen-doc` 등록과 토큰 scope `doc` 지원을 확인한 뒤 게시합니다. 알 수 없으면 설치본·모의 시험·캡처까지 준비한 후 소유자에게 서버 작업 완료 여부를 한 번 확인합니다. 미확인 상태에서는 공개 릴리즈 및 자동 업데이트를 게시하지 않습니다.
+
+`npm run dist`는 인증용 Electron Chromium 네트워크 시험을 먼저 실행합니다. 빌드한 `app.asar`를 `SSENDOC_AUTH_APP_ROOT`로 지정해 `npm run test:ui`도 실행하세요. 테스트 fixture는 설치 파일에 포함되지 않습니다. 실제 공통 계정으로 OTP·PC 등록·교육용 인증·학교망 접속은 별도 확인합니다. 자세한 범위는 `docs/AUTH-INTEGRATION.md`를 참고하세요.
+
+1.1.0 최종 산출물은 `release/1.1.0-final/`에 있습니다. 이 PC에서 Electron 압축 해제 임시 폴더가 잠기는 문제가 발생해, 같은 버전의 설치된 런타임을 사용하여 `npm run dist -- --config.directories.output=release/1.1.0-final --config.electronDist=node_modules/electron/dist`로 빌드했습니다. 검증 스크립트에는 `SSENDOC_RELEASE_DIR=release/1.1.0-final`을 지정합니다. 이전 `release/1.1.0/` 시험 파일은 게시하지 않습니다.
+
+공통 인증 릴리즈 문구:
+
+> 쎈 시리즈 공통 계정으로 로그인합니다. 센스쿨(@senedu.kr) 이메일이면 무료입니다. 이미 다른 쎈 앱에서 인증했다면 따로 할 일이 없습니다.
+
 1. Windows x64, Node.js 24+에서 `npm ci`를 실행합니다. Rust 엔진을 빌드할 때는 Rust MSVC와 Visual Studio C++ 도구가 필요합니다.
 2. `package.json` 버전과 `CHANGELOG.md`, 화면 버전을 맞춥니다. 규칙 변경 시 `src/rules/rules.json`의 버전과 참·거짓 사례를 갱신합니다.
 3. `npm test`, `npm run test:ui`, `npm run test:ai`를 실행합니다. 모델 파일은 배포하지 않습니다.

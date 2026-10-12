@@ -1,6 +1,6 @@
 'use strict';
-module.exports=function registerModule(host, contents){
-const ipcMain={handle:(channel,fn)=>require('electron').ipcMain.handle('review:'+channel,fn)};
+module.exports=function registerModule(host, contents,registerIPC){
+const ipcMain={handle:(channel,fn)=>registerIPC('review:'+channel,fn)};
 const {app,dialog,shell}=require('electron');
 const fs=require('node:fs/promises'),path=require('node:path'),crypto=require('node:crypto');
 const {Worker}=require('node:worker_threads');

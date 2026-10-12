@@ -1,0 +1,10 @@
+#auth-slot { margin-left:auto; flex-shrink:0; -webkit-app-region:no-drag; }
+#authButton { font-family:inherit; white-space:nowrap; border:1px solid #b6cdbf; border-radius:9px; padding:8px 14px; }
+.page-header { gap:12px; }
+#authDialog { font-family:inherit; max-height:calc(100vh - 90px); overflow:auto; }
+#authDialog input, #authDialog button { font-family:inherit; }
+#authBar { bottom:46px; z-index:30; font-family:inherit; }
+body.auth-protected main { padding-bottom:112px; }
+#authDialog .dialog-head { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+#authDialog button { border:1px solid #bfd1c4; border-radius:8px; padding:8px 14px; background:#f5f8f3; color:#214c38; }
+#authDialog button.primary { background:#236959; color:white; }

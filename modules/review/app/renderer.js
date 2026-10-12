@@ -1,3 +1,7 @@
+'use strict';
+void startAuth();
+import {canEdit,requireEdit} from '../../../app/auth/auth-ui.mjs';
+import {startAuth} from '../../../app/auth-setup.mjs';
 const $=s=>document.querySelector(s);
 const icons={layers:'M12 3 2 8l10 5 10-5-10-5ZM2 12l10 5 10-5M2 16l10 5 10-5',book:'M4 3h12a3 3 0 0 1 3 3v15H6a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3Zm-1 15a3 3 0 0 1 3-3h13M7 7h8M7 10h6',shield:'M12 3 4 6v6c0 5 8 9 8 9s8-4 8-9V6l-8-3Zm-4 9 3 3 5-6',lock:'M7 10V7a5 5 0 0 1 10 0v3M5 10h14v11H5V10Zm7 4v3',plus:'M12 5v14M5 12h14',check:'m5 12 4 4L19 6',search:'M21 21l-5-5M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z',sparkles:'m12 3 2.7 6.3L21 12l-6.3 2.7L12 21l-2.7-6.3L3 12l6.3-2.7L12 3ZM21 2v4M19 4h4',compare:'M4 5h6v14H4V5Zm10 0h6v14h-6V5ZM7 8v2m10 4v2M9 12h6',download:'M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5',alert:'m12 3 10 18H2L12 3Zm0 6v5m0 3v.1',file:'M5 2h9l5 5v15H5V2Zm9 0v6h5M8 12h8M8 16h6',pin:'M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0ZM12 7a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z'};
 icons.settings='M4 7h16M4 17h16M8 4v6M16 14v6';
@@ -48,7 +52,7 @@ function evidenceHtml(e){return `<div class="evidence"><div class="evidence-top"
 let editContext=null,editRequest=0,editSaving=false;
 const editError=message=>{$('#edit-error').textContent=message;$('#edit-error').hidden=!message;};
 function updateEditButton(){$('#edit-save').disabled=editSaving||!editContext?.token||!$('#edit-text').value.trim()||$('#edit-text').value===editContext.text;}
-async function openEdit(id,location){
+async function openEdit(id,location){if(!requireEdit())return;
   if(busy)return;const request=++editRequest;editContext={id,location};
   $('#edit-fields').hidden=true;$('#edit-save').disabled=true;$('#edit-text').value='';editError('');$('#edit-location').textContent='수정할 원문을 확인하고 있습니다.';$('#edit-dialog').showModal();
   try{const result=await window.moa.prepareEdit(id,location);if(request!==editRequest||!$('#edit-dialog').open)return;
@@ -58,12 +62,14 @@ async function openEdit(id,location){
     $('#edit-text').setAttribute('inputmode',result.type==='number'?'decimal':'text');$('#edit-fields').hidden=false;$('#edit-text').focus();
   }catch(e){if(request===editRequest)editError(e.message);}
 }
+document.addEventListener('sen-auth-change',()=>{$('#edit-text').readOnly=!canEdit();});
+$('#edit-text').addEventListener('beforeinput',e=>{if(!requireEdit())e.preventDefault();});
 $('#edit-text').oninput=()=>{editError('');updateEditButton();};
 $('#edit-close').onclick=$('#edit-cancel').onclick=()=>{if(!editSaving)$('#edit-dialog').close();};
 $('#edit-dialog').addEventListener('cancel',e=>{if(editSaving)e.preventDefault();});
 $('#edit-dialog').addEventListener('close',()=>{editRequest++;editContext=null;});
 $('#edit-source').onclick=async()=>{const result=await window.moa.openSource(editContext?.id);if(result.error)editError(result.error);};
-$('#edit-save').onclick=async()=>{
+$('#edit-save').onclick=async()=>{if(!requireEdit())return;
   if(editSaving||!editContext?.token)return;const context=editContext;editSaving=true;updateEditButton();editError('');
   for(const id of ['edit-close','edit-cancel','edit-source','edit-text'])$('#'+id).disabled=true;$('#edit-save').textContent='저장 중…';
   try{const result=await window.moa.saveEdit(context.token,$('#edit-text').value);
@@ -108,7 +114,7 @@ function page(guide){$('#review-page').hidden=guide;$('#guide-page').hidden=!gui
 $('#nav-review').onclick=()=>page(false);$('#nav-guide').onclick=()=>page(true);$('.brand').onclick=e=>{e.preventDefault();page(false);};
 $('#new-task').onclick=()=>{if(busy)return;if(files.length)$('#reset-dialog').showModal();else page(false);};
 $('#reset-cancel').onclick=()=>$('#reset-dialog').close();$('#reset-confirm').onclick=()=>{files=[];filter='all';$('#search').value='';$('#pending-only').checked=false;document.querySelectorAll('[data-filter]').forEach(b=>b.classList.toggle('active',b.dataset.filter==='all'));invalidate();notice([]);page(false);$('#reset-dialog').close();};
-$('#export').onclick=()=>$('#export-dialog').showModal();for(const type of ['html','csv'])$('#export-'+type).onclick=async()=>{$('#export-dialog').close();const r=await window.moa.exportReport(type,statuses);if(r.error)toast(r.error);else if(r.ok)toast(`저장했어요: ${r.path}`);};
-$('#save-samples').onclick=async()=>{const r=await window.moa.exportSamples();if(r.error)toast(r.error);else if(r.ok)toast(`예제를 저장했어요: ${r.path}`);};
+$('#export').onclick=()=>{if(!requireEdit())return;$('#export-dialog').showModal();};for(const type of ['html','csv'])$('#export-'+type).onclick=async()=>{if(!requireEdit())return;$('#export-dialog').close();const r=await window.moa.exportReport(type,statuses);if(r.error)toast(r.error);else if(r.ok)toast(`저장했어요: ${r.path}`);};
+$('#save-samples').onclick=async()=>{if(!requireEdit())return;const r=await window.moa.exportSamples();if(r.error)toast(r.error);else if(r.ok)toast(`예제를 저장했어요: ${r.path}`);};
 $('#minimize').onclick=()=>window.moa.minimize();$('#maximize').onclick=()=>window.moa.maximize();$('#close').onclick=()=>window.moa.close();
 render();

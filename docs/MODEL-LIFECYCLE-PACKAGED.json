@@ -1,9 +1,10 @@
 {
   "packaged": true,
-  "started": "2026-10-10T01:29:50.755Z",
+  "authentication": "external mock fixture; real shared account untouched",
+  "started": "2026-10-12T12:04:35.608Z",
   "checks": [
     {
-      "pauseBytes": 5952468
+      "pauseBytes": 47330852
     },
     "real download, pause, resume, SHA-256 verified",
     {
@@ -13,5 +14,5 @@
     "redownload after deletion verified",
     "real GGUF direct import verified"
   ],
-  "completed": "2026-10-10T01:31:07.048Z"
+  "completed": "2026-10-12T12:05:45.319Z"
 }

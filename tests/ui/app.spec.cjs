@@ -1,7 +1,7 @@
 'use strict';
 const {test,expect,_electron}=require('@playwright/test');const fs=require('node:fs/promises'),path=require('node:path'),os=require('node:os');const {zipSync,strToU8}=require('fflate');
 let electron,page,profile,errors;
-test.beforeEach(async()=>{profile=await fs.mkdtemp(path.join(os.tmpdir(),'ssendoc-ui-'));const env={...process.env,SSENDOC_TEST_DATA:profile,SSENDOC_TEST_HIDDEN:'1'};delete env.ELECTRON_RUN_AS_NODE;electron=await _electron.launch({args:[path.resolve(__dirname,'../..')],env});errors=[];electron.on('window',p=>p.on('pageerror',e=>errors.push(e.message)));await expect.poll(()=>electron.windows().find(p=>p.url().endsWith('/app/index.html')&&!p.url().includes('/modules/'))?.url(),{timeout:30000}).toBeTruthy();page=electron.windows().find(p=>p.url().endsWith('/app/index.html')&&!p.url().includes('/modules/'));await page.waitForSelector('#scan');await expect(page.locator('#model-dialog')).toBeVisible();await expect(page.locator('#model-dialog')).toContainText('선택 사항');await expect(page.locator('#model-dialog')).toContainText('비용 없음');await page.locator('#model-skip').click();});
+test.beforeEach(async()=>{profile=await fs.mkdtemp(path.join(os.tmpdir(),'ssendoc-ui-'));const env={...process.env,SSENDOC_TEST_DATA:profile,SSENDOC_TEST_HIDDEN:'1'};delete env.ELECTRON_RUN_AS_NODE;electron=await _electron.launch({args:[path.resolve(__dirname,'../fixtures/auth-launch.cjs')],env});errors=[];electron.on('window',p=>p.on('pageerror',e=>errors.push(e.message)));await expect.poll(()=>electron.windows().find(p=>p.url().endsWith('/app/index.html')&&!p.url().includes('/modules/'))?.url(),{timeout:30000}).toBeTruthy();page=electron.windows().find(p=>p.url().endsWith('/app/index.html')&&!p.url().includes('/modules/'));await page.waitForSelector('#scan');await page.waitForFunction(()=>document.documentElement.dataset.ready==='true');await expect(page.locator('#model-dialog')).toBeHidden();});
 test.afterEach(async()=>{if(electron){await electron.evaluate(({BrowserWindow})=>{for(const w of BrowserWindow.getAllWindows()){w.removeAllListeners('close');w.destroy();}}).catch(()=>{});await electron.close().catch(()=>{});}expect(errors).toEqual([]);});
 test('paste → spell and spacing → apply → copy → undo → text/HTML save',async()=>{
  const text='내일 체험학습에 참여할수있습니다. 회의가 됬어요. 왠지 기분이 좋고 깍두기를 먹어요.';
@@ -24,3 +24,14 @@ test('settings dialog shows copyright and toggles the license text',async()=>{
 test('renderer network blocked and AI management controls are present',async()=>{
  const blocked=await page.evaluate(async()=>{try{await fetch('https://example.com/?text=synthetic-test');return false;}catch{return true;}});expect(blocked).toBe(true);await page.locator('#open-models').click();await expect(page.locator('#model-download')).toBeEnabled();await expect(page.locator('#model-import')).toBeEnabled();await expect(page.locator('#model-delete')).toBeDisabled();await expect(page.locator('#model-options input')).toHaveCount(1);await expect(page.locator('#model-options input')).toHaveValue('qwen3-0.6b');await expect(page.locator('#model-options input')).toBeChecked();await expect(page.locator('#model-dialog')).toContainText('약 400MB');await expect(page.locator('#model-dialog')).not.toContainText('EXAONE');await page.screenshot({path:'docs/ui-models.png',fullPage:true});
 });
+test('local AI stays optional on startup, basic scan, skip and reload',async()=>{
+ await expect(page.locator('#model-dialog')).toBeHidden();await expect(page.locator('#ai-scan')).toHaveText('AI 검사 켜기 (선택)');
+ await page.locator('#text-input').fill('회의가 됬어요.');await page.locator('#scan').click();await expect(page.locator('#issue-count')).not.toHaveText('0');
+ await expect(page.locator('#model-dialog')).toBeHidden();expect(await appDownloadCalls()).toBe(0);
+ await page.locator('#ai-scan').click();await expect(page.locator('#model-dialog')).toBeVisible();await expect(page.locator('#model-dialog')).toContainText('선택 사항');
+ await expect(page.locator('#model-download')).toBeEnabled();await expect(page.locator('#model-skip')).toBeVisible();expect(await appDownloadCalls()).toBe(0);
+ await page.screenshot({path:'docs/ui-ai-optional.png',fullPage:true});await page.locator('#model-skip').click();
+ await page.reload();await page.waitForFunction(()=>document.documentElement.dataset.ready==='true');await expect(page.locator('#model-dialog')).toBeHidden();expect(await appDownloadCalls()).toBe(0);
+ expect((await page.evaluate(()=>window.doc.modelInfo())).phase).toBe('idle');
+});
+async function appDownloadCalls(){return electron.evaluate(()=>globalThis.__authFixture.modelDownloadCalls);}

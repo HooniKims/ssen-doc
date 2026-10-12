@@ -11,3 +11,13 @@ contextBridge.exposeInMainWorld('doc',{
  updateState:()=>invoke('update:state'),checkUpdate:()=>invoke('update:check'),downloadUpdate:()=>invoke('update:download'),installUpdate:()=>invoke('update:install'),openRelease:()=>invoke('update:release'),licenseText:()=>invoke('license:text'),onUpdate:callback=>on('update:state',callback),
  minimize:()=>ipcRenderer.send('window:minimize'),maximize:()=>ipcRenderer.send('window:maximize'),close:()=>ipcRenderer.send('window:close')
 });
+
+contextBridge.exposeInMainWorld('desktop',{
+ authInfo:()=>ipcRenderer.invoke('auth:info'),
+ authCommand:(action,args={})=>ipcRenderer.invoke('auth-command',action,args),
+ authorizeEdit:()=>ipcRenderer.invoke('edit:authorize'),
+ onAuthState:callback=>{const fn=(_e,s)=>callback(s);ipcRenderer.on('auth-state',fn);return()=>ipcRenderer.removeListener('auth-state',fn);},
+ onAuthRequired:callback=>{const fn=()=>callback();ipcRenderer.on('auth-required',fn);return()=>ipcRenderer.removeListener('auth-required',fn);},
+ copyText:text=>ipcRenderer.invoke('copy-text',text),
+ openExternal:url=>ipcRenderer.invoke('open-external',url)
+});

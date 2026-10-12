@@ -1,0 +1,3 @@
+# Preserve the supplied common-auth kit exactly, including its line endings.
+app/auth/* -text
+tests/auth-kit/SHA256SUMS.txt -text

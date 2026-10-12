@@ -3,9 +3,9 @@ const { _electron,expect }=require('@playwright/test'),fs=require('node:fs/promi
 const {sha256}=require('../src/ai/model-manager.cjs'),catalog=require('../src/ai/models.json').models[0];
 (async()=>{
  const profile=path.resolve('_workspace/model-lifecycle-'+Date.now());await fs.mkdir(profile,{recursive:true});
- const env={...process.env,SSENDOC_TEST_DATA:profile,SSENDOC_TEST_HIDDEN:process.argv.includes('--packaged')?'':'1'};delete env.ELECTRON_RUN_AS_NODE;
- const packaged=process.argv.includes('--packaged');const app=await _electron.launch({...(packaged?{executablePath:path.resolve(process.env.SSENDOC_RELEASE_DIR||'release','win-unpacked/SsenDoc.exe'),args:[]}:{args:[path.resolve('.')]}),env});
- const report={packaged,started:new Date().toISOString(),checks:[]};
+ const env={...process.env,SSENDOC_TEST_DATA:profile,SSENDOC_TEST_HIDDEN:'1'};delete env.ELECTRON_RUN_AS_NODE;
+ const packaged=process.argv.includes('--packaged');if(packaged)env.SSENDOC_AUTH_APP_ROOT=path.resolve(process.env.SSENDOC_RELEASE_DIR||'release','win-unpacked/resources/app.asar');const app=await _electron.launch({args:[path.resolve('tests/fixtures/auth-launch.cjs')],env});
+ const report={packaged,authentication:"external mock fixture; real shared account untouched",started:new Date().toISOString(),checks:[]};
  try{
   await expect.poll(()=>app.windows().find(p=>p.url().endsWith('/app/index.html')&&!p.url().includes('/modules/'))?.url(),{timeout:30000}).toBeTruthy();
   const page=app.windows().find(p=>p.url().endsWith('/app/index.html')&&!p.url().includes('/modules/'));await page.waitForFunction(()=>document.documentElement.dataset.ready==='true');

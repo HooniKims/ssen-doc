@@ -1,7 +1,17 @@
 'use strict';
+void startAuth();
+import {canEdit,requireEdit} from '../../../app/auth/auth-ui.mjs';
+import {startAuth} from '../../../app/auth-setup.mjs';
 const $=id=>document.getElementById(id),files=new Map(),results=new Map();
 let busy=false,progressFile=null,finished=0,dragDepth=0;
 let mode='quality',reduction=50,lastTotal=-1,targetValid=true;
+// Draft compression settings are protected too; picking files remains available.
+for(const event of ['click','keydown','beforeinput'])document.addEventListener(event,e=>{
+ if(e.target.closest('#quality-options,#mode-options,#target-options,#convert-png')&&!canEdit()){
+  if(event==='keydown'&&['Tab','Escape'].includes(e.key))return;
+  if(!requireEdit()){e.preventDefault();e.stopImmediatePropagation();}
+ }
+},true);
 const conversion={quality:false,target:true};
 const totalBytes=()=>[...files.values()].reduce((n,f)=>n+f.size,0);
 function syncTarget(source){
@@ -53,7 +63,7 @@ $('nav-review').onclick=()=>showPage('review');$('nav-guide').onclick=()=>showPa
 $('new-task').onclick=async()=>{const r=await window.lite.clear();if(r.error)return notice(r.error);files.clear();results.clear();notice('');$('run-status').textContent='선택한 품질로 새 문서를 저장합니다.';$('summary-status').textContent='처리할 준비가 되었어요';render();showPage('review');};
 $('quality-options').onchange=()=>{const value=document.querySelector('[name=quality]:checked').value;$('quality-hint').textContent=hints[value]+' · 작은 이미지는 확대하지 않습니다.';};
 function folder(result){if(result.error)return notice(result.error);$('folder-label').textContent=result.path||'각 원본 문서가 있는 폴더';$('reset-folder').hidden=!result.path;}
-$('choose-folder').onclick=async()=>folder(await window.lite.chooseFolder());$('reset-folder').onclick=async()=>folder(await window.lite.resetFolder());
+$('choose-folder').onclick=async()=>{if(!requireEdit())return;folder(await window.lite.chooseFolder());};$('reset-folder').onclick=async()=>{if(!requireEdit())return;folder(await window.lite.resetFolder());};
 $('document-list').onclick=async e=>{
   const button=e.target.closest('[data-action]'),row=e.target.closest('[data-id]');if(!button||!row)return;
   const id=row.dataset.id,action=button.dataset.action;
@@ -64,7 +74,7 @@ $('document-list').onclick=async e=>{
     $('detail-dialog').showModal();
   }else{const r=await(action==='open'?window.lite.openResult(id):window.lite.showResult(id));if(r.error)notice(r.error);}
 };
-$('start').onclick=async()=>{
+$('start').onclick=async()=>{if(!requireEdit())return;
   if(busy||!files.size||(mode==='target'&&!targetValid))return;busy=true;results.clear();finished=0;notice('');$('task-progress').value=0;$('cancel').disabled=false;$('cancel').textContent='작업 중지';$('run-status').textContent='문서를 읽고 있습니다.';$('summary-status').textContent='문서를 처리하고 있어요';render();
   try{
     const response=await window.lite.start([...files.keys()],{mode,preset:document.querySelector('[name=quality]:checked').value,targetRatio:1-reduction/100,convertOpaquePng:$('convert-png').checked});
