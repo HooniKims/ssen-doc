@@ -1,6 +1,6 @@
 {
-  "version": "1.0.2",
-  "date": "2026-10-12T04:12:03.658Z",
+  "version": "1.0.3",
+  "date": "2026-10-12T05:14:33.764Z",
   "checkedFiles": 78,
   "nativeVariants": [
     "win-x64"
@@ -8,14 +8,14 @@
   "modelsBundled": false,
   "artifacts": [
     {
-      "name": "SsenDoc-1.0.2-x64.zip",
-      "bytes": 228414659,
-      "sha256": "20b6249fc066d53d619af3d1dcefc615e95f488eb5afa9bceb4e20a7ea0bcd12"
+      "name": "SsenDoc-1.0.3-x64.zip",
+      "bytes": 228414926,
+      "sha256": "ae4a18b6df8cc61ecd5716abc053eb1d8004bc759fd4bbf71c0f2f52694654bf"
     },
     {
-      "name": "SsenDoc-Setup-1.0.2.exe",
-      "bytes": 184383697,
-      "sha256": "240e208b7de18d752d3da81cd37b005b6380b280d4384dc8a4f618f862c9e585"
+      "name": "SsenDoc-Setup-1.0.3.exe",
+      "bytes": 184364863,
+      "sha256": "c6b58f8d30d2cf844eaa4a23719b132a6f2d3a65da2afb52a7376c1d0e150362"
     }
   ]
 }
