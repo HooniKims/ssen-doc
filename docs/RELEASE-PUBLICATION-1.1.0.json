@@ -1,0 +1,46 @@
+{
+    "version":  "1.1.0",
+    "verifiedAt":  "2026-10-12T12:30:21.7831008Z",
+    "url":  "https://github.com/HooniKims/ssen-doc/releases/tag/v1.1.0",
+    "draft":  false,
+    "assets":  [
+                   {
+                       "name":  "latest.yml",
+                       "bytes":  343,
+                       "digest":  "sha256:9847b49997ae92c0f75ab5f7bafb9c91d3cb24ce676d6e2c5d24f44b972601f2",
+                       "state":  "uploaded"
+                   },
+                   {
+                       "name":  "SHA256SUMS.txt",
+                       "bytes":  178,
+                       "digest":  "sha256:870a214b0846d21fdb87490871e849decb206c6f788202b91d9dd2bc9dca3802",
+                       "state":  "uploaded"
+                   },
+                   {
+                       "name":  "SsenDoc-1.1.0-x64.zip",
+                       "bytes":  228534594,
+                       "digest":  "sha256:378ef166eb38c563ad68a21ca9a6997acee8d8339a984ad9aee0b30b3c3d197b",
+                       "state":  "uploaded"
+                   },
+                   {
+                       "name":  "SsenDoc-Setup-1.1.0.exe",
+                       "bytes":  184482944,
+                       "digest":  "sha256:f681f196bf39f5d6b6289cd0d9c6f56edd5717fe8461cf8a73d1d125e1346ad1",
+                       "state":  "uploaded"
+                   },
+                   {
+                       "name":  "SsenDoc-Setup-1.1.0.exe.blockmap",
+                       "bytes":  193450,
+                       "digest":  "sha256:b9bdeafb3b40e522cb0a7ac36556c55fb6eabb68bab13709d5d4da2743032e1b",
+                       "state":  "uploaded"
+                   }
+               ],
+    "verifiedScreenshots":  [
+                                "ui-auth.png",
+                                "ui-auth-protected.png",
+                                "ui-ai-recommendation.png",
+                                "ui-ai-optional.png"
+                            ],
+    "liveAuth":  "POST /license/token app=ssen-doc: HTTP 200; SCOPE to OK",
+    "fullRestartAutoUpdate":  "Not exercised in this release"
+}

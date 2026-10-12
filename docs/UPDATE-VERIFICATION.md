@@ -24,6 +24,8 @@
 
 **서버 확인 완료(21:25 KST):** 실제 `POST /license/token`에 `app: ssen-doc` 전송, HTTP 200 및 원본 키트의 `doc` 권한 검증 OK를 확인했다. 기존 공유 허가증의 `SCOPE` 상태는 갱신 후 해소됐다. 서버 지원 미확인으로 보류했던 조건을 충족했다. 요청·응답과 범위는 [서버 확인 기록](AUTH-SERVER-VERIFICATION.md)에 있다. 신규 계정 OTP 수신·교육용 자격 승인·신규 PC 등록·학교망 프록시 환경·다른 앱으로 로그아웃 반영은 별도 확인 대상이다.
 
+**공개 게시 완료(21:28 KST):** [v1.1.0 릴리즈](https://github.com/HooniKims/ssen-doc/releases/tag/v1.1.0)에 설치형 EXE·무설치 ZIP·업데이트 메타데이터·blockmap·SHA256SUMS를 게시했다. 업로드한 5개 파일의 GitHub SHA-256이 로컬 산출물과 모두 일치하며, 공개 latest가 1.1.0이고 릴리즈 캡처 4장의 공개 응답이 200인 것을 확인했다. `RELEASE-PUBLICATION-1.1.0.json`. 기존 설치판의 자동 다운로드 후 재시작 교체 전체 과정은 이번 게시에서 추가 시험하지 않았다.
+
 아래는 이전 버전의 검증 이력이다.
 
 검증일: 2026-10-10. Windows x64(10.0.26300), Node.js 24.13.0, Electron 44.7.0, electron-builder 26.15.3. 현재 프로젝트에 세 기능을 통합 구현한 뒤 별도 테스트 프로필과 합성 문서·기존 예제로 검증했다. 원본 쎈Pick·쎈Lite 작업 폴더는 수정하지 않았다.
