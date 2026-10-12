@@ -9,6 +9,7 @@ const fs=require('node:fs/promises'),path=require('node:path'),{_electron,expect
   await expect.poll(()=>view("document.documentElement.dataset.ready==='true'").catch(()=>false),{timeout:45000}).toBe(true);
   const info=await view('window.desktop.authInfo()');assert.equal(info.app,'doc');assert.equal(info.version,require('../package.json').version);
   assert.equal(await view("document.querySelector('#model-dialog').open"),false);assert.equal((await view('window.doc.modelInfo()')).phase,'idle');
+  assert.equal(await view("document.querySelector('#ai-recommendation').hidden"),false);
   await view("document.querySelector('#text-input').value='회의가 됬어요. 참석할수있습니다.';document.querySelector('#text-input').dispatchEvent(new Event('input'));document.querySelector('#scan').click()");
   await expect.poll(()=>view("Number(document.querySelector('#issue-count').textContent)")).toBeGreaterThan(0);
   const blocked=await view("Promise.all(['http://example.com','https://example.com'].map(async url=>{try{await fetch(url);return false;}catch{return true;}}))");assert.deepEqual(blocked,[true,true]);

@@ -25,6 +25,8 @@
 
 ![문서 열기와 검사는 가능한 작업 보호 모드](https://raw.githubusercontent.com/HooniKims/ssen-doc/v1.1.0/docs/ui-auth-protected.png)
 
+![첫 화면의 선택형 로컬 AI 추천과 건너뛰기](https://raw.githubusercontent.com/HooniKims/ssen-doc/v1.1.0/docs/ui-ai-recommendation.png)
+
 ![직접 선택한 경우에만 여는 AI 안내와 건너뛰기](https://raw.githubusercontent.com/HooniKims/ssen-doc/v1.1.0/docs/ui-ai-optional.png)
 
 ## 설치와 로컬 AI
@@ -34,7 +36,7 @@
 - Windows 10/11 x64. 기존 설치 식별자와 실행 파일 이름을 유지합니다.
 - AI 맞춤법 검사는 최초 1회 모델 다운로드(약 400MB)가 필요합니다. 규칙 기반 검사는 다운로드 없이 바로 사용 가능합니다.
 - Qwen3 0.6B Q4_K_M 한 가지만 제공합니다. 모델 파일은 설치 파일에 포함하지 않습니다. AI 제안은 하나씩 확인하고 적용하세요.
-- AI 안내창은 자동으로 뜨지 않습니다. **AI 검사 켜기 (선택)**를 누른 뒤 **AI 모델 다운로드**를 선택해야 받습니다. 건너뛰고 기본 검사만 사용할 수 있습니다.
+- 첫 화면에서 로컬 AI를 선택 사항으로 추천합니다. **다운로드 안내**를 눌러 내용을 확인한 뒤 **AI 모델 다운로드**를 직접 선택해야 받습니다. **지금은 건너뛰기**를 누르면 추천을 숨기며, 기본 검사를 계속 쓸 수 있습니다. 나중에 **AI 검사 켜기 (선택)** 또는 AI 모델 관리에서 받을 수 있습니다.
 - 코드 서명이 없어 SmartScreen 안내가 나타날 수 있습니다. 공식 출처와 첨부 SHA-256을 확인하세요.
 
 ## 확인할 점

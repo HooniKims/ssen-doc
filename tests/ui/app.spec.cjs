@@ -26,12 +26,20 @@ test('renderer network blocked and AI management controls are present',async()=>
 });
 test('local AI stays optional on startup, basic scan, skip and reload',async()=>{
  await expect(page.locator('#model-dialog')).toBeHidden();await expect(page.locator('#ai-scan')).toHaveText('AI 검사 켜기 (선택)');
+ await expect(page.locator('#ai-recommendation')).toBeVisible();await expect(page.locator('#ai-recommendation')).toContainText('선택 사항');await page.screenshot({path:'docs/ui-ai-recommendation.png',fullPage:true});
  await page.locator('#text-input').fill('회의가 됬어요.');await page.locator('#scan').click();await expect(page.locator('#issue-count')).not.toHaveText('0');
  await expect(page.locator('#model-dialog')).toBeHidden();expect(await appDownloadCalls()).toBe(0);
- await page.locator('#ai-scan').click();await expect(page.locator('#model-dialog')).toBeVisible();await expect(page.locator('#model-dialog')).toContainText('선택 사항');
+ await page.locator('#ai-recommendation-open').click();await expect(page.locator('#model-dialog')).toBeVisible();await expect(page.locator('#model-dialog')).toContainText('선택 사항');
  await expect(page.locator('#model-download')).toBeEnabled();await expect(page.locator('#model-skip')).toBeVisible();expect(await appDownloadCalls()).toBe(0);
  await page.screenshot({path:'docs/ui-ai-optional.png',fullPage:true});await page.locator('#model-skip').click();
  await page.reload();await page.waitForFunction(()=>document.documentElement.dataset.ready==='true');await expect(page.locator('#model-dialog')).toBeHidden();expect(await appDownloadCalls()).toBe(0);
  expect((await page.evaluate(()=>window.doc.modelInfo())).phase).toBe('idle');
+ await expect(page.locator('#ai-recommendation')).toBeHidden();
+});
+test('skipping the initial AI recommendation persists without a download and permits later setup',async()=>{
+ await expect(page.locator('#ai-recommendation')).toBeVisible();await page.locator('#ai-recommendation-skip').click();await expect(page.locator('#ai-recommendation')).toBeHidden();
+ await page.reload();await page.waitForFunction(()=>document.documentElement.dataset.ready==='true');await expect(page.locator('#ai-recommendation')).toBeHidden();await expect(page.locator('#model-dialog')).toBeHidden();
+ await page.locator('#text-input').fill('회의가 됬어요.');await page.locator('#scan').click();await expect(page.locator('#issue-count')).not.toHaveText('0');expect(await appDownloadCalls()).toBe(0);
+ await page.locator('#ai-scan').click();await expect(page.locator('#model-dialog')).toBeVisible();expect(await appDownloadCalls()).toBe(0);
 });
 async function appDownloadCalls(){return electron.evaluate(()=>globalThis.__authFixture.modelDownloadCalls);}

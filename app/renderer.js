@@ -3,7 +3,7 @@ import {startAuth} from './auth-setup.mjs';
 'use strict';
 (()=>{
 const $=id=>document.getElementById(id),api=window.doc,esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-let issues=[],selected=null,busy=false,model=null,settings={},before='',undo=[],doc=null,block=null,lastBlock=0,edits=new Map(),mode='text',pasteText='',savedEdits=new Map();
+let issues=[],selected=null,busy=false,model=null,settings={aiNoticeSeen:true},before='',undo=[],doc=null,block=null,lastBlock=0,edits=new Map(),mode='text',pasteText='',savedEdits=new Map();
 const checked=r=>{if(r?.error)throw Error(r.error);return r;};
 function notice(message){$('notice').textContent=message||'';$('notice').hidden=!message;}
 const action=fn=>async(...args)=>{try{await fn(...args);}catch(e){notice(e.message);}};
@@ -44,9 +44,12 @@ $('mode-document').onclick=action(async()=>{if(doc){documentMode();await selectB
 function renderBlocks(){if(!doc)return;$('document-blocks').innerHTML=doc.blocks.map((b,n)=>`<button class="doc-block ${block===n?'active':''}" data-block="${n}" ${busy?'disabled':''}><small>${esc(b.location)}</small><span>${esc(edits.get(n)??b.text)}</span>${edits.has(n)?`<b>${savedEdits.get(n)===edits.get(n)?'교정본에 저장됨':'수정됨 · 저장 전'}</b>`:b.issues.length?`<b>확인 ${b.issues.length}개</b>`:''}</button>`).join('');$('document-blocks').querySelectorAll('[data-block]').forEach(b=>b.onclick=action(()=>selectBlock(Number(b.dataset.block))));}
 async function selectBlock(index){if(busy)return;setBusy(true);try{const r=checked(await api.prepareBlock(index));block=index;lastBlock=index;doc.blocks[index].editable=r.editable;doc.blocks[index].editOriginal=r.text;setText(edits.get(index)??r.text);before=r.text;$('before').textContent=before;$('block-location').textContent=doc.blocks[index].location;$('edit-hint').hidden=false;$('edit-hint').textContent=r.hint;}finally{setBusy(false);}renderBlocks();await inspect();}
 $('save-document').onclick=action(async()=>{if(!requireEdit())return;setBusy(true);try{const r=checked(await api.saveDocument([...edits].map(([index,text])=>({index,text}))));if(r.ok){savedEdits=new Map(edits);renderBlocks();notice(`교정본을 저장했습니다: ${r.path}${r.recalculate?'\n엑셀에서 열어 수식을 다시 계산하세요.':''}${r.stalePreview?'\n한글에서 열어 미리보기를 갱신하세요.':''}\n원본은 그대로 보존했습니다.`);}}finally{setBusy(false);}});
-async function openModels(){renderModel(checked(await api.modelInfo()));if(!$('model-dialog').open)$('model-dialog').showModal();}
+async function dismissRecommendation(){if(!settings.aiNoticeSeen)settings=checked(await api.saveSettings({aiNoticeSeen:true}));$('ai-recommendation').hidden=true;}
+async function openModels(){await dismissRecommendation();renderModel(checked(await api.modelInfo()));if(!$('model-dialog').open)$('model-dialog').showModal();}
+$('ai-recommendation-open').onclick=action(openModels);$('ai-recommendation-skip').onclick=action(dismissRecommendation);
 const mb=n=>`${(n/1024**2).toFixed(1)}MB`;
 function renderModel(info){model=info;const working=['downloading','verifying','importing'].includes(info.phase);$('model-badge').textContent=info.installed?'로컬 AI 준비됨':'기본 검사 사용 중';$('ai-scan').disabled=busy;$('ai-scan').textContent=info.installed?'AI로 추가 검사':'AI 검사 켜기 (선택)';
+ $('ai-recommendation').hidden=Boolean(info.installed)||settings.aiNoticeSeen;
  if(!$('model-options').children.length)$('model-options').innerHTML=info.models.filter(m=>m.enabled).map(m=>`<label class="model-option"><input type="radio" name="model" value="${m.id}" ${m.id===info.recommended?'checked':''}> ${esc(m.name)}<small>약 400MB · CPU에서 실행</small></label>`).join('');
  $('memory-info').textContent=`이 PC의 메모리: ${info.memoryGB}GB · 검사 속도는 PC 성능에 따라 달라집니다.`;$('model-status').textContent=info.message;$('model-progress').value=info.percent||0;$('download-details').textContent=info.total?`${mb(info.received)} / ${mb(info.total)} · 남은 용량 ${mb(Math.max(0,info.total-info.received))}${info.eta?` · 약 ${Math.ceil(info.eta/60)}분 남음`:''}`:'';
  $('model-path').textContent=info.installed?`저장 위치: ${info.installed.path}`:'';$('model-download').disabled=working||Boolean(info.installed)||busy;$('model-download').textContent=info.phase==='paused'?'다운로드 재개':info.phase==='error'?'다운로드 재시도':'AI 모델 다운로드';$('model-pause').hidden=info.phase!=='downloading';$('model-import').disabled=working||busy;$('model-delete').disabled=working||busy||(!info.installed&&!['paused','error'].includes(info.phase));document.querySelector('#model-dialog .danger-zone').hidden=!info.installed&&!['paused','error'].includes(info.phase);
