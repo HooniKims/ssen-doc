@@ -19,6 +19,8 @@
 
 빌드 명령: `npm run dist -- --config.directories.output=release/1.2.0 --config.electronDist=node_modules/electron/dist`. 인증용 Chromium 네트워크 시험도 빌드 전 통과했다. 설치 파일 183,183,449바이트, ZIP 227,790,043바이트이며 SHA-256은 배포 폴더의 `SHA256SUMS.txt`와 패키지 검증 JSON에 기록했다.
 
+**공개 게시 완료(22:05 KST):** [v1.2.0 릴리즈](https://github.com/HooniKims/ssen-doc/releases/tag/v1.2.0)에 설치형·ZIP·업데이트 메타데이터·blockmap·SHA256SUMS를 게시했다. 5개 파일 모두 로컬과 GitHub SHA-256·크기가 일치하고 공개 다운로드 응답 200을 확인했다. 공개 latest는 1.2.0이며 릴리즈 캡처 4장도 모두 응답 200이다. `RELEASE-PUBLICATION-1.2.0.json`.
+
 캡처는 합성 문서와 모의 이용권으로 촬영했다. Windows의 모든 화면 배율·보조 모니터 조합은 확인하지 않았다. 기존 설치판의 자동 다운로드 → 재시작 교체 전체 과정은 별도 확인 대상이다.
 
 ## 1.1.0 공통 인증·선택형 AI — 2026-10-12
