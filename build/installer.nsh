@@ -1,7 +1,7 @@
 ; MoaReview's document-desk artwork and Korean installation flow.
 ; Keep electron-builder's installation, upgrade and elevation logic intact.
 !define MUI_BGCOLOR "FFFFFF"
-!define MUI_TEXTCOLOR "24312C"
+!define MUI_TEXTCOLOR "1F1F1F"
 !define MUI_WELCOMEFINISHPAGE_BITMAP_STRETCH "FitControl"
 !define MUI_HEADERIMAGE_BITMAP_STRETCH "FitControl"
 !define MUI_DIRECTORYPAGE_TEXT_TOP "그대로 설치하거나 다른 폴더를 선택하세요."
@@ -35,7 +35,7 @@
 
 !macro customHeader
   SetFont "Pretendard" 11
-  BrandingText "쎈doc · 학교 문서 도구"
+  BrandingText "쎈Doc · 학교 문서 도구"
 !macroend
 
 !macro customUnInit
@@ -45,37 +45,37 @@
 !macroend
 
 !macro customWelcomePage
-  !define MUI_WELCOMEPAGE_TITLE "쎈doc 설치"
+  !define MUI_WELCOMEPAGE_TITLE "쎈Doc 설치"
   !define MUI_WELCOMEPAGE_TEXT ""
   !define MUI_PAGE_CUSTOMFUNCTION_SHOW MoaWelcomeShow
   !insertmacro MUI_PAGE_WELCOME
   Function MoaWelcomeShow
     ShowWindow $mui.WelcomePage.Title ${SW_HIDE}
     ShowWindow $mui.WelcomePage.Text ${SW_HIDE}
-    !insertmacro MoaLabel 18 12 "학교 문서 도구" $MoaSmallFont "5A7A6C"
-    !insertmacro MoaLabel 39 36 "쎈doc 설치" $MoaTitleFont "173D33"
-    !insertmacro MoaLabel 86 50 "맞춤법 검사 · 문서 대조$\r$\n용량 줄이기를 한곳에서$\r$\n사용하세요." $MoaLeadFont "24312C"
-    !insertmacro MoaLabel 148 28 "HWPX · XLSX 지원$\r$\n문서 검사는 내 PC에서 진행합니다." $MoaSmallFont "52675D"
-    !insertmacro MoaLabel 182 12 "다음을 눌러 설치를 시작하세요." $MoaSmallFont "52675D"
+    !insertmacro MoaLabel 18 12 "학교 문서 도구" $MoaSmallFont "555555"
+    !insertmacro MoaLabel 39 36 "쎈Doc 설치" $MoaTitleFont "006241"
+    !insertmacro MoaLabel 86 50 "맞춤법 검사 · 문서 대조$\r$\n용량 줄이기를 한곳에서$\r$\n사용하세요." $MoaLeadFont "1F1F1F"
+    !insertmacro MoaLabel 148 28 "HWPX · XLSX 지원$\r$\n문서 검사는 내 PC에서 진행합니다." $MoaSmallFont "555555"
+    !insertmacro MoaLabel 182 12 "다음을 눌러 설치를 시작하세요." $MoaSmallFont "555555"
   FunctionEnd
   ; electron-builder inserts the license page (nsis.license) right after this macro.
-  !define MUI_PAGE_HEADER_TEXT "쎈doc 이용약관"
+  !define MUI_PAGE_HEADER_TEXT "쎈Doc 이용약관"
   !define MUI_PAGE_HEADER_SUBTEXT "설치하기 전에 이용약관을 확인해 주세요."
-  !define MUI_LICENSEPAGE_TEXT_TOP "쎈doc을 설치하기 전에 이용약관을 읽어 주세요."
+  !define MUI_LICENSEPAGE_TEXT_TOP "쎈Doc을 설치하기 전에 이용약관을 읽어 주세요."
   !define MUI_LICENSEPAGE_TEXT_BOTTOM "약관에 동의하면 [동의함]을 눌러 설치를 계속하세요."
 !macroend
 
 !macro customPageAfterChangeDir
-  !define MUI_PAGE_HEADER_TEXT "쎈doc을 설치하고 있습니다"
+  !define MUI_PAGE_HEADER_TEXT "쎈Doc을 설치하고 있습니다"
   !define MUI_PAGE_HEADER_SUBTEXT "프로그램 파일을 복사하고 있습니다. 잠시만 기다려 주세요."
   !define MUI_PAGE_CUSTOMFUNCTION_SHOW MoaProgressShow
   Function MoaProgressShow
     CreateFont $0 "Pretendard" 12 600
     SendMessage $mui.Header.Text ${WM_SETFONT} $0 1
-    SetCtlColors $mui.Header.Text "236959" "FFFFFF"
+    SetCtlColors $mui.Header.Text "00754A" "FFFFFF"
     FindWindow $1 "#32770" "" $HWNDPARENT
     GetDlgItem $1 $1 1004
-    SendMessage $1 0x409 0 0x596923
+    SendMessage $1 0x409 0 0x4A7500
   FunctionEnd
 !macroend
 
@@ -93,22 +93,22 @@
   !define MUI_FINISHPAGE_TEXT_LARGE
   !define MUI_FINISHPAGE_RUN
   !define MUI_FINISHPAGE_RUN_FUNCTION MoaStartApp
-  !define MUI_FINISHPAGE_RUN_TEXT "지금 쎈doc 열기"
-  !define MUI_FINISHPAGE_BUTTON "쎈doc 열기"
+  !define MUI_FINISHPAGE_RUN_TEXT "지금 쎈Doc 열기"
+  !define MUI_FINISHPAGE_BUTTON "쎈Doc 열기"
   !define MUI_PAGE_CUSTOMFUNCTION_SHOW MoaFinishShow
   !insertmacro MUI_PAGE_FINISH
   Function MoaFinishShow
     ShowWindow $mui.FinishPage.Title ${SW_HIDE}
     ShowWindow $mui.FinishPage.Text ${SW_HIDE}
     ShowWindow $mui.FinishPage.Run ${SW_HIDE}
-    !insertmacro MoaLabel 18 12 "설치 완료" $MoaSmallFont "5A7A6C"
-    !insertmacro MoaLabel 39 36 "준비가 끝났습니다" $MoaTitleFont "173D33"
-    !insertmacro MoaLabel 86 36 "글을 붙여 넣거나 문서를 불러와$\r$\n검사를 시작하세요." $MoaLeadFont "24312C"
-    !insertmacro MoaLabel 134 30 "‘예문 불러오기’로$\r$\n맞춤법 검사를 체험해 보세요." $MoaBodyFont "52675D"
-    ${NSD_CreateCheckbox} 120u 181u 195u 15u "지금 쎈doc 열기"
+    !insertmacro MoaLabel 18 12 "설치 완료" $MoaSmallFont "555555"
+    !insertmacro MoaLabel 39 36 "준비가 끝났습니다" $MoaTitleFont "006241"
+    !insertmacro MoaLabel 86 36 "글을 붙여 넣거나 문서를 불러와$\r$\n검사를 시작하세요." $MoaLeadFont "1F1F1F"
+    !insertmacro MoaLabel 134 30 "‘예문 불러오기’로$\r$\n맞춤법 검사를 체험해 보세요." $MoaBodyFont "555555"
+    ${NSD_CreateCheckbox} 120u 181u 195u 15u "지금 쎈Doc 열기"
     Pop $mui.FinishPage.Run
     SendMessage $mui.FinishPage.Run ${WM_SETFONT} $MoaBodyFont 1
-    SetCtlColors $mui.FinishPage.Run "24312C" "FFFFFF"
+    SetCtlColors $mui.FinishPage.Run "1F1F1F" "FFFFFF"
     SendMessage $mui.FinishPage.Run ${BM_SETCHECK} ${BST_CHECKED} 0
     ${NSD_OnClick} $mui.FinishPage.Run MoaRunChanged
   FunctionEnd
@@ -116,7 +116,7 @@
     Pop $0
     ${NSD_GetState} $mui.FinishPage.Run $0
     ${If} $0 == ${BST_CHECKED}
-      SendMessage $mui.Button.Next ${WM_SETTEXT} 0 "STR:쎈doc 열기"
+      SendMessage $mui.Button.Next ${WM_SETTEXT} 0 "STR:쎈Doc 열기"
     ${Else}
       SendMessage $mui.Button.Next ${WM_SETTEXT} 0 "STR:닫기"
     ${EndIf}

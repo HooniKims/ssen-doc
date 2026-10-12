@@ -11,5 +11,7 @@ const {createUpdater}=require('../app/updater.cjs');
   return {name:a.name,bytes:a.size,digest,status:head.status};
  }));assert.equal(assets.length,5);
  const updater=createUpdater({app:{isPackaged:true,getVersion:()=> version},isInstalled:false});const {origin:_origin,...zipUpdate}=await updater.check();assert.equal(zipUpdate.phase,'latest');
- const report={date:new Date().toISOString(),url:release.html_url,draft:release.draft,assets,zipUpdate};fs.writeFileSync('docs/RELEASE-PUBLICATION.json',JSON.stringify(report,null,2));console.log(report);
+ const imageUrls=[...new Set((release.body||'').match(/https:\/\/raw\.githubusercontent\.com\/HooniKims\/ssen-doc\/[^\s)]+\.png/g)||[])];assert.ok(imageUrls.length>=4,'Release must include screenshots');
+ const screenshots=await Promise.all(imageUrls.map(async url=>{const r=await fetch(url,{method:'HEAD'});assert.ok(r.ok,url);return {url,status:r.status};}));
+ const report={version,date:new Date().toISOString(),url:release.html_url,draft:release.draft,assets,zipUpdate,screenshots};fs.writeFileSync('docs/RELEASE-PUBLICATION.json',JSON.stringify(report,null,2));fs.writeFileSync(`docs/RELEASE-PUBLICATION-${version}.json`,JSON.stringify(report,null,2));console.log(report);
 })().catch(e=>{console.error(e);process.exitCode=1;});

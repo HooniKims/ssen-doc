@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-12T12:07:52.972Z",
+  "date": "2026-10-12T13:02:25.803Z",
   "installation": "NSIS silent install exit 0",
   "license": "LICENSE.txt installed",
   "executable": "C:\\Users\\user\\Desktop\\Coding\\261008_집중개발_프로토타입\\쎈mark\\_workspace\\install-test\\SsenDoc.exe",
@@ -9,12 +9,12 @@
   "liveUpdate": {
     "mode": "installed",
     "phase": "latest",
-    "current": "1.1.0",
+    "current": "1.2.0",
     "available": null,
     "progress": 0,
     "message": "최신 버전입니다.",
     "releaseUrl": "https://github.com/HooniKims/ssen-doc/releases/latest",
-    "checkedAt": 1791806872967
+    "checkedAt": 1791810145800
   },
   "uninstall": "exit 0; installed executable and LICENSE.txt removed"
 }

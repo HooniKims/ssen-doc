@@ -5,7 +5,7 @@ function run(file,args){return new Promise((resolve,reject)=>{const p=spawn(file
  const root=path.resolve('_workspace/install-test'),profile=path.resolve('_workspace/installed-profile');await fs.mkdir(root,{recursive:true});
  await run(path.resolve(process.env.SSENDOC_RELEASE_DIR||'release',`SsenDoc-Setup-${require('../package.json').version}.exe`),['/S','/D='+root]);
  const executable=path.join(root,'SsenDoc.exe');assert.ok((await fs.stat(executable)).size>1000000);const licenseFile=path.join(root,'LICENSE.txt');assert.deepEqual(await fs.readFile(licenseFile),await fs.readFile('build/LICENSE.txt'));
- const env={...process.env,SSENDOC_TEST_DATA:profile};delete env.ELECTRON_RUN_AS_NODE;delete env.SSENDOC_TEST_HIDDEN;
+ const env={...process.env,SSENDOC_TEST_DATA:profile,SSENDOC_TEST_HIDDEN:'1'};delete env.ELECTRON_RUN_AS_NODE;
  const app=await _electron.launch({executablePath:executable,args:[],env});let report;
  try{
   const view=code=>app.evaluate(async({webContents},script)=>{const w=webContents.getAllWebContents().find(w=>w.getURL().endsWith('/app/index.html')&&!w.getURL().includes('/modules/'));return w?.executeJavaScript(script);},code);

@@ -1,0 +1,22 @@
+쎈Doc 1.2.0 화면 글꼴
+
+Cafe24 PRO SLIM Air / Max — 카페24(주), SIL Open Font License 1.1.
+본문에는 Air(300), 제목에는 Max(700)를 사용합니다.
+공급처: https://fonts.cafe24.com
+원문: licenses/License-PRO SLIM Air.txt, licenses/License-PRO SLIM Max.txt,
+licenses/SIL-OFL-1.1.txt
+
+학교안심 자연 Regular — 한국교육학술정보원(KERIS), SIL Open Font License 1.1.
+버튼·메뉴·큰 숫자에 사용합니다.
+공급처와 라이선스: licenses/Hakgyoansim-Jayeon-OFL.txt
+
+글꼴은 기존 쎈 시리즈 로컬 배포 자료에서 가져왔으며 파일을 변형하지 않았습니다.
+세 파일을 앱 안에 포함하여 인터넷 연결 없이 사용합니다.
+디자인 가이드의 Bold 역할은 실제 제공된 Cafe24PROSlimMax.otf가 담당합니다.
+
+가나초콜릿체 — 로고 SVG의 윤곽선을 만드는 데만 사용합니다.
+Ghanachocolate.ttf는 설치 파일과 ZIP에 포함하지 않습니다.
+출처·이용 안내: Ghanachocolate-NOTICE.txt
+
+Pretendard — 설치 프로그램용 글꼴. 기존 라이선스 고지:
+Pretendard-LICENSE.txt

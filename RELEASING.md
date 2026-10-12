@@ -4,7 +4,7 @@
 
 `npm run dist`는 인증용 Electron Chromium 네트워크 시험을 먼저 실행합니다. 빌드한 `app.asar`를 `SSENDOC_AUTH_APP_ROOT`로 지정해 `npm run test:ui`도 실행하세요. 테스트 fixture는 설치 파일에 포함되지 않습니다. 실제 공통 계정으로 OTP·PC 등록·교육용 인증·학교망 접속은 별도 확인합니다. 자세한 범위는 `docs/AUTH-INTEGRATION.md`를 참고하세요.
 
-1.1.0 최종 산출물은 `release/1.1.0-recommended/`에 있습니다. 첫 화면의 선택형 AI 추천과 건너뛰기를 반영한 빌드입니다. 이 PC에서 Electron 압축 해제 임시 폴더가 잠기는 문제가 발생해, 같은 버전의 설치된 런타임을 사용하여 `npm run dist -- --config.directories.output=release/1.1.0-recommended --config.electronDist=node_modules/electron/dist`로 빌드합니다. 검증 스크립트에는 `SSENDOC_RELEASE_DIR=release/1.1.0-recommended`를 지정합니다. 이전 `release/1.1.0/`, `release/1.1.0-final/` 시험 파일은 게시하지 않습니다.
+1.2.0 산출물은 `release/1.2.0/`에 있습니다. 쎈 시리즈 디자인을 적용한 버전입니다. 이 PC에서 Electron 압축 해제 임시 폴더가 잠기는 문제가 발생해, 같은 버전의 설치된 런타임을 사용하여 `npm run dist -- --config.directories.output=release/1.2.0 --config.electronDist=node_modules/electron/dist`로 빌드합니다. 검증 스크립트에는 `SSENDOC_RELEASE_DIR=release/1.2.0`를 지정합니다. 로고·아이콘을 수정했다면 앱을 닫고 `npm run build:design`을 먼저 실행하세요. 패키지 검사에서 세 로컬 글꼴 포함과 가나초콜릿 TTF 제외도 확인합니다. 이전 1.1.0 최종 공개 빌드는 `release/1.1.0-recommended/`에 보관합니다.
 
 공통 인증 릴리즈 문구:
 

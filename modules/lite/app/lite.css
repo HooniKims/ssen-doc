@@ -78,8 +78,8 @@ legend { padding:0; font-size:13px; margin-bottom:12px; }
 .conversion-option b { font-size:12px; }
 .conversion-option small { display:block; font-size:11px; line-height:1.7; color:var(--muted); margin-top:5px; }
 .target-result { font-size:12px; margin:12px 0 0 46px; color:var(--accent-strong); }
-.target-result.missed { color:#8b581a; }
+.target-result.missed { color:var(--warn); }
 .target-result span { display:block; margin-top:4px; color:var(--muted); line-height:1.6; }
-.drag-overlay::after { content:'HWPX 문서를 놓아주세요'; position:fixed; inset:48px 16px 16px 210px; display:grid; place-items:center; background:#edf5eff5; border:2px dashed var(--accent); border-radius:24px; z-index:20; color:var(--accent-strong); font-size:27px; pointer-events:none; }
+.drag-overlay::after { content:'HWPX 문서를 놓아주세요'; position:fixed; inset:48px 16px 16px 210px; display:grid; place-items:center; background:color-mix(in srgb,var(--canvas) 96%,transparent); border:2px dashed var(--accent); border-radius:24px; z-index:20; color:var(--accent-strong); font-size:27px; pointer-events:none; }
 @media (max-width:1240px) { .lite-work-grid { grid-template-columns:minmax(0,1fr) 260px; gap:14px; } .summary-strip { gap:16px; } .summary-strip strong { font-size:20px; } .document-row { padding:16px 14px; } .document-size { font-size:12px; } .result-actions { gap:10px; } .drag-overlay::after { left:176px; } }
 @media (max-height:800px) { #review-page:not(.has-files) .heading-row { margin:0 0 16px; } .quality-option { padding:9px 11px; } .options-scroll { padding:12px 15px; } .destination { margin-top:12px; padding-top:12px; } .option-hint { margin-top:7px; } }

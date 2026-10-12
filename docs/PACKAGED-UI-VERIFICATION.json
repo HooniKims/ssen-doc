@@ -1,6 +1,6 @@
 {
-  "version": "1.1.0",
-  "date": "2026-10-12T12:20:56.563Z",
+  "version": "1.2.0",
+  "date": "2026-10-12T12:58:33.436Z",
   "productionExecutable": true,
   "authentication": "real native bridge; no OTP, login or logout performed",
   "checks": [

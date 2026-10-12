@@ -8,8 +8,9 @@ const {createAuthThrottle,fileCache}=require('./auth/auth-throttle.cjs');
 const {createRegistrar,validCommand,diagnosticReport}=require('./auth-policy.cjs');
 const {createUpdater,RELEASE_URL}=require('./updater.cjs');
 if(process.env.SSENDOC_TEST_DATA)app.setPath('userData',process.env.SSENDOC_TEST_DATA);
-app.setName('쎈doc');app.setAppUserModelId('kr.hoonikim.ssendoc');
-app.setAboutPanelOptions?.({applicationName:'쎈doc',copyright:'© 2026 상명초 김승현, 등촌중 김형훈',credits:'a6f5a881f68f'});
+if(!process.env.SSENDOC_TEST_DATA)app.setPath('userData',path.join(app.getPath('appData'),'쎈doc'));
+app.setName('쎈Doc');app.setAppUserModelId('kr.hoonikim.ssendoc');
+app.setAboutPanelOptions?.({applicationName:'쎈Doc',copyright:'© 2026 상명초 김승현, 등촌중 김형훈',credits:'a6f5a881f68f'});
 let host,current='spell',manager,managerReady,updater,settings={aiNoticeSeen:false,userWords:[]},documentSession=null,worker,taskId=0,closing=false;
 const views=new Map(),modules=[],pending=new Map(),ai=new LocalAI();
 function allowed(e){return [...views.values()].some(v=>e.sender===v.webContents&&e.senderFrame===v.webContents.mainFrame);}
@@ -36,7 +37,7 @@ app.whenReady().then(async()=>{
  const rendererSession=session.fromPartition('ssendoc-renderer');
  rendererSession.setPermissionRequestHandler((_w,_p,cb)=>cb(false));rendererSession.setPermissionCheckHandler(()=>false);
  rendererSession.webRequest.onBeforeRequest({urls:['http://*/*','https://*/*','ws://*/*','wss://*/*']},(_d,cb)=>cb({cancel:true}));
- host=new BrowserWindow({width:1440,height:960,minWidth:1120,minHeight:760,frame:false,show:false,backgroundColor:'#F2F0EB',icon:path.join(__dirname,'../assets/icon.ico'),webPreferences:{session:rendererSession,nodeIntegration:false,contextIsolation:true,sandbox:true}});
+ host=new BrowserWindow({width:1280,height:800,minWidth:1024,minHeight:700,frame:false,show:false,backgroundColor:'#F2F0EB',icon:path.join(__dirname,'../assets/icon.ico'),webPreferences:{session:rendererSession,nodeIntegration:false,contextIsolation:true,sandbox:true}});
  host.webContents.setWindowOpenHandler(()=>({action:'deny'}));host.webContents.on('will-navigate',e=>e.preventDefault());
  for(const name of ['spell','review','lite']){
   const dir=name==='spell'?__dirname:path.join(__dirname,'../modules',name,'app');const view=new WebContentsView({webPreferences:{session:rendererSession,preload:path.join(dir,'preload.cjs'),nodeIntegration:false,contextIsolation:true,sandbox:true,devTools:!app.isPackaged||process.env.SSENDOC_TEST_AUTOMATION==='1'}});views.set(name,view);resize();host.contentView.addChildView(view);view.setVisible(name==='spell');view.webContents.setWindowOpenHandler(()=>({action:'deny'}));view.webContents.on('will-navigate',e=>e.preventDefault());view.webContents.on('will-attach-webview',e=>e.preventDefault());
