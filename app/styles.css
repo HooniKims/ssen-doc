@@ -2,3 +2,10 @@
 
 main{padding-bottom:46px}footer{position:fixed;bottom:0;left:216px;right:0;z-index:2;background:var(--canvas);border-top:1px solid var(--hairline);padding:14px 12px}@media(max-width:1250px){footer{left:185px}}
 .ai-recommendation{margin-bottom:20px;padding:16px 18px;border:1px solid var(--btn-line);border-radius:12px;background:var(--ok-bg)}.ai-recommendation h2{font-size:15px}.ai-recommendation h2 small{margin-left:8px;font-size:11px;color:var(--ink-mute)}.ai-recommendation p{margin:8px 0 0;font-size:12px;color:var(--ink-mute)}.ai-recommendation .actions{padding:10px 0 0}.ai-recommendation .button{padding:8px 12px;font-size:12px}
+.result-summary{margin:0;padding:10px 20px;color:var(--info);font-size:12px;border-bottom:1px solid var(--hairline)}
+.repeat-count{float:right;font-size:12px;color:var(--info);padding:4px 0}
+.issue strong,.issue small,.issue-context{overflow-wrap:anywhere}
+.issue-context{white-space:pre-wrap}
+.issue-evidence{padding:12px 0}
+.issue-evidence small{display:block;color:var(--info)}
+.occurrences{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px}

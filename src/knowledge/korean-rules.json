@@ -1,0 +1,57 @@
+{
+  "version": "1.0.0",
+  "reviewedAt": "2026-10-18",
+  "description": "선별한 공식 자료의 자체 요약과 검사용 예문. 규정 전문이 아니며 예문은 앱에서 작성함.",
+  "entries": [
+    {
+      "id": "hangul-35",
+      "title": "한글 맞춤법 제35항 붙임 2 · 준말",
+      "kind": "spelling",
+      "source": "https://www.korean.go.kr/front/mcfaq/mcfaqView.do?mcfaq_seq=5827&mn_id=217&pageIndex=1",
+      "summary": "되어·되었은 돼·됐으로 줄일 수 있다. 뵈어도 봬로 줄어든다.",
+      "exceptions": "되어와 돼는 모두 가능하다. 되다·되고·되면의 되를 일괄 변경하지 않는다.",
+      "examples": [{"before":"회의가 됬어요.","after":"회의가 됐어요."},{"before":"내일 뵈요.","after":"내일 봬요."}],
+      "keep": ["준비되어 있습니다.","준비돼 있습니다.","잘되면 알려 주세요."]
+    },
+    {
+      "id": "hangul-42",
+      "title": "한글 맞춤법 제42항 · 의존 명사",
+      "kind": "spacing",
+      "source": "https://www.korean.go.kr/kornorms/m/m_regltn.do",
+      "summary": "의존 명사는 앞의 관형어와 분리한다. 가능성을 나타내는 수, 대상을 가리키는 것 등이 해당한다.",
+      "exceptions": "조사 뿐과 어미 -뿐더러 등은 의존 명사와 구별한다. 단어 안의 같은 글자에 적용하지 않는다.",
+      "examples": [{"before":"참여할수있습니다.","after":"참여할 수 있습니다."},{"before":"확인할것입니다.","after":"확인할 것입니다."}],
+      "keep": ["학생뿐입니다.","참여할뿐더러 돕습니다.","참여할 수 있습니다."]
+    },
+    {
+      "id": "hangul-53",
+      "title": "한글 맞춤법 제53항 · 어미 표기",
+      "kind": "spelling",
+      "source": "https://www.korean.go.kr/front/onlineQna/onlineQnaView.do?mn_id=216&pageIndex=1&qna_seq=314870",
+      "summary": "약속이나 의지를 나타내는 종결 어미 -(으)ㄹ게는 된소리 표기를 쓰지 않는다.",
+      "exceptions": "의문형 -ㄹ까와 높임 조사 께는 이 교정의 대상이 아니다.",
+      "examples": [{"before":"연락드릴께요.","after":"연락드릴게요."}],
+      "keep": ["선생님께 드립니다.","함께 갈까요?"]
+    },
+    {
+      "id": "hangul-47",
+      "title": "한글 맞춤법 제47항 · 보조 용언의 허용 표기",
+      "kind": "protection",
+      "source": "https://www.korean.go.kr/front/onlineQna/onlineQnaView.do?mn_id=27&qna_seq=331002",
+      "summary": "보조 용언은 분리하는 것이 원칙이지만 구성에 따라 붙이는 표기도 허용된다.",
+      "exceptions": "합성·파생 용언과 활용형 길이 등 조건을 확인해야 한다. 허용 표기를 단순히 원칙 표기로 바꾸지 않는다.",
+      "examples": [],
+      "keep": ["만들어 보다", "만들어보다"]
+    },
+    {
+      "id": "grammar-agreement",
+      "title": "문장 성분의 호응 · 국립국어원 한국어기초사전 참고",
+      "kind": "grammar",
+      "source": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=62602",
+      "summary": "서술어가 주어와 의미상 연결되는지 확인한다. 목표·목적을 설명하는 문장은 그 내용을 서술해야 한다.",
+      "exceptions": "이 항목은 문법 참고 자료이며 한글 맞춤법 조항이 아니다. 주제어 뒤에 다른 주어가 있다는 이유만으로 오류로 보지 않는다. 인용·제목·생략 문장은 교정하지 않는다.",
+      "examples": [{"before":"저의 목표는 학생들이 안전하게 귀가합니다.","after":"저의 목표는 학생들이 안전하게 귀가하는 것입니다."}],
+      "keep": ["저의 목표는 학생들이 안전하게 귀가하는 것입니다.","목표는 분명합니다.","이 목표는 학생들이 정합니다."]
+    }
+  ]
+}

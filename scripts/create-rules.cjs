@@ -340,5 +340,5 @@ for(const modifier of ['할','될','갈','올','볼','쓸','줄','읽을','받�
  }
 }
 for(const [pattern,note] of [['(?<![가-힣])[가-힣]+로서','지위·자격에는 로서, 수단·방법에는 로써를 씁니다.'],['(?<![가-힣])[가-힣]+로써','수단·방법에는 로써, 지위·자격에는 로서를 씁니다.'],['(?<![가-힣])안 [가-힣]+','안은 부정을 나타내는 부사이고, 않은 아니하다의 준말입니다. 문맥을 확인하세요.'],['(?<![가-힣])[가-힣]*않[가-힣]*','않은 아니하다의 준말입니다. 안과 구별하여 문맥을 확인하세요.'],['(?<![가-힣])[가-힣]+(?:든지|던지)','선택에는 든지, 지난 일을 떠올릴 때는 던지를 씁니다.']])rules.push({id:`context-${rules.length+1}`,pattern,regex:true,replacement:null,reason:note,category:'확인 필요',auto:false,positive:pattern.includes('안 ')?'안 갑니다':pattern.includes('로서')?'교사로서':pattern.includes('로써')?'대화로써':pattern.includes('않')?'하지 않습니다':'가든지',negative:'학교에 갑니다.'});
-fs.mkdirSync(path.resolve(__dirname,'../src/rules'),{recursive:true});fs.writeFileSync(path.resolve(__dirname,'../src/rules/rules.json'),JSON.stringify({version:'1.0.0',rules},null,2)+'\n');
+fs.mkdirSync(path.resolve(__dirname,'../src/rules'),{recursive:true});fs.writeFileSync(path.resolve(__dirname,'../src/rules/rules.json'),JSON.stringify({version:'1.1.0',rules},null,2)+'\n');
 console.log(`Created ${rules.length} rules`);

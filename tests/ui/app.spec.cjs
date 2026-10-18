@@ -43,3 +43,56 @@ test('skipping the initial AI recommendation persists without a download and per
  await page.locator('#ai-scan').click();await expect(page.locator('#model-dialog')).toBeVisible();expect(await appDownloadCalls()).toBe(0);
 });
 async function appDownloadCalls(){return electron.evaluate(()=>globalThis.__authFixture.modelDownloadCalls);}
+
+test('quiet spelling shows no dictionary guesses or generic context reminders',async()=>{
+ const corpus=require('../fixtures/spelling-quality.cjs');
+ await page.locator('#text-input').fill(corpus.correct.join('\n'));await page.locator('#scan').click();
+ await expect(page.locator('#notice')).toContainText('뚜렷한 오류를 찾지 못했습니다');
+ await expect(page.locator('#issue-count')).toHaveText('0');await expect(page.locator('.issue')).toHaveCount(0);
+ await expect(page.locator('#highlights')).toBeHidden();await expect(page.locator('#apply-all')).toBeDisabled();
+ await expect(page.locator('#issues')).not.toContainText('사전에 없는');
+});
+
+test('quiet spelling groups repeats, navigates locations, filters highlights and remembers ignore',async()=>{
+ const text='회의가 됬어요. 준비가 됬어요.';
+ await page.locator('#text-input').fill(text);await page.locator('#scan').click();
+ await expect(page.locator('#issue-count')).toHaveText('1');await expect(page.locator('.issue')).toHaveCount(1);
+ await expect(page.locator('#issue-summary')).toHaveText('1가지 수정 · 2곳');await expect(page.locator('#highlights mark')).toHaveCount(2);
+ await page.locator('.issue').click();await expect(page.locator('.occurrences')).toContainText('1 / 2곳');
+ await page.locator('#next-issue').click();expect(await page.locator('#text-input').evaluate(e=>e.selectionStart)).toBe(text.lastIndexOf('됬'));
+ await page.locator('#issue-filter').selectOption('grammar');await expect(page.locator('#issue-count')).toHaveText('0');
+ await expect(page.locator('#highlights')).toBeHidden();await expect(page.locator('#issue-detail')).toBeHidden();
+ await page.locator('#issue-filter').selectOption('spelling');await expect(page.locator('#issue-count')).toHaveText('1');
+ await page.locator('.issue').click();await page.locator('#ignore-one').click();await page.locator('#scan').click();
+ await expect(page.locator('#notice')).toContainText('뚜렷한 오류를 찾지 못했습니다');await expect(page.locator('.issue')).toHaveCount(0);
+});
+
+test('quiet spelling evidence is collapsible, source links are allowlisted and one occurrence applies',async()=>{
+ await page.locator('#ai-recommendation-skip').click();
+ await page.locator('#text-input').fill('학부모님께 안내드립니다. 회의가 됬어요. 준비가 됬어요. 참여할수있습니다.');await page.locator('#scan').click();
+ await page.locator('.issue').filter({hasText:'됬'}).click();await expect(page.locator('.issue-evidence')).toContainText('한글 맞춤법 제35항');
+ await expect(page.locator('#open-evidence')).toBeHidden();await page.locator('.issue-evidence summary').click();
+ await electron.evaluate(({shell})=>{globalThis.__openedEvidence=null;shell.openExternal=async url=>{globalThis.__openedEvidence=url;};});
+ await page.locator('#open-evidence').click();expect(await electron.evaluate(()=>globalThis.__openedEvidence)).toContain('korean.go.kr/');
+ expect(await page.evaluate(()=>window.desktop.openExternal('https://example.com/'))).toEqual({error:'허용되지 않은 링크입니다.'});
+ await page.locator('.issue-evidence summary').click();await page.evaluate(()=>document.querySelector('main').scrollTop=0);
+ await page.screenshot({path:'_workspace/quiet-spelling-1280.png',fullPage:true});
+ await electron.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].setSize(1024,700));
+ await expect.poll(()=>page.evaluate(()=>window.innerWidth)).toBe(1024);
+ expect(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);
+ await page.locator('.issues-panel').scrollIntoViewIfNeeded();await page.screenshot({path:'_workspace/quiet-spelling-1024.png',fullPage:true});
+ await page.locator('#apply-one').click();await expect(page.locator('#text-input')).toHaveValue('학부모님께 안내드립니다. 회의가 됐어요. 준비가 됬어요. 참여할수있습니다.');
+ await expect(page.locator('.repeat-count')).toHaveCount(0);
+ await page.locator('#apply-all').click();await expect(page.locator('#text-input')).toHaveValue('학부모님께 안내드립니다. 회의가 됐어요. 준비가 됐어요. 참여할 수 있습니다.');
+ await expect(page.locator('#issue-count')).toHaveText('0');
+});
+
+test('quiet spelling keeps sentence agreement separate and applies only after selection',async()=>{
+ const text='저의 목표는 학생들이 안전하게 귀가합니다.';
+ await page.locator('#text-input').fill(text);await page.locator('#scan').click();
+ await expect(page.locator('.issue')).toHaveCount(1);await expect(page.locator('.issue')).toContainText('문장 호응');await expect(page.locator('#apply-all')).toBeDisabled();
+ await page.locator('#issue-filter').selectOption('spelling');await expect(page.locator('.issue')).toHaveCount(0);await expect(page.locator('#highlights')).toBeHidden();
+ await page.locator('#issue-filter').selectOption('grammar');await page.locator('.issue').click();
+ await expect(page.locator('.issue-evidence')).toContainText('문장 성분의 호응');await page.locator('#apply-one').click();
+ await expect(page.locator('#text-input')).toHaveValue('저의 목표는 학생들이 안전하게 귀가하는 것입니다.');await expect(page.locator('.issue')).toHaveCount(0);
+});

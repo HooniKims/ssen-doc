@@ -31,7 +31,7 @@ app.whenReady().then(async()=>{
  registerIPC('auth:info',safe(()=>({version:app.getVersion(),app:'doc'})));
  registerIPC('edit:authorize',safe(()=>({ok:true})));
  registerIPC('copy-text',safe(async()=>{await clipboard.writeText(diagnosticReport(auth,app.getVersion()));return true;}));
- registerIPC('open-external',safe(async url=>{if(url!=='https://ssenbox.lovable.app/privacy')throw Error('허용되지 않은 링크입니다.');await shell.openExternal(url);return true;}));
+ registerIPC('open-external',safe(async url=>{const sources=require('../src/knowledge/retrieve.cjs').database.entries.map(e=>e.source);if(url!=='https://ssenbox.lovable.app/privacy'&&!sources.includes(url))throw Error('허용되지 않은 링크입니다.');await shell.openExternal(url);return true;}));
  const authTimer=setInterval(()=>void auth.act('sync').then(r=>send('auth-state',r.state)).catch(()=>{}),60000);authTimer.unref();app.once('before-quit',()=>clearInterval(authTimer));
  // Chromium auth uses the default main session. Every renderer uses this isolated, blocked session.
  const rendererSession=session.fromPartition('ssendoc-renderer');

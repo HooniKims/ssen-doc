@@ -1,5 +1,9 @@
 # 배포 절차
 
+1.3.0 산출물은 `release/1.3.0/`에 만듭니다. 빌드는 `npm run dist -- --config.directories.output=release/1.3.0 --config.electronDist=node_modules/electron/dist`, 후속 검증에는 `SSENDOC_RELEASE_DIR=release/1.3.0`을 지정합니다. 소스·배포본 UI 각각 전체 회귀를 실행하며 `npm run test:quality -- --ai`로 합성 문장의 오탐과 통합 교정을 확인합니다. RAG 자료는 공식 자료 자체 요약 5건이며 규정 전문이나 모든 비문 지원으로 안내하지 않습니다.
+
+모델 다운로드가 네트워크 인증서 문제로 막힌 경우에는 원인을 기록하고, 보유한 실제 GGUF로 `node scripts/test-model-lifecycle.cjs --packaged --import-only`를 실행해 직접 지정·추론·삭제를 따로 검증할 수 있습니다. 이 결과를 다운로드·재개 검증으로 기록하지 않습니다.
+
 1.1.0부터 공통 인증 서버의 `ssen-doc` 등록과 토큰 scope `doc` 지원을 확인한 뒤 게시합니다. 알 수 없으면 설치본·모의 시험·캡처까지 준비한 후 소유자에게 서버 작업 완료 여부를 한 번 확인합니다. 미확인 상태에서는 공개 릴리즈 및 자동 업데이트를 게시하지 않습니다.
 
 `npm run dist`는 인증용 Electron Chromium 네트워크 시험을 먼저 실행합니다. 빌드한 `app.asar`를 `SSENDOC_AUTH_APP_ROOT`로 지정해 `npm run test:ui`도 실행하세요. 테스트 fixture는 설치 파일에 포함되지 않습니다. 실제 공통 계정으로 OTP·PC 등록·교육용 인증·학교망 접속은 별도 확인합니다. 자세한 범위는 `docs/AUTH-INTEGRATION.md`를 참고하세요.

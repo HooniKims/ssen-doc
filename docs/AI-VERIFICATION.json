@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-12T11:47:40.275Z",
+  "date": "2026-10-18T05:54:36.517Z",
   "model": {
     "id": "qwen3-0.6b",
     "name": "가벼운 모델 · Qwen3 0.6B",
@@ -12,43 +12,19 @@
   "results": [
     {
       "text": "회의가 일찍 됬어요.",
-      "milliseconds": 14248,
-      "issues": [
-        {
-          "id": "ai-0-0",
-          "start": 0,
-          "end": 11,
-          "original": "회의가 일찍 됬어요.",
-          "suggestion": "회의가 일찍 되었어요.",
-          "reason": "회의가 일찍 되었어요",
-          "source": "ai",
-          "category": "AI 제안",
-          "auto": false
-        }
-      ],
+      "milliseconds": 7029,
+      "issues": [],
       "warnings": []
     },
     {
       "text": "할수있어요.",
-      "milliseconds": 7050,
-      "issues": [
-        {
-          "id": "ai-0-0",
-          "start": 0,
-          "end": 6,
-          "original": "할수있어요.",
-          "suggestion": "할 수 있어요.",
-          "reason": "할 수 있어요",
-          "source": "ai",
-          "category": "AI 제안",
-          "auto": false
-        }
-      ],
+      "milliseconds": 3418,
+      "issues": [],
       "warnings": []
     },
     {
       "text": "오늘은 왠지 기분이 좋아요.",
-      "milliseconds": 10908,
+      "milliseconds": 155,
       "issues": [],
       "warnings": []
     }

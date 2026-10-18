@@ -1,0 +1,9 @@
+/* Reading text uses the bundled text face; navigation keeps the shared brand face. */
+@font-face{font-family:Proofreading;src:url('../assets/Pretendard-Regular.woff2');font-weight:400;font-display:swap}
+@font-face{font-family:Proofreading;src:url('../assets/Pretendard-SemiBold.woff2');font-weight:600;font-display:swap}
+body #text-input,body #highlights,body .comparison pre,body .issue-context{font-family:Proofreading,sans-serif;font-weight:400;font-size:15px;line-height:1.8}
+body .issue strong{font-family:Proofreading,sans-serif;font-weight:600;font-size:16px;line-height:1.65}
+body .issue small,body #issue-detail p,body .issue-evidence small{font-family:Proofreading,sans-serif;font-weight:400;font-size:13px;line-height:1.7}
+body .result-summary,body .repeat-count,body .occurrences>span{font-family:Proofreading,sans-serif;font-weight:400;font-size:12px}
+body .issue small{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+body .issue-evidence summary{line-height:1.7}

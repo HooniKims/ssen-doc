@@ -1,9 +1,9 @@
 'use strict';
 const {parentPort}=require('node:worker_threads'),fs=require('node:fs');
-const {scan}=require('../src/rules/rule-engine.cjs'),{Dictionary}=require('../src/dictionary/spell-suggest.cjs');
+const {scan}=require('../src/checker.cjs');
 const {parseDocument}=require('../modules/review/src/documents.cjs'),{prepareEdit,applyEdits,hash}=require('../modules/review/src/document-edit.cjs');
-let dictionary;
-function inspect(text,userWords=[]){const issues=scan(text);dictionary??=new Dictionary();return [...issues,...dictionary.scan(text,issues,userWords)].sort((a,b)=>a.start-b.start);}
+// Unknown words are not spelling errors. Do not emit frequency-list guesses.
+function inspect(text){return scan(text);}
 parentPort.on('message',({id,action,data})=>{try{
  let result;
  if(action==='scan')result={issues:inspect(data.text,data.userWords)};
