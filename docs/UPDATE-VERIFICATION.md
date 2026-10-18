@@ -19,6 +19,8 @@
 
 규정 전문이나 모든 비문을 지원하는 검사가 아닙니다. 위 예문 결과는 임의의 문서 정확도를 보장하지 않습니다. 실제 공통 계정의 서버 지원은 기존 [확인 기록](AUTH-SERVER-VERIFICATION.md)에 따르며 인증 키트 원본은 변경하지 않았습니다.
 
+**공개 게시 완료:** [v1.3.0 릴리즈](https://github.com/HooniKims/ssen-doc/releases/tag/v1.3.0)에 설치형·ZIP·latest.yml·blockmap·SHA256SUMS 5개 파일을 게시했습니다. 공개 latest가 1.3.0이며, 모든 자산의 GitHub SHA-256·크기가 로컬 파일과 일치하고 공개 다운로드 응답 200을 확인했습니다. 릴리즈 이미지 4장도 응답 200이며 ZIP 업데이트 조회는 최신 버전을 표시합니다. `RELEASE-PUBLICATION-1.3.0.json`.
+
 ## 1.2.0 쎈 시리즈 디자인 통일 — 2026-10-12
 
 사용자 제공 디자인 통일 가이드 v1.0을 세 기능에 적용했다. 공통 색·글꼴·헤더·버튼·카드·대화상자·로고·설치 그림을 변경했으며 문서 처리 엔진과 인증 키트 원본은 유지했다. 자세한 규격과 캡처는 [DESIGN-UNIFICATION](DESIGN-UNIFICATION.md)에 있다.
