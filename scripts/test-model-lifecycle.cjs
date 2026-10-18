@@ -16,7 +16,7 @@ const {sha256}=require('../src/ai/model-manager.cjs'),catalog=require('../src/ai
    await page.locator('#model-import').click();await expect(page.locator('#model-delete')).toBeEnabled({timeout:60000});
    const imported=await page.evaluate(()=>window.doc.modelInfo());assert.equal(await sha256(imported.installed.path),catalog.sha256);report.checks.push('real GGUF direct import and SHA-256 verified');
    await page.locator('#model-skip').click();await page.locator('#text-input').fill('할수있어요.');await page.locator('#ai-scan').click();await expect(page.locator('#ai-cancel')).toBeHidden({timeout:90000});
-   const notice=await page.locator('#notice').innerText();assert.match(notice,/AI 검사가 끝났습니다/);assert.doesNotMatch(notice,/시간 초과|중지했습니다|응답 형식|직접 확인/);report.checks.push({cpuInferenceNotice:notice});
+   const notice=await page.locator('#notice').innerText();assert.match(notice,/AI 검사 완료/);assert.match(notice,/실패 0 · 미검사 0/);assert.doesNotMatch(notice,/시간 초과|중지했습니다|응답 형식|직접 확인/);report.checks.push({cpuInferenceNotice:notice});
    await page.locator('#open-models').click();await page.locator('#model-delete').click();await page.locator('#confirm-delete').click();await expect(page.locator('#model-delete')).toBeDisabled();assert.equal((await fs.readdir(path.join(profile,'models'))).filter(f=>f.endsWith('.gguf')).length,0);report.checks.push('real model deleted after unloading');
    report.completed=new Date().toISOString();await fs.writeFile('docs/MODEL-IMPORT'+(packaged?'-PACKAGED':'')+'.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));return;
   }
@@ -27,7 +27,7 @@ const {sha256}=require('../src/ai/model-manager.cjs'),catalog=require('../src/ai
   await page.locator('#model-download').click();await expect.poll(()=>page.evaluate(async()=>Boolean((await window.doc.modelInfo()).installed)),{timeout:240000}).toBe(true);
   let info=await page.evaluate(()=>window.doc.modelInfo());assert.equal(await sha256(info.installed.path),catalog.sha256);report.checks.push('real download, pause, resume, SHA-256 verified');
   await page.locator('#model-skip').click();await page.locator('#text-input').fill('할수있어요.');await page.locator('#ai-scan').click();await expect(page.locator('#ai-cancel')).toBeHidden({timeout:90000});
-  const notice=await page.locator('#notice').innerText();assert.match(notice,/AI 검사가 끝났습니다/);assert.doesNotMatch(notice,/시간 초과|중지했습니다|응답 형식|직접 확인/);report.checks.push({cpuInferenceNotice:notice});
+  const notice=await page.locator('#notice').innerText();assert.match(notice,/AI 검사 완료/);assert.match(notice,/실패 0 · 미검사 0/);assert.doesNotMatch(notice,/시간 초과|중지했습니다|응답 형식|직접 확인/);report.checks.push({cpuInferenceNotice:notice});
   await page.locator('#open-models').click();await page.locator('#model-delete').click();await page.locator('#confirm-delete').click();await expect(page.locator('#model-delete')).toBeDisabled();assert.equal((await fs.readdir(path.join(profile,'models'))).filter(f=>f.endsWith('.gguf')).length,0);report.checks.push('real model deleted after unloading');
   await page.locator('#model-download').click();await expect.poll(()=>page.evaluate(async()=>Boolean((await window.doc.modelInfo()).installed)),{timeout:240000}).toBe(true);info=await page.evaluate(()=>window.doc.modelInfo());assert.equal(await sha256(info.installed.path),catalog.sha256);report.checks.push('redownload after deletion verified');
   await page.screenshot({path:'docs/ui-real-model'+(packaged?'-packaged':'')+'.png'});

@@ -7,6 +7,7 @@ function inspect(text){return scan(text);}
 parentPort.on('message',({id,action,data})=>{try{
  let result;
  if(action==='scan')result={issues:inspect(data.text,data.userWords)};
+ else if(action==='scan-batch')result={blocks:data.blocks.map(b=>({index:b.index,issues:inspect(b.text)}))};
  else{
   const {filePath,expectedHash}=data;if(fs.statSync(filePath).size>50*1024**2)throw Error('50MB 이하의 문서만 검사할 수 있습니다.');let bytes=fs.readFileSync(filePath);if(expectedHash&&hash(bytes)!==expectedHash)throw Error('검사 후 원본 파일이 변경되었습니다. 다시 불러와 주세요.');const doc=parseDocument(bytes,filePath),blocks=doc.blocks.flatMap(b=>b.cells||[b]).filter(b=>b.text);
   if(action==='document')result={name:doc.name,hash:doc.sha256,warnings:doc.warnings,blocks:blocks.map((b,index)=>({index,text:b.text,location:b.location,issues:scan(b.text.slice(0,100000))}))};

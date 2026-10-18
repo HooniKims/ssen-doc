@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-18T05:54:36.517Z",
+  "date": "2026-10-18T21:27:59.605Z",
   "model": {
     "id": "qwen3-0.6b",
     "name": "가벼운 모델 · Qwen3 0.6B",
@@ -12,20 +12,80 @@
   "results": [
     {
       "text": "회의가 일찍 됬어요.",
-      "milliseconds": 7029,
+      "milliseconds": 8946,
       "issues": [],
+      "blocks": [
+        {
+          "index": 0,
+          "text": "회의가 일찍 됬어요.",
+          "issues": [],
+          "stats": {
+            "total": 1,
+            "completed": 1,
+            "failed": 0,
+            "unprocessed": 0
+          }
+        }
+      ],
+      "stats": {
+        "total": 1,
+        "completed": 1,
+        "failed": 0,
+        "unprocessed": 0,
+        "cancelled": false
+      },
       "warnings": []
     },
     {
       "text": "할수있어요.",
-      "milliseconds": 3418,
+      "milliseconds": 15524,
       "issues": [],
+      "blocks": [
+        {
+          "index": 0,
+          "text": "할수있어요.",
+          "issues": [],
+          "stats": {
+            "total": 1,
+            "completed": 1,
+            "failed": 0,
+            "unprocessed": 0
+          }
+        }
+      ],
+      "stats": {
+        "total": 1,
+        "completed": 1,
+        "failed": 0,
+        "unprocessed": 0,
+        "cancelled": false
+      },
       "warnings": []
     },
     {
       "text": "오늘은 왠지 기분이 좋아요.",
-      "milliseconds": 155,
+      "milliseconds": 8389,
       "issues": [],
+      "blocks": [
+        {
+          "index": 0,
+          "text": "오늘은 왠지 기분이 좋아요.",
+          "issues": [],
+          "stats": {
+            "total": 1,
+            "completed": 1,
+            "failed": 0,
+            "unprocessed": 0
+          }
+        }
+      ],
+      "stats": {
+        "total": 1,
+        "completed": 1,
+        "failed": 0,
+        "unprocessed": 0,
+        "cancelled": false
+      },
       "warnings": []
     }
   ]

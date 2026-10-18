@@ -1,5 +1,7 @@
 # 배포 절차
 
+1.3.1은 문서 전체 AI 검사 수정판입니다. 최종 빌드·검증 경로는 `release/1.3.1-ready/`이며 `SSENDOC_RELEASE_DIR`도 이 경로로 지정합니다. `node scripts/check-ai-document.cjs`로 규정 검색 결과가 없는 세 문단 모두 실제 CPU 추론을 거치는지 확인합니다. AI 화면 회귀는 `tests/ui/ai.spec.cjs`이며 모의 모델로 전체 범위·취소·실패·결과 보존을 검사합니다. 실제 모델 검증과 구분해 기록합니다. 초기 `release/1.3.1/`와 `release/1.3.1-final/` 빌드는 상태 안내 보완 전이므로 배포하지 않습니다. 실행 중인 사용자 앱은 종료하지 않고, 저장 후 업데이트하도록 안내합니다.
+
 1.3.0 산출물은 `release/1.3.0/`에 만듭니다. 빌드는 `npm run dist -- --config.directories.output=release/1.3.0 --config.electronDist=node_modules/electron/dist`, 후속 검증에는 `SSENDOC_RELEASE_DIR=release/1.3.0`을 지정합니다. 소스·배포본 UI 각각 전체 회귀를 실행하며 `npm run test:quality -- --ai`로 합성 문장의 오탐과 통합 교정을 확인합니다. RAG 자료는 공식 자료 자체 요약 5건이며 규정 전문이나 모든 비문 지원으로 안내하지 않습니다.
 
 모델 다운로드가 네트워크 인증서 문제로 막힌 경우에는 원인을 기록하고, 보유한 실제 GGUF로 `node scripts/test-model-lifecycle.cjs --packaged --import-only`를 실행해 직접 지정·추론·삭제를 따로 검증할 수 있습니다. 이 결과를 다운로드·재개 검증으로 기록하지 않습니다.

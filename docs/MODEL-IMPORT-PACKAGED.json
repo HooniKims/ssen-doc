@@ -2,13 +2,13 @@
   "packaged": true,
   "mode": "direct import; network lifecycle not tested",
   "authentication": "external mock fixture; real shared account untouched",
-  "started": "2026-10-18T06:00:47.299Z",
+  "started": "2026-10-18T21:31:48.022Z",
   "checks": [
     "real GGUF direct import and SHA-256 verified",
     {
-      "cpuInferenceNotice": "규정 근거를 참고한 AI 검사가 끝났습니다. 지원하는 오류 유형만 보수적으로 제안합니다."
+      "cpuInferenceNotice": "글 전체 AI 검사 완료 · 실제 검사 1/1구간 · 실패 0 · 미검사 0 · AI 제안 0곳\n긴 문장은 나누어 검사합니다. 표시할 AI 제안이 없습니다. 오류가 전혀 없다는 뜻은 아닙니다."
     },
     "real model deleted after unloading"
   ],
-  "completed": "2026-10-18T06:01:22.388Z"
+  "completed": "2026-10-18T21:32:35.511Z"
 }

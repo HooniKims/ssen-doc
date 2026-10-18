@@ -1,0 +1,298 @@
+{
+  "date": "2026-10-18T21:23:53.366Z",
+  "normalSentences": 25,
+  "falsePositiveSentences": [],
+  "correctionCases": 10,
+  "missedCorrections": [],
+  "ai": [
+    {
+      "text": "학생들은 질서를 지키며 이동해 주시기 바랍니다.",
+      "expected": "학생들은 질서를 지키며 이동해 주시기 바랍니다.",
+      "actual": "학생들은 질서를 지키며 이동해 주시기 바랍니다.",
+      "passed": true,
+      "milliseconds": 13043,
+      "issues": [],
+      "blocks": [
+        {
+          "index": 0,
+          "text": "학생들은 질서를 지키며 이동해 주시기 바랍니다.",
+          "issues": [],
+          "stats": {
+            "total": 1,
+            "completed": 1,
+            "failed": 0,
+            "unprocessed": 0
+          }
+        }
+      ],
+      "stats": {
+        "total": 1,
+        "completed": 1,
+        "failed": 0,
+        "unprocessed": 0,
+        "cancelled": false
+      },
+      "warnings": [],
+      "responses": [
+        "{\n    \"corrections\": [\n    ]\n}"
+      ]
+    },
+    {
+      "text": "신청서를 작성하신 후 회신해 주시기 바랍니다.",
+      "expected": "신청서를 작성하신 후 회신해 주시기 바랍니다.",
+      "actual": "신청서를 작성하신 후 회신해 주시기 바랍니다.",
+      "passed": true,
+      "milliseconds": 3654,
+      "issues": [],
+      "blocks": [
+        {
+          "index": 0,
+          "text": "신청서를 작성하신 후 회신해 주시기 바랍니다.",
+          "issues": [],
+          "stats": {
+            "total": 1,
+            "completed": 1,
+            "failed": 0,
+            "unprocessed": 0
+          }
+        }
+      ],
+      "stats": {
+        "total": 1,
+        "completed": 1,
+        "failed": 0,
+        "unprocessed": 0,
+        "cancelled": false
+      },
+      "warnings": [],
+      "responses": [
+        "{\n    \"corrections\": [\n    ]\n}"
+      ]
+    },
+    {
+      "text": "선생님께 드립니다. 함께 갈까요?",
+      "expected": "선생님께 드립니다. 함께 갈까요?",
+      "actual": "선생님께 드립니다. 함께 갈까요?",
+      "passed": true,
+      "milliseconds": 7306,
+      "issues": [],
+      "blocks": [
+        {
+          "index": 0,
+          "text": "선생님께 드립니다. 함께 갈까요?",
+          "issues": [],
+          "stats": {
+            "total": 2,
+            "completed": 2,
+            "failed": 0,
+            "unprocessed": 0
+          }
+        }
+      ],
+      "stats": {
+        "total": 2,
+        "completed": 2,
+        "failed": 0,
+        "unprocessed": 0,
+        "cancelled": false
+      },
+      "warnings": [],
+      "responses": [
+        "{\n    \"corrections\": [\n    ]\n}",
+        "{\n    \"corrections\": [\n    ]\n}"
+      ]
+    },
+    {
+      "text": "참여할 수 있습니다.",
+      "expected": "참여할 수 있습니다.",
+      "actual": "참여할 수 있습니다.",
+      "passed": true,
+      "milliseconds": 4040,
+      "issues": [],
+      "blocks": [
+        {
+          "index": 0,
+          "text": "참여할 수 있습니다.",
+          "issues": [],
+          "stats": {
+            "total": 1,
+            "completed": 1,
+            "failed": 0,
+            "unprocessed": 0
+          }
+        }
+      ],
+      "stats": {
+        "total": 1,
+        "completed": 1,
+        "failed": 0,
+        "unprocessed": 0,
+        "cancelled": false
+      },
+      "warnings": [],
+      "responses": [
+        "{\n    \"corrections\": [\n    ]\n}"
+      ]
+    },
+    {
+      "text": "저의 목표는 학생들이 안전하게 귀가하는 것입니다.",
+      "expected": "저의 목표는 학생들이 안전하게 귀가하는 것입니다.",
+      "actual": "저의 목표는 학생들이 안전하게 귀가하는 것입니다.",
+      "passed": true,
+      "milliseconds": 6036,
+      "issues": [],
+      "blocks": [
+        {
+          "index": 0,
+          "text": "저의 목표는 학생들이 안전하게 귀가하는 것입니다.",
+          "issues": [],
+          "stats": {
+            "total": 1,
+            "completed": 1,
+            "failed": 0,
+            "unprocessed": 0
+          }
+        }
+      ],
+      "stats": {
+        "total": 1,
+        "completed": 1,
+        "failed": 0,
+        "unprocessed": 0,
+        "cancelled": false
+      },
+      "warnings": [],
+      "responses": [
+        "{\n    \"corrections\": [\n    ]\n}"
+      ]
+    },
+    {
+      "text": "이 목표는 학생들이 정합니다.",
+      "expected": "이 목표는 학생들이 정합니다.",
+      "actual": "이 목표는 학생들이 정합니다.",
+      "passed": true,
+      "milliseconds": 12528,
+      "issues": [],
+      "blocks": [
+        {
+          "index": 0,
+          "text": "이 목표는 학생들이 정합니다.",
+          "issues": [],
+          "stats": {
+            "total": 1,
+            "completed": 1,
+            "failed": 0,
+            "unprocessed": 0
+          }
+        }
+      ],
+      "stats": {
+        "total": 1,
+        "completed": 1,
+        "failed": 0,
+        "unprocessed": 0,
+        "cancelled": false
+      },
+      "warnings": [],
+      "responses": [
+        "{\n    \"corrections\": [\n        {\n            \"original\": \"이 목표는 학생들이 정합니다.\",\n            \"suggestion\": \"이 목표는 학생들이 안전하게 귀가하는 것입니다.\",\n            \"evidenceId\": \"grammar-agreement\",\n            \"reason\": \"서술어가 주어와 의미상 연결되는지 확인하지 않음. 목표·목적을 설명하는 문장은 그 내용을 서술해야 한다.\"\n        }\n    ]\n}"
+      ]
+    },
+    {
+      "text": "회의가 됬어요.",
+      "expected": "회의가 됐어요.",
+      "actual": "회의가 됐어요.",
+      "passed": true,
+      "milliseconds": 8172,
+      "issues": [],
+      "blocks": [
+        {
+          "index": 0,
+          "text": "회의가 됬어요.",
+          "issues": [],
+          "stats": {
+            "total": 1,
+            "completed": 1,
+            "failed": 0,
+            "unprocessed": 0
+          }
+        }
+      ],
+      "stats": {
+        "total": 1,
+        "completed": 1,
+        "failed": 0,
+        "unprocessed": 0,
+        "cancelled": false
+      },
+      "warnings": [],
+      "responses": [
+        "{\n    \"corrections\": [\n    ]\n}"
+      ]
+    },
+    {
+      "text": "할수있어요.",
+      "expected": "할 수 있어요.",
+      "actual": "할 수 있어요.",
+      "passed": true,
+      "milliseconds": 8477,
+      "issues": [],
+      "blocks": [
+        {
+          "index": 0,
+          "text": "할수있어요.",
+          "issues": [],
+          "stats": {
+            "total": 1,
+            "completed": 1,
+            "failed": 0,
+            "unprocessed": 0
+          }
+        }
+      ],
+      "stats": {
+        "total": 1,
+        "completed": 1,
+        "failed": 0,
+        "unprocessed": 0,
+        "cancelled": false
+      },
+      "warnings": [],
+      "responses": [
+        "{\n    \"corrections\": [\n    ]\n}"
+      ]
+    },
+    {
+      "text": "저의 목표는 학생들이 안전하게 귀가합니다.",
+      "expected": "저의 목표는 학생들이 안전하게 귀가하는 것입니다.",
+      "actual": "저의 목표는 학생들이 안전하게 귀가하는 것입니다.",
+      "passed": true,
+      "milliseconds": 7684,
+      "issues": [],
+      "blocks": [
+        {
+          "index": 0,
+          "text": "저의 목표는 학생들이 안전하게 귀가합니다.",
+          "issues": [],
+          "stats": {
+            "total": 1,
+            "completed": 1,
+            "failed": 0,
+            "unprocessed": 0
+          }
+        }
+      ],
+      "stats": {
+        "total": 1,
+        "completed": 1,
+        "failed": 0,
+        "unprocessed": 0,
+        "cancelled": false
+      },
+      "warnings": [],
+      "responses": [
+        "{\n    \"corrections\": []\n}"
+      ]
+    }
+  ]
+}

@@ -50,7 +50,7 @@ app.whenReady().then(async()=>{
  registerIPC('dictionary:add',safe(async word=>{if(typeof word!=='string'||!/^\p{Script=Hangul}{2,30}$/u.test(word))throw Error('한글 단어 2~30자를 입력하세요.');settings.userWords=[...new Set([...settings.userWords,word])].slice(-5000);await persist();return {ok:true};}));
  registerIPC('spell:scan',safe(text=>task('scan',{text:validText(text),userWords:settings.userWords})));
  registerIPC('clipboard:read',safe(async()=>({text:await clipboard.readText()})));registerIPC('clipboard:write',safe(async text=>{await clipboard.writeText(validText(text));return {ok:true};}));
- registerIPC('spell:open-document',safe(async()=>{const result=await dialog.showOpenDialog(host,{title:'맞춤법을 검사할 문서',properties:['openFile'],filters:[{name:'학교 문서',extensions:['hwpx','xlsx']}]});if(result.canceled)return {canceled:true};const filePath=await fs.realpath(result.filePaths[0]);const data=await task('document',{filePath});documentSession={filePath,hash:data.hash};return data;}));
+ registerIPC('spell:open-document',safe(async()=>{const result=await dialog.showOpenDialog(host,{title:'맞춤법을 검사할 문서',properties:['openFile'],filters:[{name:'학교 문서',extensions:['hwpx','xlsx']}]});if(result.canceled)return {canceled:true};const filePath=await fs.realpath(result.filePaths[0]);const data=await task('document',{filePath});documentSession={filePath,hash:data.hash,blockCount:data.blocks.length};return data;}));
  registerIPC('spell:prepare',safe(index=>{if(!documentSession||!Number.isInteger(index))throw Error('문서를 다시 불러와 주세요.');return task('prepare',{...documentSession,expectedHash:documentSession.hash,index});}));
  registerIPC('spell:save-document',safe(async edits=>{if(!documentSession)throw Error('먼저 문서를 불러와 주세요.');const original={...documentSession};const ext=path.extname(original.filePath);const r=await dialog.showSaveDialog(host,{title:'교정한 문서 사본 저장',defaultPath:`${original.filePath.slice(0,-ext.length).replace(/_교정본(?:_\d+)?$/,'')}_교정본_${new Date().toISOString().replace(/\D/g,'').slice(0,14)}${ext}`,filters:[{name:ext.slice(1),extensions:[ext.slice(1)]}]});if(r.canceled)return {canceled:true};const result=await task('save-document',{filePath:original.filePath,expectedHash:original.hash,edits});const saved=await saveCopy(r.filePath,original.filePath,[original.filePath],result.buffer);return {ok:true,path:saved,recalculate:result.recalculate,stalePreview:result.stalePreview};}));
  registerIPC('spell:save-text',safe(async(text,type='txt')=>{validText(text);if(!['txt','html'].includes(type))throw Error('TXT 또는 HTML로 저장하세요.');const r=await dialog.showSaveDialog(host,{title:'교정문 저장',defaultPath:'쎈doc_교정문.'+type,filters:[{name:type,extensions:[type]}]});if(r.canceled)return {canceled:true};if(!r.filePath.toLowerCase().endsWith('.'+type))throw Error('파일 확장자를 확인하세요.');await fs.writeFile(r.filePath,require('../src/report.cjs').report(text,type),'utf8');return {ok:true,path:r.filePath};}));
@@ -59,7 +59,18 @@ app.whenReady().then(async()=>{
  registerIPC('model:pause',safe(()=>manager.pause()));
  registerIPC('model:import',safe(async()=>{await managerReady;if(ai.busy||manager.active)throw Error('모델 작업이 끝난 뒤 선택하세요.');const r=await dialog.showOpenDialog(host,{title:'모델 파일 직접 지정',properties:['openFile'],filters:[{name:'GGUF 모델',extensions:['gguf']}]});if(r.canceled)return {canceled:true};await ai.unload();return manager.importFile(r.filePaths[0]);}));
  registerIPC('model:delete',safe(async()=>{await managerReady;await ai.unload();return manager.delete();}));
- registerIPC('spell:ai',safe(async text=>{validText(text);await managerReady;if(manager.active)throw Error('모델 준비가 끝난 뒤 검사하세요.');const result=await ai.inspect(manager.modelPath(),text,p=>send('ai:progress',p));const base=await task('scan',{text,userWords:settings.userWords});return {...result,issues:merge(base.issues,result.issues)};}));
+ registerIPC('spell:ai',safe(async input=>{
+  const batch=typeof input!=='string';
+  if(batch){
+   if(!documentSession||!Array.isArray(input?.blocks)||input.blocks.length!==documentSession.blockCount)throw Error('문서를 다시 불러와 주세요.');
+   let length=0;for(const [index,b] of input.blocks.entries()){if(b.index!==index)throw Error('문단 순서를 확인해 주세요.');validText(b.text);length+=b.text.length;}
+   if(length>1000000)throw Error('문서 전체 AI 검사는 1,000,000자까지 지원합니다. 문서를 나누어 검사해 주세요.');
+  }else validText(input);
+  await managerReady;if(manager.active)throw Error('모델 준비가 끝난 뒤 검사하세요.');
+  const result=await ai.inspect(manager.modelPath(),batch?input.blocks:input,p=>send('ai:progress',p));
+  if(batch){const base=await task('scan-batch',{blocks:input.blocks});return {...result,blocks:result.blocks.map((b,n)=>({...b,issues:merge(base.blocks[n].issues,b.issues)}))};}
+  const base=await task('scan',{text:input,userWords:settings.userWords});return {...result,issues:merge(base.issues,result.issues)};
+ }));
  registerIPC('spell:cancel-ai',safe(()=>{ai.cancel();return {ok:true};}));
  registerIPC('update:state',safe(()=>updater.state));registerIPC('update:check',safe(()=>updater.check()));registerIPC('update:download',safe(()=>updater.download()));
  registerIPC('license:text',safe(async()=>{try{return await fs.readFile(path.join(app.getAppPath(),'LICENSE'),'utf8');}catch{return '';}}));
