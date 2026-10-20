@@ -1,0 +1,219 @@
+{
+  "version": "1.5.0",
+  "date": "2026-10-20T01:32:58.997Z",
+  "syntheticOnly": true,
+  "cases": [
+    {
+      "id": "known-parent",
+      "milliseconds": 7176,
+      "expected": {
+        "1": 2,
+        "2": 2
+      },
+      "version": "structure-1",
+      "fingerprint": "e13b41013a0c7956d91fb700fdc751dff17b21b0151b4a3d2887d7fd266a639c",
+      "proposals": [
+        {
+          "index": 1,
+          "level": 2,
+          "parent": "0",
+          "evidence": "indent",
+          "before": "  - 대상: 3학년 학생",
+          "scope": "text"
+        },
+        {
+          "index": 2,
+          "level": 2,
+          "parent": "0",
+          "evidence": "indent",
+          "before": "  - 장소: 과학관",
+          "scope": "text"
+        }
+      ],
+      "stats": {
+        "total": 2,
+        "completed": 2,
+        "failed": 0,
+        "abstained": 0,
+        "unprocessed": 0,
+        "cancelled": false
+      },
+      "audit": [
+        {
+          "index": 1,
+          "status": "proposed",
+          "attempts": 1
+        },
+        {
+          "index": 2,
+          "status": "proposed",
+          "attempts": 1
+        }
+      ],
+      "correct": 2
+    },
+    {
+      "id": "siblings",
+      "milliseconds": 6978,
+      "expected": {
+        "2": 2,
+        "3": 2
+      },
+      "version": "structure-1",
+      "fingerprint": "2eaf9d8000339ca0508cdfe29abd9ac5c2bf09e5de978641c196e0129f2bf643",
+      "proposals": [
+        {
+          "index": 2,
+          "level": 2,
+          "parent": "0",
+          "evidence": "indent",
+          "before": "  - 장소: 강당",
+          "scope": "text"
+        },
+        {
+          "index": 3,
+          "level": 2,
+          "parent": "0",
+          "evidence": "indent",
+          "before": "  - 준비물: 필기도구",
+          "scope": "text"
+        }
+      ],
+      "stats": {
+        "total": 2,
+        "completed": 2,
+        "failed": 0,
+        "abstained": 0,
+        "unprocessed": 0,
+        "cancelled": false
+      },
+      "audit": [
+        {
+          "index": 2,
+          "status": "proposed",
+          "attempts": 1
+        },
+        {
+          "index": 3,
+          "status": "proposed",
+          "attempts": 2
+        }
+      ],
+      "correct": 2
+    },
+    {
+      "id": "nested",
+      "milliseconds": 2287,
+      "expected": {
+        "2": 3
+      },
+      "version": "structure-1",
+      "fingerprint": "e9e946a66c3fe37cfbb8ae6eca92a29118d3ab389e633dfd5f32f2cf2264e019",
+      "proposals": [
+        {
+          "index": 2,
+          "level": 3,
+          "parent": "1",
+          "evidence": "indent",
+          "before": "    - 개인 준비물: 물통",
+          "scope": "text"
+        }
+      ],
+      "stats": {
+        "total": 1,
+        "completed": 1,
+        "failed": 0,
+        "abstained": 0,
+        "unprocessed": 0,
+        "cancelled": false
+      },
+      "audit": [
+        {
+          "index": 2,
+          "status": "proposed",
+          "attempts": 1
+        }
+      ],
+      "correct": 1
+    },
+    {
+      "id": "ambiguous",
+      "milliseconds": 2143,
+      "expected": {},
+      "version": "structure-1",
+      "fingerprint": "f5d57ce865815dc622acc93d8cc4e3f22b4e437c79ebfe1d1fb4000236a8bc69",
+      "proposals": [],
+      "stats": {
+        "total": 1,
+        "completed": 1,
+        "failed": 0,
+        "abstained": 1,
+        "unprocessed": 0,
+        "cancelled": false
+      },
+      "audit": [
+        {
+          "index": 0,
+          "status": "abstained",
+          "attempts": 1
+        }
+      ],
+      "correct": 0
+    },
+    {
+      "id": "semantic",
+      "milliseconds": 5337,
+      "expected": {
+        "1": 2,
+        "2": 2
+      },
+      "version": "structure-1",
+      "fingerprint": "e6b3d2017ff04d23ddfb7e7f291c91e8240aae13657001db8ae399b7dc30bdd3",
+      "proposals": [
+        {
+          "index": 1,
+          "level": 2,
+          "parent": "0",
+          "evidence": "meaning",
+          "before": "- 대상: 전교생",
+          "scope": "text"
+        },
+        {
+          "index": 2,
+          "level": 2,
+          "parent": "0",
+          "evidence": "meaning",
+          "before": "- 장소: 강당",
+          "scope": "text"
+        }
+      ],
+      "stats": {
+        "total": 2,
+        "completed": 2,
+        "failed": 0,
+        "abstained": 0,
+        "unprocessed": 0,
+        "cancelled": false
+      },
+      "audit": [
+        {
+          "index": 1,
+          "status": "proposed",
+          "attempts": 1
+        },
+        {
+          "index": 2,
+          "status": "proposed",
+          "attempts": 1
+        }
+      ],
+      "correct": 2
+    }
+  ],
+  "ai": true,
+  "proposed": 7,
+  "correct": 7,
+  "requiredExpected": 7,
+  "coverage": 1,
+  "precision": 1
+}

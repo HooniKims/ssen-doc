@@ -1,0 +1,20 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
+const {parseDocument}=require('../modules/review/src/documents.cjs'),{applyEdits,officialRows}=require('../modules/review/src/document-edit.cjs'),{formatRows}=require('../src/official-format.cjs');
+const root=path.resolve(process.argv[2]||'_workspace/practical-quality-1.5.0'),report=JSON.parse(fs.readFileSync(path.join(root,process.argv[3]||'results.json'),'utf8')),notice=report.documents.find(d=>d.id==='notice');
+if(!notice)throw Error('Complete the notice evaluation first.');
+const sample='template.hwpx',bytes=fs.readFileSync(path.join(root,sample)),blocks=parseDocument(bytes,sample).blocks;
+// Eight paragraphs fit the bundled synthetic template; every original paragraph is replaced.
+const indexes=[1,2,3,4,6,7,8,10],beforeLines=indexes.map(i=>notice.text.split('\n')[i]);
+assert.equal(blocks.length,beforeLines.length);
+assert.equal(blocks[0].text,beforeLines[0]);
+const seeded=applyEdits(bytes,sample,beforeLines.flatMap((text,i)=>i?[{source:blocks[i].source,text}]:[])).buffer;
+const beforeFile=path.join(root,'공문_오류포함.hwpx'),afterFile=path.join(root,'공문_교정결과.hwpx');fs.writeFileSync(beforeFile,seeded);
+const spellChanges=indexes.flatMap((originalIndex,index)=>notice.checked[originalIndex].actual!==beforeLines[index]?[{source:blocks[index].source,text:notice.checked[originalIndex].actual}]:[]);
+const spelled=spellChanges.length?applyEdits(seeded,sample,spellChanges).buffer:seeded;
+const preview=formatRows(officialRows(spelled,sample)),edits=preview.rows.filter(r=>r.changed).map(r=>({source:blocks[r.index].source,text:r.after,format:r.format}));
+const output=applyEdits(spelled,sample,edits).buffer;fs.writeFileSync(afterFile,output);
+assert.deepEqual(fs.readFileSync(beforeFile),seeded);assert.equal(formatRows(officialRows(output,sample)).changed,0);
+const rows=officialRows(output,sample),expected=indexes.map(i=>notice.expected.split('\n')[i].trimStart());
+const actual=rows.map(r=>r.text);const docReport={beforeFile,afterFile,paragraphs:actual.length,expected,actual,exact:JSON.stringify(actual)===JSON.stringify(expected),changedOnReinspection:0,sourcePreserved:true};
+fs.writeFileSync(path.join(root,'hwpx-result.json'),JSON.stringify(docReport,null,2));console.log(docReport);

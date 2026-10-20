@@ -2,8 +2,23 @@
 const {scan:scanRules}=require('./rules/rule-engine.cjs');
 const {sentences,parseResponse}=require('./ai/prompts.cjs');
 const {retrieve}=require('./knowledge/retrieve.cjs');
+const {scanLinguistic}=require('./rules/linguistic-rules.cjs');
 function scan(text){
  const issues=scanRules(text);
+ for(const issue of scanLinguistic(text)){
+  const conflicts=issues.filter(i=>i.start<issue.end&&issue.start<i.end);
+  if(!conflicts.length){issues.push(issue);continue;}
+  // Compose a larger spelling+spacing fix only when it preserves every
+  // contained dictionary correction. Never silently replace a different edit.
+  if(conflicts.some(i=>i.start<issue.start||i.end>issue.end))continue;
+  let corrected=issue.original;
+  for(const i of conflicts.sort((a,b)=>b.start-a.start))
+   corrected=corrected.slice(0,i.start-issue.start)+i.suggestion+corrected.slice(i.end-issue.start);
+  if(corrected===issue.suggestion)continue;
+  if(corrected.replace(/\s/gu,'')!==issue.suggestion.replace(/\s/gu,''))continue;
+  for(const i of conflicts)issues.splice(issues.indexOf(i),1);
+  issues.push(issue);
+ }
  // A deliberately small structural check, separate from model output. Never bulk-applied.
  // Possessive goal statements avoid ambiguous topic readings such as 이 목표는 ... 실천합니다.
  for(const chunk of sentences(text)){

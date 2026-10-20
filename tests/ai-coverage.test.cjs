@@ -15,14 +15,14 @@ test('general corrections need a second review, stay local to each block, and ar
  let reviews=0;
  const ai=new LocalAI({loadRuntime:async()=>runtime((text,options)=>{
   if(options.grammar.properties.confirmed){reviews++;return '{"confirmed":true}';}
-  return JSON.stringify({corrections:[{original:'학교에 가요요.',suggestion:'학교에 가요.',evidenceId:'ai-review',reason:'종결 어미 요가 중복되었습니다.'}]});
+  return JSON.stringify({corrections:[{original:'학교에 가요요.',suggestion:'학교에 가요.'}]});
  })});
  const r=await ai.inspect('model.gguf',[{index:0,text:'학교에 가요요.'},{index:1,text:'내일 학교에 가요요.'}]);
  assert.equal(reviews,2);assert.equal(r.blocks[0].issues[0].start,4);assert.equal(r.blocks[1].issues[0].start,7);
  for(const b of r.blocks){assert.equal(b.issues[0].auto,false);assert.equal(b.issues[0].evidence,undefined);assert.equal(b.issues[0].requiresReview,undefined);}
 });
 test('rejected review produces no suggestion but counts an actually inspected sentence',async()=>{
- const ai=new LocalAI({loadRuntime:async()=>runtime((_t,o)=>o.grammar.properties.confirmed?'{"confirmed":false}':JSON.stringify({corrections:[{original:'가요요.',suggestion:'가요.',evidenceId:'ai-review',reason:'종결 어미 요가 중복되었습니다.'}]}))});
+ const ai=new LocalAI({loadRuntime:async()=>runtime((_t,o)=>o.grammar.properties.confirmed?'{"confirmed":false}':JSON.stringify({corrections:[{original:'가요요.',suggestion:'가요.'}]}))});
  const r=await ai.inspect('model.gguf','가요요.');assert.equal(r.stats.completed,1);assert.deepEqual(r.issues,[]);
 });
 test('failure is reported separately and remaining sentences still run',async()=>{

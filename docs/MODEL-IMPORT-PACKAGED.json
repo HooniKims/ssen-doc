@@ -2,7 +2,7 @@
   "packaged": true,
   "mode": "direct import; network lifecycle not tested",
   "authentication": "external mock fixture; real shared account untouched",
-  "started": "2026-10-18T21:31:48.022Z",
+  "started": "2026-10-20T07:56:04.861Z",
   "checks": [
     "real GGUF direct import and SHA-256 verified",
     {
@@ -10,5 +10,5 @@
     },
     "real model deleted after unloading"
   ],
-  "completed": "2026-10-18T21:32:35.511Z"
+  "completed": "2026-10-20T07:56:37.202Z"
 }

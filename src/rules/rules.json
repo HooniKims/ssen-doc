@@ -1,6 +1,17 @@
 {
-  "version": "1.1.0",
+  "version": "1.1.1",
   "rules": [
+    {
+      "id": "spelling-baramnida",
+      "pattern": "바람니다",
+      "replacement": "바랍니다",
+      "reason": "'바라다'에 '-ㅂ니다'가 붙은 말은 '바랍니다'로 적습니다.",
+      "example": "바람니다 → 바랍니다",
+      "category": "자주 틀리는 말",
+      "boundary": "word",
+      "positive": "제출해 주시기 바람니다.",
+      "negative": "참여해 주시기 바랍니다."
+    },
     {
       "id": "spelling-1",
       "pattern": "됬",

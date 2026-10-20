@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-20T01:39:31.990Z",
+  "version": "1.5.0",
+  "cases": [
+    {
+      "kind": "native-numbering",
+      "openedAndResaved": true,
+      "textPreserved": true,
+      "nativeParagraphs": 6,
+      "allNativeStandard": true,
+      "changedOnReinspection": 0
+    },
+    {
+      "kind": "table-cells",
+      "openedAndResaved": true,
+      "textPreserved": true,
+      "nativeParagraphs": 0,
+      "allNativeStandard": true,
+      "changedOnReinspection": 0
+    }
+  ]
+}

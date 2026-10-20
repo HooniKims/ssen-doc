@@ -1,0 +1,218 @@
+{
+  "version": "1.5.0",
+  "model": "Qwen3-0.6B-Q4_K_M.gguf",
+  "errorSentences": 15,
+  "combinedCorrect": 9,
+  "basicCorrect": 9,
+  "aiAloneCorrect": 0,
+  "aiProposals": 0,
+  "normalSentences": 8,
+  "falsePositiveSentences": 0,
+  "missed": [
+    {
+      "id": "s10",
+      "text": "감기에 걸려 학교에 않 갔습니다.",
+      "expected": "감기에 걸려 학교에 안 갔습니다.",
+      "actual": "감기에 걸려 학교에 않 갔습니다."
+    },
+    {
+      "id": "s11",
+      "text": "저는 교사로써 학생들을 지도합니다.",
+      "expected": "저는 교사로서 학생들을 지도합니다.",
+      "actual": "저는 교사로써 학생들을 지도합니다."
+    },
+    {
+      "id": "s12",
+      "text": "이 학교에 부임한지 세 달이 지났습니다.",
+      "expected": "이 학교에 부임한 지 세 달이 지났습니다.",
+      "actual": "이 학교에 부임한지 세 달이 지났습니다."
+    },
+    {
+      "id": "s13",
+      "text": "신청서를 제출해 주시기 바람니다.",
+      "expected": "신청서를 제출해 주시기 바랍니다.",
+      "actual": "신청서를 제출해 주시기 바람니다."
+    },
+    {
+      "id": "s14",
+      "text": "이번 연수의 목적은 교사의 전문성을 높입니다.",
+      "expected": "이번 연수의 목적은 교사의 전문성을 높이는 것입니다.",
+      "actual": "이번 연수의 목적은 교사의 전문성을 높입니다."
+    },
+    {
+      "id": "s15",
+      "text": "회의에서 개선 방안을 논의되었습니다.",
+      "expected": [
+        "회의에서 개선 방안을 논의했습니다.",
+        "회의에서 개선 방안이 논의되었습니다."
+      ],
+      "actual": "회의에서 개선 방안을 논의되었습니다."
+    }
+  ],
+  "semantic": [
+    {
+      "text": "사전 신청자에 한해서만 입장이 가능하며, 신청하지 않은 학생도 모두 입장할 수 있습니다.",
+      "actual": "사전 신청자에 한해서만 입장이 가능하며, 신청하지 않은 학생도 모두 입장할 수 있습니다.",
+      "issues": []
+    }
+  ],
+  "inferenceChunks": 79,
+  "failedChunks": 1,
+  "unprocessedChunks": 0,
+  "documents": [
+    {
+      "id": "notice",
+      "title": "학부모 연수 안내",
+      "exact": false,
+      "requiredLevels": 0,
+      "correctRequiredLevels": 0,
+      "extraValidProposals": [],
+      "wrongProposals": [],
+      "stats": {
+        "total": 0,
+        "completed": 0,
+        "failed": 0,
+        "abstained": 0,
+        "unprocessed": 0,
+        "cancelled": false
+      },
+      "remaining": []
+    },
+    {
+      "id": "safety",
+      "title": "체험학습 안전교육 계획",
+      "exact": true,
+      "requiredLevels": 6,
+      "correctRequiredLevels": 6,
+      "extraValidProposals": [],
+      "wrongProposals": [],
+      "stats": {
+        "total": 7,
+        "completed": 6,
+        "failed": 1,
+        "abstained": 0,
+        "unprocessed": 0,
+        "cancelled": false
+      },
+      "remaining": []
+    },
+    {
+      "id": "unindented",
+      "title": "문맥으로 단계 판단",
+      "exact": true,
+      "requiredLevels": 4,
+      "correctRequiredLevels": 4,
+      "extraValidProposals": [],
+      "wrongProposals": [],
+      "stats": {
+        "total": 4,
+        "completed": 4,
+        "failed": 0,
+        "abstained": 0,
+        "unprocessed": 0,
+        "cancelled": false
+      },
+      "remaining": []
+    },
+    {
+      "id": "unanchored",
+      "title": "단계 단서가 없는 목록",
+      "exact": true,
+      "requiredLevels": 0,
+      "correctRequiredLevels": 0,
+      "extraValidProposals": [],
+      "wrongProposals": [],
+      "stats": {
+        "total": 3,
+        "completed": 3,
+        "failed": 0,
+        "abstained": 3,
+        "unprocessed": 0,
+        "cancelled": false
+      },
+      "remaining": [
+        {
+          "index": 0,
+          "reason": "항목 단계가 명확하지 않습니다. 단계를 선택하거나 AI 구조 검토를 실행해 주세요."
+        },
+        {
+          "index": 1,
+          "reason": "항목 단계가 명확하지 않습니다. 단계를 선택하거나 AI 구조 검토를 실행해 주세요."
+        },
+        {
+          "index": 2,
+          "reason": "항목 단계가 명확하지 않습니다. 단계를 선택하거나 AI 구조 검토를 실행해 주세요."
+        }
+      ]
+    }
+  ],
+  "elapsedSeconds": 413.349,
+  "paragraph": {
+    "errors": 7,
+    "corrected": 4,
+    "details": [
+      {
+        "before": "오랫만에",
+        "after": "오랜만에",
+        "corrected": true
+      },
+      {
+        "before": "역활",
+        "after": "역할",
+        "corrected": true
+      },
+      {
+        "before": "몇일",
+        "after": "며칠",
+        "corrected": true
+      },
+      {
+        "before": "교사로써",
+        "after": "교사로서",
+        "corrected": false
+      },
+      {
+        "before": "꼼꼼이",
+        "after": "꼼꼼히",
+        "corrected": true
+      },
+      {
+        "before": "않 나갔습니다",
+        "after": "안 나갔습니다",
+        "corrected": false
+      },
+      {
+        "before": "바람니다",
+        "after": "바랍니다",
+        "corrected": false
+      }
+    ],
+    "stats": {
+      "total": 5,
+      "completed": 5,
+      "failed": 0,
+      "unprocessed": 0,
+      "cancelled": false
+    },
+    "aiProposals": 0,
+    "milliseconds": 39236,
+    "rawProposals": [
+      {
+        "original": " 저는 교사로써 학생들을 도우며 준비물을 꼼꼼이 확인했습니다.",
+        "suggestion": " 저는 교사로서 학생들을 도우며 준비물을 꼼꼼히 확인했습니다.",
+        "evidenceId": "[]",
+        "reason": " '교사로써'는 '교육자로서'로 바뀌었음."
+      }
+    ],
+    "rejectionObservation": "The model proposed 교사로써→교사로서 and 꼼꼼이→꼼꼼히, but evidenceId was the invalid string []. The current parser rejects this identifier, so no AI issue reached the app."
+  },
+  "failures": [
+    {
+      "document": "safety",
+      "text": "  - 일시: 2026. 11. 20. 09:00",
+      "warnings": [
+        "1번째 문단·셀, 4번째 검사 구간: Unterminated string in JSON at position 449 (line 6 column 349)"
+      ]
+    }
+  ]
+}

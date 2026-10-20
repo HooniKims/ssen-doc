@@ -1,0 +1,212 @@
+{
+  "version": "1.5.1",
+  "date": "2026-10-20T07:03:48.880Z",
+  "model": "Qwen3-0.6B-Q4_K_M.gguf",
+  "synthetic": true,
+  "corpusHash": "d62b0cdc33cf749f22aab86e0aff438c82c5c42d69be8f17cf70d330a99461cb",
+  "method": "First corpus expectations frozen before changes, then used during development; treat as regression, not independent holdout. A second unseen corpus was frozen after prompt development with no engine tuning against its results. Same model and CPU runtime. Metrics combine rules and accepted AI suggestions, not model-only accuracy. UI tests use mocks; quality results use real inference.",
+  "holdout": {
+    "before": {
+      "errors": {
+        "correct": 1,
+        "total": 12,
+        "aiProposals": 0
+      },
+      "normal": {
+        "correct": 18,
+        "total": 18,
+        "aiProposals": 0
+      }
+    },
+    "after": {
+      "errors": {
+        "correct": 12,
+        "total": 12,
+        "aiProposals": 9
+      },
+      "normal": {
+        "correct": 18,
+        "total": 18,
+        "aiProposals": 0
+      }
+    }
+  },
+  "previous": {
+    "before": {
+      "errors": {
+        "correct": 9,
+        "total": 15,
+        "aiProposals": 0
+      },
+      "normal": {
+        "correct": 8,
+        "total": 8,
+        "aiProposals": 0
+      }
+    },
+    "after": {
+      "errors": {
+        "correct": 15,
+        "total": 15,
+        "aiProposals": 5
+      },
+      "normal": {
+        "correct": 8,
+        "total": 8,
+        "aiProposals": 0
+      }
+    }
+  },
+  "paragraph": {
+    "before": {
+      "exact": false,
+      "correct": 4,
+      "total": 7
+    },
+    "after": {
+      "exact": false,
+      "correct": 6,
+      "total": 7
+    }
+  },
+  "unseen": {
+    "errors": {
+      "correct": 7,
+      "total": 12,
+      "aiProposals": 5
+    },
+    "normal": {
+      "correct": 12,
+      "total": 12,
+      "aiProposals": 0
+    },
+    "stats": {
+      "total": 24,
+      "completed": 24,
+      "failed": 0,
+      "unprocessed": 0
+    },
+    "remaining": [
+      {
+        "text": "회의가 끝난지 사흘이 지났습니다.",
+        "expected": "회의가 끝난 지 사흘이 지났습니다.",
+        "actual": "회의가 끝난지 사흘이 지났습니다."
+      },
+      {
+        "text": "학생들이 대회에서 좋은 성과를 거두웠습니다.",
+        "expected": "학생들이 대회에서 좋은 성과를 거두었습니다.",
+        "actual": "학생들이 대회에서 좋은 성과를 거두웠습니다."
+      },
+      {
+        "text": "내일까지 신청서를 낼께요.",
+        "expected": "내일까지 신청서를 낼게요.",
+        "actual": "내일까지 신청서를 낼께요."
+      },
+      {
+        "text": "친구와 약속을 지키기로 했슴니다.",
+        "expected": "친구와 약속을 지키기로 했습니다.",
+        "actual": "친구와 약속을 지키기로 했슴니다."
+      },
+      {
+        "text": "저는 이 의견을 적극적으로 찬성합니다.",
+        "expected": "저는 이 의견에 적극적으로 찬성합니다.",
+        "actual": "저는 이 의견을 적극적으로 찬성합니다."
+      }
+    ],
+    "corpusHash": "5544bc014fffc36295720c97407c85ad2148c5d36e21eb5222588b670e8e5ba5"
+  },
+  "documents": [
+    {
+      "id": "notice",
+      "exact": true,
+      "correctLevels": 0,
+      "requiredLevels": 0,
+      "wrongLevels": [],
+      "stats": {
+        "total": 0,
+        "completed": 0,
+        "failed": 0,
+        "abstained": 0,
+        "resolvedByRules": 0,
+        "unprocessed": 0,
+        "cancelled": false
+      }
+    },
+    {
+      "id": "safety",
+      "exact": true,
+      "correctLevels": 6,
+      "requiredLevels": 6,
+      "wrongLevels": [],
+      "stats": {
+        "total": 7,
+        "completed": 6,
+        "failed": 0,
+        "abstained": 0,
+        "resolvedByRules": 1,
+        "unprocessed": 0,
+        "cancelled": false
+      }
+    },
+    {
+      "id": "unindented",
+      "exact": true,
+      "correctLevels": 4,
+      "requiredLevels": 4,
+      "wrongLevels": [],
+      "stats": {
+        "total": 4,
+        "completed": 4,
+        "failed": 0,
+        "abstained": 0,
+        "resolvedByRules": 0,
+        "unprocessed": 0,
+        "cancelled": false
+      }
+    },
+    {
+      "id": "unanchored",
+      "exact": true,
+      "correctLevels": 0,
+      "requiredLevels": 0,
+      "wrongLevels": [],
+      "stats": {
+        "total": 3,
+        "completed": 3,
+        "failed": 0,
+        "abstained": 3,
+        "resolvedByRules": 0,
+        "unprocessed": 0,
+        "cancelled": false
+      }
+    }
+  ],
+  "inference": {
+    "beforeHoldout": {
+      "total": 35,
+      "completed": 35,
+      "failed": 0,
+      "unprocessed": 0
+    },
+    "after": {
+      "total": 93,
+      "completed": 93,
+      "failed": 0,
+      "unprocessed": 0
+    }
+  },
+  "remaining": [],
+  "semanticContradiction": [
+    {
+      "id": "s16",
+      "proposals": 0,
+      "actual": "사전 신청자에 한해서만 입장이 가능하며, 신청하지 않은 학생도 모두 입장할 수 있습니다."
+    }
+  ],
+  "limitations": [
+    "Small synthetic corpus, not general accuracy.",
+    "At most one free-form suggestion or three contextual candidates per chunk; multiple basic rules can also apply.",
+    "Contextual candidates cover selected patterns only; no guarantee of all grammatical or factual errors.",
+    "Same-model rechecking is not an independent expert review."
+  ]
+}

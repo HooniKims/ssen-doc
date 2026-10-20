@@ -19,7 +19,7 @@ test.beforeEach(async()=>{
      globalThis.__aiCalls.push(text);
      if(globalThis.__aiMode==='cancel'&&globalThis.__aiCalls.length===2)await new Promise((resolve,reject)=>{if(options.signal.aborted)return reject(Error('aborted'));options.signal.addEventListener('abort',()=>reject(Error('aborted')),{once:true});});
      if(globalThis.__aiMode==='fail')throw Error('synthetic inference failure');
-     return JSON.stringify({corrections:text.includes('가요요')?[{original:'학교에 가요요.',suggestion:'학교에 가요.',evidenceId:'ai-review',reason:'종결 어미 요가 중복되었습니다.'}]:[]});
+     return JSON.stringify({corrections:text.includes('가요요')?[{original:'학교에 가요요.',suggestion:'학교에 가요.'}]:[]});
     }} });return inspect.apply(this,args);
   };
  });

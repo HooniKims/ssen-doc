@@ -44,6 +44,23 @@ test('skipping the initial AI recommendation persists without a download and per
 });
 async function appDownloadCalls(){return electron.evaluate(()=>globalThis.__authFixture.modelDownloadCalls);}
 
+test('compound corrections keep quotes and require individual acceptance for contextual spacing',async()=>{
+ const text='“몇일동안”은 인용입니다. 몇일동안 준비했슴니다. 얻을꺼예요.';
+ await page.locator('#text-input').fill(text);await page.locator('#scan').click();
+ await expect(page.locator('.issue')).toHaveCount(4);
+ await page.locator('#apply-all').click();
+ await expect(page.locator('#text-input')).toHaveValue('“몇일동안”은 인용입니다. 며칠동안 준비했습니다. 얻을꺼예요.');
+ await expect(page.locator('#apply-all')).toBeDisabled();
+ await expect(page.locator('.issue')).toHaveCount(2);
+ await page.locator('.issue').filter({hasText:'동안'}).click();await page.locator('#apply-one').click();
+ await expect(page.locator('.issue')).toHaveCount(1);
+ await page.locator('.issue').filter({hasText:'꺼예요'}).click();await page.locator('#apply-one').click();
+ const expected='“몇일동안”은 인용입니다. 며칠 동안 준비했습니다. 얻을 거예요.';
+ await expect(page.locator('#text-input')).toHaveValue(expected);
+ await page.locator('#scan').click();await expect(page.locator('.issue')).toHaveCount(0);
+ await page.locator('#copy').click();expect(await electron.evaluate(({clipboard})=>clipboard.readText())).toBe(expected);
+});
+
 test('quiet spelling shows no dictionary guesses or generic context reminders',async()=>{
  const corpus=require('../fixtures/spelling-quality.cjs');
  await page.locator('#text-input').fill(corpus.correct.join('\n'));await page.locator('#scan').click();

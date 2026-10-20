@@ -96,7 +96,11 @@ function hwpxTarget(tree,source){
   const allowed=new Set(['run','t','linesegarray','lineseg']);
   for(const p of paragraphs){
     let openFields=0;for(const n of tree.all){if(n.start>=p.start)break;if(n.local==='fieldBegin')openFields++;if(n.local==='fieldEnd')openFields=Math.max(0,openFields-1);}
-    if(openFields||descendants(p).some(n=>!allowed.has(n.local)))fail('필드·개체가 있는 문단은 원본 프로그램에서 수정해 주세요.');
+    // A section definition in the first paragraph is metadata, not editable text.
+    const metadata=descendants(p).filter(n=>['secPr','colPr'].includes(n.local));
+    if(metadata.some(n=>descendants(n).some(c=>['t','p'].includes(c.local))))fail('본문 외 텍스트가 포함된 문단은 원본 프로그램에서 수정해 주세요.');
+    const metadataNodes=new Set(metadata.flatMap(n=>[n,...descendants(n)]));
+    if(openFields||descendants(p).some(n=>!allowed.has(n.local)&&!metadataNodes.has(n)))fail('필드·개체가 있는 문단은 원본 프로그램에서 수정해 주세요.');
   }
   const groups=paragraphs.map(p=>descendants(p).filter(n=>n.local==='t'));
   const values=groups.map(group=>group.map(n=>textOf(tree,n)).join(''));
@@ -148,6 +152,99 @@ function locate(ctx,source){
 function prepareEdit(buffer,filePath,source){
   const ctx=context(buffer,filePath),{tree,target}=locate(ctx,source);
   return {files:ctx.files,tree,target,text:target.text,type:target.type,hint:target.hint,sha256:hash(buffer)};
+}
+function officialStyle(ctx,tree,target,source){
+  if(!['hwpx-paragraph','hwpx-cell'].includes(source.kind)||target.paragraphs.length!==1)fail('문단 위치를 확인해 주세요.');
+  const p=target.paragraphs[0];
+  if(source.kind==='hwpx-paragraph'&&p.parent?.local!=='sec')fail('본문 밖의 문단은 한글에서 정리해 주세요.');
+  const bytes=ctx.files['Contents/header.xml'];if(!bytes)fail('문단 서식 정보를 찾을 수 없습니다.');
+  if(!ctx.header)ctx.header=indexXml(utf8(bytes));const h=ctx.header;
+  const style=h.all.find(n=>n.local==='paraPr'&&attr(h,n,'id')===attr(tree,p,'paraPrIDRef'));
+  if(!style)fail('문단 서식 정보를 찾을 수 없습니다.');
+  const ds=descendants(style),heading=ds.find(n=>n.local==='heading');
+  if(!heading||!['NONE','NUMBER'].includes(attr(h,heading,'type')))fail('개요·글머리표는 원본 번호 설정을 유지합니다.');
+  let native=null;
+  if(attr(h,heading,'type')==='NUMBER'){
+    const id=attr(h,heading,'idRef'),numbering=h.all.find(n=>n.local==='numbering'&&n.parent?.local==='numberings'&&attr(h,n,'id')===id);
+    const level=Number(attr(h,heading,'level'))+1;
+    if(!numbering||attr(h,heading,'level')===null||!Number.isInteger(level)||level<1||level>8)fail('자동 번호 정의 또는 단계를 확인할 수 없습니다.');
+    const {nativeFormats,nativePatterns}=require('../../../src/official-format.cjs');
+    const heads=numbering.children.filter(n=>n.local==='paraHead');
+    if(!heads.length||heads.some(n=>n.children.length))fail('복잡한 자동 번호 정의는 원본 설정을 유지합니다.');
+    const standard=nativeFormats.every((fmt,i)=>{const head=heads.find(n=>Number(attr(h,n,'level'))===i+1);return head&&attr(h,head,'numFormat')===fmt&&textOf(h,head)===nativePatterns[i];});
+    native={id,level,standard};
+  }
+  const margins=ds.filter(n=>n.local==='margin');
+  if(!margins.length||margins.some(n=>!['left','intent'].every(key=>n.children.some(c=>c.local===key&&attr(h,c,'unit')==='HWPUNIT'))))fail('이 문단의 들여쓰기 단위는 한글에서 조정해 주세요.');
+  const run=target.groups[0][0]?.parent,char=h.all.find(n=>n.local==='charPr'&&attr(h,n,'id')===attr(tree,run,'charPrIDRef'));
+  const fontHeight=Number(char&&attr(h,char,'height'));if(!Number.isInteger(fontHeight)||fontHeight<100||fontHeight>10000)fail('글자 크기를 확인할 수 없어 문단 서식을 유지합니다.');
+  // Hancom 2016+ uses the HwpUnitChar case; legacy fallback margins are doubled on resave.
+  const unitCase=ds.find(n=>n.local==='case'&&/\brequired-namespace\s*=\s*["']http:\/\/www\.hancom\.co\.kr\/hwpml\/2016\/HwpUnitChar["']/.test(h.source.slice(n.start,n.open)));
+  const activeMargins=unitCase?margins.filter(n=>nearest(n,'case')===unitCase):margins;
+  if(!activeMargins.length)fail('적용할 문단 여백 정보를 찾을 수 없습니다.');
+  const values=key=>activeMargins.map(n=>Number(attr(h,n.children.find(c=>c.local===key),'value')));
+  const lefts=values('left'),intents=values('intent');
+  return {p,h,style,heading,native,unitCase,fontHeight,left:lefts.every(v=>v===lefts[0])?lefts[0]:null,intent:intents.every(v=>v===intents[0])?intents[0]:null};
+}
+function officialRows(buffer,filePath,changes=[]){
+  if(!/\.hwpx$/i.test(filePath))fail('공문 항목 정리는 텍스트와 HWPX에서 사용할 수 있습니다.');
+  if(!Array.isArray(changes)||changes.length>100)fail('수정한 문단은 한 번에 100개까지 정리할 수 있습니다.');
+  const ctx=context(buffer,filePath),blocks=ctx.blocks.filter(b=>b.text),updates=new Map();
+  for(const e of changes){if(!Number.isInteger(e.index)||!blocks[e.index]||updates.has(e.index)||typeof e.text!=='string'||e.text.length>10000)fail('수정할 문단을 확인해 주세요.');updates.set(e.index,e.text);}
+  return blocks.flatMap((b,index)=>{
+    const scope=b.source.kind==='hwpx-cell'?`${b.source.part}:table${b.source.table}:r${b.source.row}:c${b.source.column}`:b.source.part;
+    const row={index,blockIndex:index,text:updates.get(index)??b.text,location:b.location,part:b.source.part,scope,document:true};
+    try{
+      const {tree,target}=locate(ctx,b.source),texts=(updates.get(index)??target.text).split('\n');
+      if(texts.length!==target.paragraphs.length)fail('원래 셀의 문단 수를 유지해 주세요.');
+      return target.paragraphs.map((p,i)=>{
+        const single={paragraphs:[p],groups:[target.groups[i]]};
+        const sub={...row,index:b.source.kind==='hwpx-cell'?`${index}:${i}`:index,paragraph:i,text:texts[i],original:target.text,location:b.source.kind==='hwpx-cell'?`${b.location} · 문단 ${i+1}`:b.location};
+        try{const style=officialStyle(ctx,tree,single,b.source);const offset=style.left+style.intent,indent=offset/style.fontHeight*2;return {...sub,native:style.native,fontHeight:style.fontHeight,left:style.left,intent:style.intent,paragraphIndent:offset>=0&&Math.abs(indent-Math.round(indent))<0.05?Math.round(indent):null};}
+        catch(e){return {...sub,reason:e.message};}
+      });
+    }catch(e){return [{...row,reason:e.message}];}
+  });
+}
+function cloneNumbering(ctx,sourceId,scope,styles){
+  const key=JSON.stringify([sourceId,scope]);if(styles.numberCache.has(key))return styles.numberCache.get(key);
+  const h=ctx.header,n=h.all.find(n=>n.local==='numbering'&&n.parent?.local==='numberings'&&attr(h,n,'id')===sourceId);
+  if(!n)fail('자동 번호 정의를 찾을 수 없습니다.');
+  const {nativeFormats,nativePatterns}=require('../../../src/official-format.cjs');
+  const id=styles.nextNumber++,offset=n.start,raw=h.source.slice(n.start,n.end),changes=[[0,n.open-offset,setAttr(h.source.slice(n.start,n.open),'id',String(id))]];
+  const heads=n.children.filter(c=>c.local==='paraHead'),base=heads[0];if(!base)fail('자동 번호 단계가 없습니다.');
+  const missing=[];
+  for(let i=0;i<8;i++){
+    const head=heads.find(c=>Number(attr(h,c,'level'))===i+1)||base;
+    let open=h.source.slice(head.start,head.open);open=setAttr(setAttr(open,'level',String(i+1)),'numFormat',nativeFormats[i]);
+    open=open.replace(/\/\s*>$/, '>');const value=open+nativePatterns[i]+`</${head.name}>`;
+    if(head===base&&Number(attr(h,base,'level'))!==i+1)missing.push(value);else changes.push([head.start-offset,head.end-offset,value]);
+  }
+  if(missing.length)changes.push([n.close-offset,n.close-offset,missing.join('')]);
+  styles.numberFragments.push(patches(raw,changes));styles.numberCache.set(key,id);return id;
+}
+function officialPatches(ctx,tree,target,source,text,format,styles){
+  const {parseItem,layout}=require('../../../src/official-format.cjs'),item=parseItem(text);
+  if(!format||!Number.isInteger(format.level)||format.level<1||format.level>8||!format.native&&(!item||item.level!==format.level||item.token!==format.token||item.indent))fail('항목 내용이 변경되었습니다. 공문 항목 정리를 다시 실행해 주세요.');
+  const s=officialStyle(ctx,tree,target,source);
+  if(Boolean(format.native)!==Boolean(s.native))fail('자동 번호 상태가 변경되었습니다. 다시 검사해 주세요.');
+  const wanted=format.native?{left:s.left,intent:s.intent}:layout(format.level,format.token,s.fontHeight);
+  if(!format.native&&s.left===wanted.left&&s.intent===wanted.intent)return [];
+  const actualScope=source.kind==='hwpx-cell'?`${source.part}:table${source.table}:r${source.row}:c${source.column}`:source.part;
+  const numberId=format.native?cloneNumbering(ctx,s.native.id,actualScope,styles):null;
+  if(format.native){const key=JSON.stringify([s.native.id,actualScope]);if(!styles.nativeUsed.has(key))styles.nativeUsed.set(key,{part:source.part,source,positions:new Set()});styles.nativeUsed.get(key).positions.add(s.p.start);}
+  const key=JSON.stringify([attr(s.h,s.style,'id'),wanted,numberId,format.level]);let id=styles.cache.get(key);
+  if(id===undefined){
+    id=styles.next++;styles.cache.set(key,id);
+    const offset=s.style.start,raw=s.h.source.slice(offset,s.style.end);
+    const changes=[[0,s.style.open-offset,setAttr(s.h.source.slice(offset,s.style.open),'id',String(id))]];
+    if(!format.native)for(const margin of descendants(s.style).filter(n=>n.local==='margin'))for(const n of margin.children)if(n.local==='left'||n.local==='intent'){const scale=s.unitCase&&nearest(margin,'default')?.parent===s.unitCase.parent?2:1;changes.push([n.start-offset,n.open-offset,setAttr(s.h.source.slice(n.start,n.open),'value',String(wanted[n.local]*scale))]);}
+    if(format.native){let open=s.h.source.slice(s.heading.start,s.heading.open);open=setAttr(setAttr(open,'idRef',String(numberId)),'level',String(format.level-1));changes.push([s.heading.start-offset,s.heading.open-offset,open]);}
+    styles.fragments.push(patches(raw,changes));
+  }
+  const result=[[s.p.start,s.p.open,setAttr(tree.source.slice(s.p.start,s.p.open),'paraPrIDRef',String(id))]];
+  if(text===target.text)for(const n of s.p.children.filter(n=>n.local==='linesegarray'))result.push([n.start,n.end,'']);
+  return result;
 }
 function clearFormulaCaches(files){
   let changed=false;
@@ -209,8 +306,42 @@ function editsFor(tree,target,source,next){
 function applyEdits(buffer,filePath,changes,expectedHash){
   if(expectedHash&&hash(buffer)!==expectedHash)fail('검사 후 원본 파일이 변경되었습니다. 다시 검사한 뒤 수정해 주세요.');
   if(!Array.isArray(changes)||!changes.length||changes.length>100)fail('한 번에 수정한 문단·셀 1~100개를 저장할 수 있습니다.');
-  const ctx=context(buffer,filePath),files=ctx.files,byPart=new Map();
-  for(const {source,text} of changes){const {tree,target}=locate(ctx,source);if(!byPart.has(source.part))byPart.set(source.part,[]);byPart.get(source.part).push(...editsFor(tree,target,source,text));}
+  const ctx=context(buffer,filePath),files=ctx.files,byPart=new Map(),styles={cache:new Map(),fragments:[],next:0,numberCache:new Map(),numberFragments:[],nextNumber:0,nativeUsed:new Map()},seen=new Set();
+  if(changes.some(c=>c.format)){
+    if(!files['Contents/header.xml'])fail('문단 서식을 찾을 수 없습니다.');
+    ctx.header=indexXml(utf8(files['Contents/header.xml']));
+    styles.next=Math.max(-1,...ctx.header.all.filter(n=>n.local==='paraPr').map(n=>Number(attr(ctx.header,n,'id'))))+1;
+    styles.nextNumber=Math.max(0,...ctx.header.all.filter(n=>n.local==='numbering'&&n.parent?.local==='numberings').map(n=>Number(attr(ctx.header,n,'id'))))+1;
+    if(!Number.isSafeInteger(styles.next))fail('문단 서식 번호가 올바르지 않습니다.');
+  }
+  for(const {source,text,format} of changes){
+    const key=JSON.stringify(source);if(seen.has(key))fail('편집 범위가 겹칩니다.');seen.add(key);
+    const {tree,target}=locate(ctx,source);if(!byPart.has(source.part))byPart.set(source.part,[]);
+    if(text!==target.text||!format)byPart.get(source.part).push(...editsFor(tree,target,source,text));
+    if(format){
+      const entries=Array.isArray(format)?format:[format],used=new Set(),texts=text.replace(/\r\n/g,'\n').split('\n');
+      if(!entries.length||entries.length>target.paragraphs?.length)fail('문단 서식 개수를 확인해 주세요.');
+      for(const entry of entries){
+        const i=entry.paragraph??0;if(!Number.isInteger(i)||i<0||i>=target.paragraphs.length||used.has(i))fail('문단 서식 위치가 올바르지 않습니다.');used.add(i);
+        const single={...target,paragraphs:[target.paragraphs[i]],groups:[target.groups[i]],values:[target.values[i]],text:target.values[i]};
+        byPart.get(source.part).push(...officialPatches(ctx,tree,single,source,texts[i],entry,styles));
+      }
+    }
+  }
+  for(const [key,used] of styles.nativeUsed){
+    const [numberId]=JSON.parse(key),h=ctx.header,tree=ctx.trees.get(used.part);
+    const shared=new Set(h.all.filter(n=>n.local==='paraPr'&&n.children.some(c=>c.local==='heading'&&attr(h,c,'type')==='NUMBER'&&attr(h,c,'idRef')===numberId)).map(n=>attr(h,n,'id')));
+    const cell=used.source.kind==='hwpx-cell'?nearest(tree.all.find(n=>n.local==='p'&&used.positions.has(n.start)),'tc'):null;
+    const all=tree.all.filter(n=>n.local==='p'&&shared.has(attr(tree,n,'paraPrIDRef'))&&(cell?nearest(n,'tc')===cell:n.parent?.local==='sec'));
+    if(all.some(n=>!used.positions.has(n.start)))fail('같은 자동 번호 목록의 모든 문단을 함께 정리해야 합니다. 제외된 문단을 확인해 주세요.');
+  }
+  if(styles.fragments.length){
+    const h=ctx.header,container=h.all.find(n=>n.local==='paraProperties');if(!container||container.self)fail('문단 서식 목록을 찾을 수 없습니다.');
+    const count=container.children.filter(n=>n.local==='paraPr').length+styles.fragments.length;
+    const headerChanges=[[container.start,container.open,setAttr(h.source.slice(container.start,container.open),'itemCnt',String(count))],[container.close,container.close,styles.fragments.join('')]];
+    if(styles.numberFragments.length){const ns=h.all.find(n=>n.local==='numberings');if(!ns||ns.self)fail('자동 번호 목록을 찾을 수 없습니다.');headerChanges.push([ns.start,ns.open,setAttr(h.source.slice(ns.start,ns.open),'itemCnt',String(ns.children.filter(n=>n.local==='numbering').length+styles.numberFragments.length))],[ns.close,ns.close,styles.numberFragments.join('')]);}
+    files['Contents/header.xml']=strToU8(patches(h.source,headerChanges));
+  }
   for(const [part,edits] of byPart)files[part]=strToU8(patches(ctx.trees.get(part).source,edits));
   let recalculate=false,stalePreview=false;
   if(changes[0].source.kind==='xlsx-cell')recalculate=clearFormulaCaches(files);
@@ -226,4 +357,4 @@ function applyEdits(buffer,filePath,changes,expectedHash){
   return {buffer:result,recalculate,stalePreview};
 }
 function applyEdit(buffer,filePath,source,next,expectedHash){return applyEdits(buffer,filePath,[{source,text:next}],expectedHash);}
-module.exports={prepareEdit,applyEdit,applyEdits,hash,indexXml};
+module.exports={prepareEdit,applyEdit,applyEdits,hash,indexXml,officialRows};

@@ -3,6 +3,8 @@ const {contextBridge,ipcRenderer}=require('electron');
 const invoke=(name,...args)=>ipcRenderer.invoke(name,...args);
 const on=(channel,callback)=>{const listener=(_e,value)=>callback(value);ipcRenderer.on(channel,listener);return()=>ipcRenderer.removeListener(channel,listener);};
 contextBridge.exposeInMainWorld('doc',{
+ official:(input,overrides)=>invoke('spell:official',input,overrides),
+ officialAI:(input,overrides)=>invoke('spell:official-ai',input,overrides),onOfficialProgress:callback=>on('official:progress',callback),
  navigate:view=>invoke('doc:navigate',view),scan:text=>invoke('spell:scan',text),clipboard:()=>invoke('clipboard:read'),copy:text=>invoke('clipboard:write',text),
  openDocument:()=>invoke('spell:open-document'),prepareBlock:index=>invoke('spell:prepare',index),saveDocument:edits=>invoke('spell:save-document',edits),saveText:(text,type)=>invoke('spell:save-text',text,type),
  modelInfo:()=>invoke('model:info'),downloadModel:id=>invoke('model:download',id),pauseModel:()=>invoke('model:pause'),importModel:()=>invoke('model:import'),deleteModel:()=>invoke('model:delete'),

@@ -49,6 +49,21 @@ app.whenReady().then(async()=>{
  registerIPC('settings:read',safe(()=>settings));registerIPC('settings:write',safe(async patch=>{if(patch?.aiNoticeSeen===true)settings.aiNoticeSeen=true;await persist();return settings;}));
  registerIPC('dictionary:add',safe(async word=>{if(typeof word!=='string'||!/^\p{Script=Hangul}{2,30}$/u.test(word))throw Error('한글 단어 2~30자를 입력하세요.');settings.userWords=[...new Set([...settings.userWords,word])].slice(-5000);await persist();return {ok:true};}));
  registerIPC('spell:scan',safe(text=>task('scan',{text:validText(text),userWords:settings.userWords})));
+ registerIPC('spell:official',safe((input,overrides={})=>{
+  if(!overrides||typeof overrides!=='object'||Array.isArray(overrides)||JSON.stringify(overrides).length>100000)throw Error('항목 단계 설정을 확인해 주세요.');
+  if(typeof input==='string')return task('official-text',{text:validText(input),overrides});
+  if(!documentSession)throw Error('먼저 HWPX 문서를 불러와 주세요.');
+  return task('official-document',{...documentSession,expectedHash:documentSession.hash,edits:input?.edits,overrides});
+ }));
+ registerIPC('spell:official-ai',safe(async(input,overrides={})=>{
+  if(!overrides||typeof overrides!=='object'||Array.isArray(overrides)||JSON.stringify(overrides).length>100000)throw Error('항목 단계 설정을 확인해 주세요.');
+  if(ai.busy)throw Error('AI 검사가 진행 중입니다.');
+  await managerReady;if(manager.active)throw Error('모델 준비가 끝난 뒤 검사하세요.');
+  let result;
+  if(typeof input==='string')result=await task('official-context-text',{text:validText(input),overrides});
+  else{if(!documentSession)throw Error('먼저 HWPX 문서를 불러와 주세요.');result=await task('official-context-document',{...documentSession,expectedHash:documentSession.hash,edits:input?.edits,overrides});}
+  return ai.reviewStructure(manager.modelPath(),result.rows,p=>send('official:progress',p));
+ }));
  registerIPC('clipboard:read',safe(async()=>({text:await clipboard.readText()})));registerIPC('clipboard:write',safe(async text=>{await clipboard.writeText(validText(text));return {ok:true};}));
  registerIPC('spell:open-document',safe(async()=>{const result=await dialog.showOpenDialog(host,{title:'맞춤법을 검사할 문서',properties:['openFile'],filters:[{name:'학교 문서',extensions:['hwpx','xlsx']}]});if(result.canceled)return {canceled:true};const filePath=await fs.realpath(result.filePaths[0]);const data=await task('document',{filePath});documentSession={filePath,hash:data.hash,blockCount:data.blocks.length};return data;}));
  registerIPC('spell:prepare',safe(index=>{if(!documentSession||!Number.isInteger(index))throw Error('문서를 다시 불러와 주세요.');return task('prepare',{...documentSession,expectedHash:documentSession.hash,index});}));

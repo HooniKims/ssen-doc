@@ -1,0 +1,329 @@
+{
+  "version": "1.5.2",
+  "date": "2026-10-20T08:13:58.340Z",
+  "passed": true,
+  "scope": "Fixed practical synthetic Korean school/work examples; rule + real Qwen3 0.6B CPU inference, with all offered edits accepted; not general Korean accuracy or AI-only accuracy.",
+  "score": 99.64788732394366,
+  "total": 284,
+  "correct": 283,
+  "sourceHash": "e5e41d8aded22dcd85838e97674cf5dac4d2aec56fdb45a227403ddb620557f7",
+  "interruptedEvaluations": {
+    "date": "2026-10-20T07:53:53.505Z",
+    "reports": [
+      {
+        "name": "round3",
+        "sourceHash": "e5e41d8aded22dcd85838e97674cf5dac4d2aec56fdb45a227403ddb620557f7",
+        "completedCases": 33,
+        "failedChunks": 0,
+        "reason": "Stopped after concurrent CPU model jobs and packaging caused 30-second timeouts. Raw partial results retained; no product-code tuning follows these partial results. Re-evaluated sequentially."
+      },
+      {
+        "name": "fresh-a3",
+        "sourceHash": "e5e41d8aded22dcd85838e97674cf5dac4d2aec56fdb45a227403ddb620557f7",
+        "completedCases": 32,
+        "failedChunks": 3,
+        "reason": "Stopped after concurrent CPU model jobs and packaging caused 30-second timeouts. Raw partial results retained; no product-code tuning follows these partial results. Re-evaluated sequentially."
+      },
+      {
+        "name": "fresh-c1",
+        "sourceHash": "e5e41d8aded22dcd85838e97674cf5dac4d2aec56fdb45a227403ddb620557f7",
+        "completedCases": 30,
+        "failedChunks": 2,
+        "reason": "Stopped after concurrent CPU model jobs and packaging caused 30-second timeouts. Raw partial results retained; no product-code tuning follows these partial results. Re-evaluated sequentially."
+      }
+    ]
+  },
+  "normalChanges": 0,
+  "failedChunks": 0,
+  "errors": 172,
+  "errorsCorrect": 171,
+  "documents": 22,
+  "modelContributedExact": 23,
+  "history": [
+    {
+      "name": "baseline",
+      "hash": "605d495e26097a458ce6197670527e5cca6fcca1cda8c9358c5a4705fd19e641",
+      "passed": false,
+      "score": 82.72727272727273,
+      "errorAccuracy": 72.85714285714286,
+      "errors": {
+        "total": 70,
+        "correct": 51
+      },
+      "normal": {
+        "total": 30,
+        "correct": 30
+      },
+      "documents": {
+        "total": 10,
+        "correct": 10
+      },
+      "normalChanges": 0,
+      "failedChunks": 0
+    },
+    {
+      "name": "round1",
+      "hash": "605d495e26097a458ce6197670527e5cca6fcca1cda8c9358c5a4705fd19e641",
+      "passed": true,
+      "score": 99.0909090909091,
+      "errorAccuracy": 98.57142857142857,
+      "errors": {
+        "total": 70,
+        "correct": 69
+      },
+      "normal": {
+        "total": 30,
+        "correct": 30
+      },
+      "documents": {
+        "total": 10,
+        "correct": 10
+      },
+      "normalChanges": 0,
+      "failedChunks": 0
+    },
+    {
+      "name": "fresh-a1",
+      "hash": "9fb6dde9e93a0d1ab2facbab4260a91d320387f8048cd4e9434b4bd9e8508137",
+      "passed": false,
+      "score": 77.77777777777777,
+      "errorAccuracy": 60,
+      "errors": {
+        "total": 30,
+        "correct": 18
+      },
+      "normal": {
+        "total": 20,
+        "correct": 20
+      },
+      "documents": {
+        "total": 4,
+        "correct": 4
+      },
+      "normalChanges": 0,
+      "failedChunks": 0
+    },
+    {
+      "name": "round2",
+      "hash": "605d495e26097a458ce6197670527e5cca6fcca1cda8c9358c5a4705fd19e641",
+      "passed": false,
+      "score": 98.18181818181819,
+      "errorAccuracy": 100,
+      "errors": {
+        "total": 70,
+        "correct": 70
+      },
+      "normal": {
+        "total": 30,
+        "correct": 30
+      },
+      "documents": {
+        "total": 10,
+        "correct": 8
+      },
+      "normalChanges": 0,
+      "failedChunks": 3
+    },
+    {
+      "name": "fresh-a2",
+      "hash": "9fb6dde9e93a0d1ab2facbab4260a91d320387f8048cd4e9434b4bd9e8508137",
+      "passed": true,
+      "score": 98.14814814814815,
+      "errorAccuracy": 96.66666666666667,
+      "errors": {
+        "total": 30,
+        "correct": 29
+      },
+      "normal": {
+        "total": 20,
+        "correct": 20
+      },
+      "documents": {
+        "total": 4,
+        "correct": 4
+      },
+      "normalChanges": 0,
+      "failedChunks": 0
+    },
+    {
+      "name": "fresh-b1",
+      "hash": "0b34e5a2bf8c98d180a89d89c318aae9d6f9238483babc9c9484200403a100b3",
+      "passed": false,
+      "score": 96.66666666666667,
+      "errorAccuracy": 94.44444444444444,
+      "errors": {
+        "total": 36,
+        "correct": 34
+      },
+      "normal": {
+        "total": 20,
+        "correct": 20
+      },
+      "documents": {
+        "total": 4,
+        "correct": 4
+      },
+      "normalChanges": 0,
+      "failedChunks": 0
+    },
+    {
+      "name": "round4",
+      "hash": "605d495e26097a458ce6197670527e5cca6fcca1cda8c9358c5a4705fd19e641",
+      "passed": true,
+      "score": 100,
+      "errorAccuracy": 100,
+      "errors": {
+        "total": 70,
+        "correct": 70
+      },
+      "normal": {
+        "total": 30,
+        "correct": 30
+      },
+      "documents": {
+        "total": 10,
+        "correct": 10
+      },
+      "normalChanges": 0,
+      "failedChunks": 0
+    },
+    {
+      "name": "fresh-a4",
+      "hash": "9fb6dde9e93a0d1ab2facbab4260a91d320387f8048cd4e9434b4bd9e8508137",
+      "passed": true,
+      "score": 98.14814814814815,
+      "errorAccuracy": 96.66666666666667,
+      "errors": {
+        "total": 30,
+        "correct": 29
+      },
+      "normal": {
+        "total": 20,
+        "correct": 20
+      },
+      "documents": {
+        "total": 4,
+        "correct": 4
+      },
+      "normalChanges": 0,
+      "failedChunks": 0
+    },
+    {
+      "name": "fresh-b2",
+      "hash": "0b34e5a2bf8c98d180a89d89c318aae9d6f9238483babc9c9484200403a100b3",
+      "passed": true,
+      "score": 100,
+      "errorAccuracy": 100,
+      "errors": {
+        "total": 36,
+        "correct": 36
+      },
+      "normal": {
+        "total": 20,
+        "correct": 20
+      },
+      "documents": {
+        "total": 4,
+        "correct": 4
+      },
+      "normalChanges": 0,
+      "failedChunks": 0
+    },
+    {
+      "name": "fresh-c2",
+      "hash": "6ceea8170ce09af23caedf9cfb3cc4329bfd71f60c687495c79e842882bb3717",
+      "passed": true,
+      "score": 100,
+      "errorAccuracy": 100,
+      "errors": {
+        "total": 36,
+        "correct": 36
+      },
+      "normal": {
+        "total": 20,
+        "correct": 20
+      },
+      "documents": {
+        "total": 4,
+        "correct": 4
+      },
+      "normalChanges": 0,
+      "failedChunks": 0
+    }
+  ],
+  "remaining": [
+    {
+      "id": "fresh-a-error-15",
+      "text": "실무 회의에서 사업 계획을 검토되었습니다.",
+      "expected": [
+        "실무 회의에서 사업 계획을 검토했습니다.",
+        "실무 회의에서 사업 계획이 검토되었습니다."
+      ],
+      "actual": "실무 회의에서 사업 계획을 검토되었습니다."
+    }
+  ],
+  "externalGates": {
+    "hwpx": {
+      "version": "1.5.2",
+      "date": "2026-10-20T08:06:58.473Z",
+      "cases": [
+        {
+          "name": "공문_교정결과",
+          "paragraphs": 8,
+          "textPreserved": true,
+          "tableCells": 0,
+          "cellPositionsPreserved": true,
+          "nativeParagraphs": 0,
+          "allNativeStandard": true,
+          "changedOnReinspection": 0
+        },
+        {
+          "name": "native-corrected",
+          "paragraphs": 8,
+          "textPreserved": true,
+          "tableCells": 0,
+          "cellPositionsPreserved": true,
+          "nativeParagraphs": 6,
+          "allNativeStandard": true,
+          "changedOnReinspection": 0
+        },
+        {
+          "name": "table-corrected",
+          "paragraphs": 9,
+          "textPreserved": true,
+          "tableCells": 3,
+          "cellPositionsPreserved": true,
+          "nativeParagraphs": 0,
+          "allNativeStandard": true,
+          "changedOnReinspection": 0
+        }
+      ]
+    },
+    "hancom": [
+      {
+        "file": "공문_교정결과",
+        "registered": true,
+        "opened": true,
+        "saved": true,
+        "pages": 1,
+        "sourcePreserved": true
+      },
+      {
+        "file": "native-corrected",
+        "registered": true,
+        "opened": true,
+        "saved": true,
+        "pages": 1,
+        "sourcePreserved": true
+      },
+      {
+        "file": "table-corrected",
+        "registered": true,
+        "opened": true,
+        "saved": true,
+        "pages": 1,
+        "sourcePreserved": true
+      }
+    ]
+  }
+}

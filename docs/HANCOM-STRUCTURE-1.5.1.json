@@ -1,0 +1,30 @@
+{
+  "version": "1.5.1",
+  "date": "2026-10-20T07:02:08.618Z",
+  "cases": [
+    {
+      "name": "공문_교정결과",
+      "paragraphs": 8,
+      "textPreserved": true,
+      "nativeParagraphs": 0,
+      "allNativeStandard": true,
+      "changedOnReinspection": 0
+    },
+    {
+      "name": "native-corrected",
+      "paragraphs": 8,
+      "textPreserved": true,
+      "nativeParagraphs": 6,
+      "allNativeStandard": true,
+      "changedOnReinspection": 0
+    },
+    {
+      "name": "table-corrected",
+      "paragraphs": 9,
+      "textPreserved": true,
+      "nativeParagraphs": 0,
+      "allNativeStandard": true,
+      "changedOnReinspection": 0
+    }
+  ]
+}

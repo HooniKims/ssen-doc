@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-18T21:27:59.605Z",
+  "date": "2026-10-20T07:57:32.252Z",
   "model": {
     "id": "qwen3-0.6b",
     "name": "가벼운 모델 · Qwen3 0.6B",
@@ -12,7 +12,7 @@
   "results": [
     {
       "text": "회의가 일찍 됬어요.",
-      "milliseconds": 8946,
+      "milliseconds": 9466,
       "issues": [],
       "blocks": [
         {
@@ -38,7 +38,7 @@
     },
     {
       "text": "할수있어요.",
-      "milliseconds": 15524,
+      "milliseconds": 3796,
       "issues": [],
       "blocks": [
         {
@@ -64,7 +64,7 @@
     },
     {
       "text": "오늘은 왠지 기분이 좋아요.",
-      "milliseconds": 8389,
+      "milliseconds": 1892,
       "issues": [],
       "blocks": [
         {

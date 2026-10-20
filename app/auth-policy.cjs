@@ -8,6 +8,8 @@ const GATED = new Set([
   'lite:folder:choose','lite:folder:reset','lite:task:start'
 ]);
 const OPEN = new Set([
+  'spell:official',
+  'spell:official-ai',
   'auth-command','auth:info','copy-text','open-external','doc:navigate','settings:read','settings:write',
   'spell:scan','clipboard:read','spell:open-document','spell:prepare','model:info','model:pause',
   'spell:ai','spell:cancel-ai','update:state','update:check','update:download','update:release','update:install','license:text',

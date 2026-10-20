@@ -1,9 +1,30 @@
 "use strict";
-const {systemPrompt,schema,reviewSchema,reviewSystem,sentences,parseResponse,buildPrompt}=require('./prompts.cjs');
+const {sentences}=require('./prompts.cjs');
+const {inspectChunk}=require('./spelling-harness.cjs');
 class LocalAI{
  constructor({loadRuntime=()=>import('node-llama-cpp')}={}){this.loadRuntime=loadRuntime;this.busy=false;this.model=null;this.modelPath=null;this.abort=null;}
  async unload(){if(this.busy)throw Error('AI 검사가 끝난 뒤 모델을 변경하거나 삭제해 주세요.');if(this.model)await this.model.dispose();this.model=null;this.modelPath=null;}
  cancel(){this.abort?.abort();}
+ async reviewStructure(file,rows,onProgress=()=>{},options={}){
+  if(this.busy)throw Error('AI 검사가 진행 중입니다.');
+  if(!file)throw Error('먼저 AI 모델을 준비해 주세요.');
+  this.busy=true;this.abort=new AbortController();let context;
+  try{
+   const {runStructure,jobsFor}=require('./structure-harness.cjs');
+   if(!jobsFor(rows).length)return await runStructure(rows,{signal:this.abort.signal,request:()=>{throw Error('검토 대상 없음');}});
+   const {getLlama,LlamaChatSession,QwenChatWrapper}=await this.loadRuntime();if(!this.llama)this.llama=await getLlama({gpu:false,build:'never'});
+   if(this.modelPath!==file){if(this.model)await this.model.dispose();this.model=null;this.modelPath=null;this.model=await this.llama.loadModel({modelPath:file,gpuLayers:0});this.modelPath=file;}
+   context=await this.model.createContext({contextSize:4096,threads:Math.max(1,Math.min(4,require('node:os').availableParallelism()-1))});
+   const sequence=context.getSequence();
+   const request=async({system,message,schema,signal,maxTokens})=>{
+    const grammar=await this.llama.createGrammarForJsonSchema(schema);
+    const session=new LlamaChatSession({contextSequence:sequence,systemPrompt:system,...(/qwen3/i.test(file)?{chatWrapper:new QwenChatWrapper({thoughts:'discourage'})}:{})});
+    try{const output=await session.prompt(message,{grammar,temperature:0,maxTokens,signal,stopOnAbortSignal:false});options.onResponse?.(output);return output;}
+    finally{session.dispose();await sequence.clearHistory();}
+   };
+   return await runStructure(rows,{...options,request,signal:this.abort.signal,onProgress});
+  }finally{try{if(context)await context.dispose();}finally{this.busy=false;this.abort=null;}}
+ }
  async inspect(file,input,onProgress=()=>{},onResponse=()=>{}){
   if(this.busy)throw Error('AI 검사가 진행 중입니다.');if(!file)throw Error('먼저 AI 모델을 준비해 주세요.');this.busy=true;this.abort=new AbortController();
   const blocks=typeof input==='string'?[{index:0,text:input}]:input;
@@ -17,29 +38,20 @@ class LocalAI{
     const {getLlama,LlamaChatSession,QwenChatWrapper}=await this.loadRuntime();if(!this.llama)this.llama=await getLlama({gpu:false,build:'never'});
     if(this.modelPath!==file){if(this.model)await this.model.dispose();this.model=null;this.modelPath=null;this.model=await this.llama.loadModel({modelPath:file,gpuLayers:0});this.modelPath=file;}
     context=await this.model.createContext({contextSize:4096,threads:Math.max(1,Math.min(4,require('node:os').availableParallelism()-1))});
-    const sequence=context.getSequence(),grammar=await this.llama.createGrammarForJsonSchema(schema),reviewGrammar=await this.llama.createGrammarForJsonSchema(reviewSchema);
-    const prompt=async(system,message,format,signal)=>{
+    const sequence=context.getSequence(),grammars=new Map();
+    const request=async({system,message,schema,signal,maxTokens})=>{
+     const key=JSON.stringify(schema);if(!grammars.has(key))grammars.set(key,await this.llama.createGrammarForJsonSchema(schema));
      const session=new LlamaChatSession({contextSequence:sequence,systemPrompt:system,...(/qwen3/i.test(file)?{chatWrapper:new QwenChatWrapper({thoughts:'discourage'})}:{})});
-     try{return await session.prompt(message,{grammar:format,temperature:0,maxTokens:384,signal,stopOnAbortSignal:false});}
+     try{const output=await session.prompt(message,{grammar:grammars.get(key),temperature:0,maxTokens,signal,stopOnAbortSignal:false});onResponse(output);return output;}
      finally{session.dispose();await sequence.clearHistory();}
     };
     for(let i=0;i<chunks.length;i++){
      if(this.abort.signal.aborted)break;
-     const chunk=chunks[i],result=results[chunk.block],request=buildPrompt(chunk,chunk.fullText);
+     const chunk=chunks[i],result=results[chunk.block];
      onProgress({current:i+1,total:chunks.length,completed:stats.completed,failed:stats.failed,block:chunk.block+1,blocks:blocks.length});
      const signal=AbortSignal.any([this.abort.signal,AbortSignal.timeout(30000)]);
      try{
-      // Every nonempty chunk reaches the model, even without retrieved rules.
-      const output=await prompt(systemPrompt,request.prompt,grammar,signal);onResponse(output);
-      const candidates=parseResponse(output,chunk.text,chunk.start,request.references,{allowReview:true}),accepted=[];
-      for(const candidate of candidates){
-       if(candidate.requiresReview){
-        const check=JSON.parse(await prompt(reviewSystem,JSON.stringify({sentence:chunk.text,original:candidate.original,suggestion:candidate.suggestion,reason:candidate.reason}),reviewGrammar,signal));
-        if(typeof check.confirmed!=='boolean')throw Error('AI 재검토 응답 형식이 올바르지 않습니다.');
-        if(!check.confirmed)continue;
-       }
-       const {requiresReview,...issue}=candidate;accepted.push(issue);
-      }
+      const {issues:accepted}=await inspectChunk(chunk,chunk.fullText,request,signal);
       if(this.abort.signal.aborted)break;
       result.issues.push(...accepted);result.stats.completed++;stats.completed++;
      }catch(e){
