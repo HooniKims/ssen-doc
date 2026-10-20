@@ -25,4 +25,6 @@
 
 HWPX 공문 8문단, 자동 번호 6문단, 표 셀 위치·내용 보존을 한글 열기·재저장으로 확인했습니다. 파일 접근 모듈 등록에 성공했고, 원본 보존 및 재검사 변경 0건입니다. 원시 공문 구조 검사와 실제 렌더 미리보기 확인도 통과했습니다. 필드·개체 등 보호 대상 문단은 기존 제한을 유지합니다.
 
-설치 파일은 `release/1.5.2/SsenDoc-Setup-1.5.2.exe`, 상세 보고서는 `_workspace/quality95/시험결과.html`, 기계 판정 기록은 `_workspace/quality95/verification.json`입니다. 기존 설치판 교체나 공개 게시를 수행한 결과는 아닙니다.
+설치 파일은 `release/1.5.2/SsenDoc-Setup-1.5.2.exe`, 상세 보고서는 `_workspace/quality95/시험결과.html`, 기계 판정 기록은 `_workspace/quality95/verification.json`입니다. 위 품질 시험은 공개 게시 전 수행한 결과입니다.
+
+2026-10-20 후속 배포: [v1.5.2 정식 릴리즈](https://github.com/HooniKims/ssen-doc/releases/tag/v1.5.2)를 게시했습니다. 공개 자산 5개의 크기·해시·접근을 검증했고, 별도 프로필의 실제 NSIS 업데이트 엔진에서 1.3.1 버전 어댑터로 1.5.2 검색·다운로드·저장 안내까지 확인했습니다. 기존 사용자 설치판의 재시작·교체는 수행하지 않았습니다. `RELEASE-PUBLICATION-1.5.2.json`, `UPDATE-DOWNLOAD-1.5.2.json`을 참고하세요.

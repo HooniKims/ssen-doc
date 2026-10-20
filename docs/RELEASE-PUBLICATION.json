@@ -1,65 +1,65 @@
 {
-  "version": "1.3.1",
-  "date": "2026-10-18T21:41:20.470Z",
-  "url": "https://github.com/HooniKims/ssen-doc/releases/tag/v1.3.1",
+  "version": "1.5.2",
+  "date": "2026-10-20T12:18:58.433Z",
+  "url": "https://github.com/HooniKims/ssen-doc/releases/tag/v1.5.2",
   "draft": false,
   "assets": [
     {
       "name": "latest.yml",
       "bytes": 343,
-      "digest": "sha256:b1517acaef72ef8b38790da504839e4a3e43f852a99e9861edce75c847e3d0ff",
+      "digest": "sha256:ada966b20504bbf377cbaac7eeb191e797f8f2b97d631300e0f19e9dab0dba75",
       "status": 200
     },
     {
       "name": "SHA256SUMS.txt",
       "bytes": 178,
-      "digest": "sha256:64a653cd6a052803034a563b36f8c56f7024ce09305d4df978f5d9afe6657db5",
+      "digest": "sha256:3f483f6316c3ea7daadae3d360bc3fa6bcc55b265d0b5849a532aa8b109367b2",
       "status": 200
     },
     {
-      "name": "SsenDoc-1.3.1-x64.zip",
-      "bytes": 227799993,
-      "digest": "sha256:c2cd34d8932d4cbd364f6c133e4301fdb9e9f897b0e353613c733883392b9ae6",
+      "name": "SsenDoc-1.5.2-x64.zip",
+      "bytes": 227817378,
+      "digest": "sha256:29fdd545ab66bce8ab379040498a251772bc68587624504e8de0e4f1aea5012d",
       "status": 200
     },
     {
-      "name": "SsenDoc-Setup-1.3.1.exe",
-      "bytes": 183191116,
-      "digest": "sha256:e9989fca974c27cbd8321b291a54a27cd5f034d55118d262070166678de9eb54",
+      "name": "SsenDoc-Setup-1.5.2.exe",
+      "bytes": 183207497,
+      "digest": "sha256:bdc0713d2290b9d87973ccec5927b03b6d356bec2eca95ff5d4e0c02997f6659",
       "status": 200
     },
     {
-      "name": "SsenDoc-Setup-1.3.1.exe.blockmap",
-      "bytes": 191961,
-      "digest": "sha256:93991726b19d7ba538cde2440fe6852e129ef85675d321c1dec6ec4e0350ff2e",
+      "name": "SsenDoc-Setup-1.5.2.exe.blockmap",
+      "bytes": 191962,
+      "digest": "sha256:82f5d8ef7348b371a50c3a8c3451b778b25fd80eb797df22f0334e8d8d60d478",
       "status": 200
     }
   ],
   "zipUpdate": {
     "mode": "zip",
     "phase": "latest",
-    "current": "1.3.1",
+    "current": "1.5.2",
     "available": null,
     "progress": 0,
     "message": "최신 버전입니다.",
     "releaseUrl": "https://github.com/HooniKims/ssen-doc/releases/latest",
-    "checkedAt": 1792359680131
+    "checkedAt": 1792498738002
   },
   "screenshots": [
     {
-      "url": "https://raw.githubusercontent.com/HooniKims/ssen-doc/v1.3.1/docs/ai-document-1.3.1.png",
+      "url": "https://raw.githubusercontent.com/HooniKims/ssen-doc/v1.5.2/docs/official-format-1.4.0.png",
       "status": 200
     },
     {
-      "url": "https://raw.githubusercontent.com/HooniKims/ssen-doc/v1.3.1/docs/ui-spelling.png",
+      "url": "https://raw.githubusercontent.com/HooniKims/ssen-doc/v1.5.2/docs/structure-preview-1.5.0.png",
       "status": 200
     },
     {
-      "url": "https://raw.githubusercontent.com/HooniKims/ssen-doc/v1.3.1/docs/ui-review.png",
+      "url": "https://raw.githubusercontent.com/HooniKims/ssen-doc/v1.5.2/docs/ui-spelling.png",
       "status": 200
     },
     {
-      "url": "https://raw.githubusercontent.com/HooniKims/ssen-doc/v1.3.1/docs/ui-lite.png",
+      "url": "https://raw.githubusercontent.com/HooniKims/ssen-doc/v1.5.2/docs/ui-review.png",
       "status": 200
     }
   ]
