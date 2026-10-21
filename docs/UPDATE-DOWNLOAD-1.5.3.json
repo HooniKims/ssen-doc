@@ -1,0 +1,64 @@
+{
+  "date": "2026-10-21T04:51:40.818Z",
+  "from": "1.5.2",
+  "to": "1.5.3",
+  "passed": true,
+  "method": "Published 1.5.2 updater code with real Electron HTTP and NSIS engine; isolated version adapter and cache. User installation unchanged.",
+  "states": [
+    {
+      "mode": "installed",
+      "phase": "checking",
+      "current": "1.5.2",
+      "available": null,
+      "progress": 0,
+      "message": "새 버전을 확인하고 있습니다.",
+      "releaseUrl": "https://github.com/HooniKims/ssen-doc/releases/latest"
+    },
+    {
+      "mode": "installed",
+      "phase": "available",
+      "current": "1.5.2",
+      "available": "1.5.3",
+      "progress": 0,
+      "message": "새 버전 1.5.3을 내려받을 수 있습니다.",
+      "releaseUrl": "https://github.com/HooniKims/ssen-doc/releases/latest",
+      "checkedAt": 1792558278917
+    },
+    {
+      "mode": "installed",
+      "phase": "downloading",
+      "current": "1.5.2",
+      "available": "1.5.3",
+      "progress": 0,
+      "message": "업데이트를 내려받고 있습니다. 문서 검토는 계속할 수 있습니다.",
+      "releaseUrl": "https://github.com/HooniKims/ssen-doc/releases/latest",
+      "checkedAt": 1792558278917
+    },
+    {
+      "mode": "installed",
+      "phase": "ready",
+      "current": "1.5.2",
+      "available": "1.5.3",
+      "progress": 100,
+      "message": "다운로드가 끝났습니다. 검토 결과를 저장한 뒤 재시작해 주세요.",
+      "releaseUrl": "https://github.com/HooniKims/ssen-doc/releases/latest",
+      "checkedAt": 1792558278917
+    }
+  ],
+  "download": {
+    "bytes": 183127299,
+    "sha256": "eb2f42513e3dfffc52fd3e2fc1671fd675b8503a8bd8795fc401c909e48b8b9a",
+    "checksumVerified": true
+  },
+  "zipState": {
+    "mode": "zip",
+    "phase": "available",
+    "current": "1.5.2",
+    "available": "1.5.3",
+    "progress": 0,
+    "message": "새 버전 1.5.3이 있습니다. 릴리즈 페이지에서 ZIP 파일을 내려받아 교체하세요.",
+    "releaseUrl": "https://github.com/HooniKims/ssen-doc/releases/latest",
+    "checkedAt": 1792558300818
+  },
+  "limitations": "Restart and installation were not executed. Differential update performance and installed-app replacement were not tested."
+}

@@ -1,0 +1,71 @@
+{
+  "version": "1.5.3",
+  "date": "2026-10-21T04:51:18.602Z",
+  "url": "https://github.com/HooniKims/ssen-doc/releases/tag/v1.5.3",
+  "draft": false,
+  "assets": [
+    {
+      "name": "latest.yml",
+      "bytes": 343,
+      "digest": "sha256:677831d8653f348c3fb9ebe617a7353fcf11382e9b2419096b113e1b0fc93b7b",
+      "status": 200
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 178,
+      "digest": "sha256:3a402d690a45b1cd951b27e23530eb7e94d76f8dd18b5a6cd3a4ec7ceef55c0c",
+      "status": 200
+    },
+    {
+      "name": "SsenDoc-1.5.3-x64.zip",
+      "bytes": 227736851,
+      "digest": "sha256:8df213583023e5d06d6b0e929d20d9e0e67e93e2a3ed78a3eb7dca2da1d29ede",
+      "status": 200
+    },
+    {
+      "name": "SsenDoc-Setup-1.5.3.exe",
+      "bytes": 183127299,
+      "digest": "sha256:eb2f42513e3dfffc52fd3e2fc1671fd675b8503a8bd8795fc401c909e48b8b9a",
+      "status": 200
+    },
+    {
+      "name": "SsenDoc-Setup-1.5.3.exe.blockmap",
+      "bytes": 191336,
+      "digest": "sha256:441a9c78064cc014efde9294fb6d07b0ee4d9647aacca3a217cdddb879ea5878",
+      "status": 200
+    }
+  ],
+  "zipUpdate": {
+    "mode": "zip",
+    "phase": "latest",
+    "current": "1.5.3",
+    "available": null,
+    "progress": 0,
+    "message": "최신 버전입니다.",
+    "releaseUrl": "https://github.com/HooniKims/ssen-doc/releases/latest",
+    "releaseNotes": [],
+    "downloadBytes": null,
+    "checkedAt": 1792558278320,
+    "autoCheck": true,
+    "skippedVersion": null,
+    "notificationVisible": false
+  },
+  "screenshots": [
+    {
+      "url": "https://raw.githubusercontent.com/HooniKims/ssen-doc/v1.5.3/docs/update-notice-1.5.3.png",
+      "status": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/HooniKims/ssen-doc/v1.5.3/docs/update-ready-1.5.3.png",
+      "status": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/HooniKims/ssen-doc/v1.5.3/docs/update-dialog-1.5.3.png",
+      "status": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/HooniKims/ssen-doc/v1.5.3/docs/update-small-1.5.3.png",
+      "status": 200
+    }
+  ]
+}
