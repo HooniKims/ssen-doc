@@ -1,6 +1,6 @@
 {
   "name": "ssen-doc",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "학교 문서 맞춤법 검사·문서 대조·용량 줄이기",
   "author": "HooniKim",
   "license": "SEE LICENSE IN LICENSE",

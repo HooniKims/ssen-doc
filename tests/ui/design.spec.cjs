@@ -17,11 +17,12 @@ test('series design: local fonts, consistent controls, minimum window and dialog
      return {canvas:body.backgroundColor,family:body.fontFamily,header:document.querySelector('.titlebar').getBoundingClientRect().height,mainWidth:main.clientWidth,scrollWidth:main.scrollWidth,windowWidth:innerWidth,
       fontLoaded:['300 16px "Cafe24 PRO Slim"','700 19px "Cafe24 PRO Slim"','400 15px "Hakgyoansim Jayeon"'].every(f=>document.fonts.check(f,'맞춤법 검사')),
       unlabelled:[...document.querySelectorAll('button')].filter(visible).filter(b=>!b.textContent.trim()).map(b=>b.id),
-      missingIcons:[...document.querySelectorAll('button')].filter(visible).filter(b=>!b.querySelector('svg')).map(b=>b.id),
+      missingIcons:[...document.querySelectorAll('button:not(#sen-version-button)')].filter(visible).filter(b=>!b.querySelector('svg')).map(b=>b.id),
       invalidButtons:[...document.querySelectorAll('button.btn:not(.sen-content-button)')].filter(visible).filter(b=>getComputedStyle(b).borderRadius!=='8px').map(b=>b.id),
       overflow:[...document.querySelectorAll('.heading,.heading-row,.panel,.summary-strip,.ai-recommendation')].filter(visible).filter(e=>e.scrollWidth>e.clientWidth+2).map(e=>e.id||e.className)};
     });
     expect(style.canvas).toBe('rgb(242, 240, 235)');expect(style.family).toContain('Cafe24 PRO Slim');expect(style.header).toBe(72);expect(style.fontLoaded).toBe(true);
+    await expect(page.locator('#sen-version-button')).toHaveAccessibleName(/현재 버전 .*업데이트 보기/);
     expect(style.scrollWidth).toBeLessThanOrEqual(style.mainWidth+1);expect(style.unlabelled).toEqual([]);expect(style.missingIcons).toEqual([]);expect(style.invalidButtons).toEqual([]);expect(style.overflow).toEqual([]);
     await page.screenshot({path:`docs/design-${route}-${size[0]}.png`});
     await page.locator('#sen-settings').click();await expect(page.locator('#update-dialog')).toBeVisible();

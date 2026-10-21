@@ -6,7 +6,7 @@
     el('app-version').textContent=value.current;
     el('update-version').textContent=`현재 버전 ${value.current}${value.available?' · 새 버전 '+value.available:''}`;
     el('update-message').textContent=value.message;
-    el('update-dot').hidden=!['available','ready'].includes(value.phase);
+    el('update-dot').hidden=!value.available||value.available===value.skippedVersion||['latest','disabled'].includes(value.phase);
     const downloading=value.phase==='downloading';
     el('update-progress').hidden=!downloading;el('update-progress').value=value.progress;
     const labels={disabled:'개발 실행',checking:'확인 중…',downloading:`다운로드 ${value.progress}%`,installing:'설치 중…',ready:'재시작하여 설치',available:value.mode==='zip'?'새 ZIP 받기':'업데이트 받기'};

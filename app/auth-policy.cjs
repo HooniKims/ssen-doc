@@ -12,7 +12,7 @@ const OPEN = new Set([
   'spell:official-ai',
   'auth-command','auth:info','copy-text','open-external','doc:navigate','settings:read','settings:write',
   'spell:scan','clipboard:read','spell:open-document','spell:prepare','model:info','model:pause',
-  'spell:ai','spell:cancel-ai','update:state','update:check','update:download','update:release','update:install','license:text',
+  'spell:ai','spell:cancel-ai','update:dismiss','update:skip','update:auto-check','update:state','update:check','update:download','update:release','update:install','license:text',
   'review:files:select','review:files:add','review:files:demo','review:scan','review:source:open',
   'lite:files:select','lite:files:add','lite:files:remove','lite:files:clear','lite:files:demo',
   'lite:task:cancel','lite:result:show','lite:result:open'

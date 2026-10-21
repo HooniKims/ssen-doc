@@ -1,0 +1,23 @@
+{
+  "version": "1.5.3",
+  "date": "2026-10-21T04:50:15.474Z",
+  "unitTests": 685,
+  "sourceUIRegressionTests": 35,
+  "finalPopupSourceTests": 6,
+  "packagedUIRegressionTests": 19,
+  "productionExecutableSmoke": true,
+  "packagedSourceFilesMatched": 112,
+  "archivePayloadVerification": {
+    "installer": true,
+    "zip": true,
+    "appAsarSHA256": "ffdc085a0101b4f17b325330f3592b2c6f5bd25b46c22f80b3d1125f2c313e5f"
+  },
+  "reference": "SsenImage live bottom-right notification including downloaded/restart-ready state",
+  "screenshots": [
+    "update-notice-1.5.3.png",
+    "update-ready-1.5.3.png",
+    "update-dialog-1.5.3.png",
+    "update-small-1.5.3.png"
+  ],
+  "testLimitations": "UI tests use external mock authentication and simulated release/download events. Actual executable smoke uses the production auth bridge. Public download verification is recorded separately after publication. User installation/restart was not performed."
+}

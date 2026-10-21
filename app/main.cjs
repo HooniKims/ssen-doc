@@ -11,7 +11,7 @@ if(process.env.SSENDOC_TEST_DATA)app.setPath('userData',process.env.SSENDOC_TEST
 if(!process.env.SSENDOC_TEST_DATA)app.setPath('userData',path.join(app.getPath('appData'),'쎈doc'));
 app.setName('쎈Doc');app.setAppUserModelId('kr.hoonikim.ssendoc');
 app.setAboutPanelOptions?.({applicationName:'쎈Doc',copyright:'© 2026 상명초 김승현, 등촌중 김형훈',credits:'a6f5a881f68f'});
-let host,current='spell',manager,managerReady,updater,settings={aiNoticeSeen:false,userWords:[]},documentSession=null,worker,taskId=0,closing=false;
+let host,current='spell',manager,managerReady,updater,settings={aiNoticeSeen:false,userWords:[],update:{}},documentSession=null,worker,taskId=0,closing=false;
 const views=new Map(),modules=[],pending=new Map(),ai=new LocalAI();
 function allowed(e){return [...views.values()].some(v=>e.sender===v.webContents&&e.senderFrame===v.webContents.mainFrame);}
 const safe=fn=>async(e,...args)=>{if(!allowed(e))throw Error('허용되지 않은 요청입니다.');try{return await fn(...args);}catch(err){return {error:err.message};}};
@@ -23,7 +23,7 @@ async function persist(){const file=path.join(app.getPath('userData'),'settings.
 function show(name){if(name==='models'){show('spell');views.get('spell').webContents.send('doc:settings',true);return;}if(!views.has(name))throw Error('지원하지 않는 화면입니다.');current=name;for(const [key,v] of views)v.setVisible(key===name);host.contentView.addChildView(views.get(name));resize();views.get(name).webContents.focus();}
 function resize(){const [width,height]=host.getContentSize();for(const v of views.values())v.setBounds({x:0,y:0,width,height});}
 app.whenReady().then(async()=>{
- await fs.mkdir(app.getPath('userData'),{recursive:true});try{const loaded=JSON.parse(await fs.readFile(path.join(app.getPath('userData'),'settings.json'),'utf8'));settings={aiNoticeSeen:loaded.aiNoticeSeen===true,userWords:Array.isArray(loaded.userWords)?loaded.userWords.filter(w=>typeof w==='string'&&/^[가-힣]{2,30}$/.test(w)).slice(0,5000):[]};}catch{}
+ await fs.mkdir(app.getPath('userData'),{recursive:true});try{const loaded=JSON.parse(await fs.readFile(path.join(app.getPath('userData'),'settings.json'),'utf8'));settings={update:loaded.update&&typeof loaded.update==='object'?loaded.update:{},aiNoticeSeen:loaded.aiNoticeSeen===true,userWords:Array.isArray(loaded.userWords)?loaded.userWords.filter(w=>typeof w==='string'&&/^[가-힣]{2,30}$/.test(w)).slice(0,5000):[]};}catch{}
  const auth=createAuthThrottle(createNativeAuth({app:'doc'}),{onState:s=>send('auth-state',s),cache:fileCache(path.join(app.getPath('userData'),'auth-last.json')),isIdle:()=>!pending.size&&!ai.busy&&!manager?.active&&!modules.some(m=>m.busy())&&powerMonitor.getSystemIdleTime()>=10});
  auth.prewarm();
  const registerIPC=createRegistrar({ipcMain,auth,allowed,onDenied:e=>{send('auth-state',auth.summary());e.sender.send('auth-required');}});
@@ -43,7 +43,7 @@ app.whenReady().then(async()=>{
   const dir=name==='spell'?__dirname:path.join(__dirname,'../modules',name,'app');const view=new WebContentsView({webPreferences:{session:rendererSession,preload:path.join(dir,'preload.cjs'),nodeIntegration:false,contextIsolation:true,sandbox:true,devTools:!app.isPackaged||process.env.SSENDOC_TEST_AUTOMATION==='1'}});views.set(name,view);resize();host.contentView.addChildView(view);view.setVisible(name==='spell');view.webContents.setWindowOpenHandler(()=>({action:'deny'}));view.webContents.on('will-navigate',e=>e.preventDefault());view.webContents.on('will-attach-webview',e=>e.preventDefault());
   if(name!=='spell')modules.push(require(path.join(dir,'register.cjs'))(host,view.webContents,registerIPC));
  }
- updater=createUpdater({app,isInstalled:require('../src/install-mode.cjs').isInstalledExecutable(app.getPath('exe')),loadAutoUpdater:()=>require('electron-updater').autoUpdater,onChange:s=>send('update:state',s)});
+ updater=createUpdater({app,isInstalled:require('../src/install-mode.cjs').isInstalledExecutable(app.getPath('exe')),loadAutoUpdater:()=>require('electron-updater').autoUpdater,onChange:s=>send('update:state',s),preferences:settings.update,savePreferences:async value=>{const previous=settings.update;settings.update=value;try{await persist();}catch(error){settings.update=previous;throw error;}}});
  manager=new ModelManager(path.join(app.getPath('userData'),'models'),{onChange:()=>send('model:state',manager.info())});
  registerIPC('doc:navigate',safe(view=>{show(view);return {ok:true};}));
  registerIPC('settings:read',safe(()=>settings));registerIPC('settings:write',safe(async patch=>{if(patch?.aiNoticeSeen===true)settings.aiNoticeSeen=true;await persist();return settings;}));
@@ -88,6 +88,7 @@ app.whenReady().then(async()=>{
  }));
  registerIPC('spell:cancel-ai',safe(()=>{ai.cancel();return {ok:true};}));
  registerIPC('update:state',safe(()=>updater.state));registerIPC('update:check',safe(()=>updater.check()));registerIPC('update:download',safe(()=>updater.download()));
+ registerIPC('update:dismiss',safe(()=>updater.dismissNotice()));registerIPC('update:skip',safe(()=>updater.skipVersion()));registerIPC('update:auto-check',safe(value=>updater.setAutoCheck(value)));
  registerIPC('license:text',safe(async()=>{try{return await fs.readFile(path.join(app.getAppPath(),'LICENSE'),'utf8');}catch{return '';}}));
  registerIPC('update:release',safe(async()=>{await shell.openExternal(RELEASE_URL);return {ok:true};}));
  registerIPC('update:install',safe(async()=>{if(ai.busy||manager.active||pending.size||modules.some(m=>m.busy()))throw Error('현재 작업을 마친 뒤 업데이트하세요.');const r=await dialog.showMessageBox(host,{type:'question',message:'검사 결과와 수정 내용을 저장하셨나요?',detail:'재시작하면 저장하지 않은 글과 문서 수정 내용은 사라집니다.',buttons:['돌아가기','재시작하여 설치'],defaultId:0,cancelId:0});if(r.response!==1)return {ok:false};closing=true;const ok=updater.install();if(!ok)closing=false;return {ok};}));
@@ -96,6 +97,6 @@ app.whenReady().then(async()=>{
  host.on('closed',()=>{for(const v of views.values())if(!v.webContents.isDestroyed())v.webContents.close();});
  managerReady=manager.init().catch(()=>{});
  for(const [name,view] of views)await view.webContents.loadFile(name==='spell'?path.join(__dirname,'index.html'):path.join(__dirname,'../modules',name,'app/index.html'));
- show('spell');if(!process.env.SSENDOC_TEST_HIDDEN)host.show();
+ show('spell');if(!process.env.SSENDOC_TEST_HIDDEN)host.show();updater.start();
 });
 app.on('window-all-closed',()=>{worker?.terminate();for(const m of modules)m.stop();updater?.stop();app.quit();});

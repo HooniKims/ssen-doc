@@ -8,6 +8,7 @@ contextBridge.exposeInMainWorld('lite',{
   start:(ids,preset)=>ipcRenderer.invoke('lite:task:start',ids,preset),cancel:()=>ipcRenderer.invoke('lite:task:cancel'),
   showResult:id=>ipcRenderer.invoke('lite:result:show',id),openResult:id=>ipcRenderer.invoke('lite:result:open',id),
   onProgress:callback=>listen('lite:task:progress',callback),onResult:callback=>listen('lite:task:result',callback),
+  dismissUpdate:()=>ipcRenderer.invoke('update:dismiss'),skipUpdate:()=>ipcRenderer.invoke('update:skip'),setAutoUpdate:value=>ipcRenderer.invoke('update:auto-check',value),
   updateState:()=>ipcRenderer.invoke('update:state'),checkUpdate:()=>ipcRenderer.invoke('update:check'),downloadUpdate:()=>ipcRenderer.invoke('update:download'),installUpdate:()=>ipcRenderer.invoke('update:install'),openRelease:()=>ipcRenderer.invoke('update:release'),onUpdate:callback=>listen('update:state',callback),
   minimize:()=>ipcRenderer.send('window:minimize'),maximize:()=>ipcRenderer.send('window:maximize'),close:()=>ipcRenderer.send('window:close')
 });

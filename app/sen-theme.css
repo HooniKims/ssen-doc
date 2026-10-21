@@ -251,3 +251,45 @@ body .drag-overlay::after { inset:88px 24px 24px 280px; border-radius:10px; back
   body .panel-head select { width:100%; }
 }
 @media(prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none!important; transition:none!important; scroll-behavior:auto!important; } }
+
+/* Update notice follows the SsenImage title badge and bottom-right card. */
+#sen-version-button { position:relative; margin-right:auto; padding:7px 8px; border:0; border-radius:6px; background:transparent; color:var(--ink-mute); cursor:pointer; -webkit-app-region:no-drag; }
+#sen-version-button:hover { background:var(--canvas); }
+#sen-version-button:focus-visible { outline:2px solid var(--primary); outline-offset:3px; }
+#sen-version-button .sen-version { margin:0; }
+#sen-update-dot { position:absolute; top:1px; right:1px; width:8px; height:8px; border-radius:50%; background:var(--danger); }
+#sen-update-notice { position:fixed; right:24px; bottom:24px; z-index:90; width:min(360px,calc(100vw - 48px)); padding:18px; border:1px solid var(--hairline); border-radius:14px; background:#fff; box-shadow:0 8px 30px #1e39322b; max-height:calc(100vh - 110px); overflow:auto; }
+#sen-update-notice[hidden],#sen-update-dot[hidden] { display:none!important; }
+#sen-update-title { display:block; padding-right:28px; font-size:17px; color:var(--brand); }
+#sen-update-notice ul,.sen-update-details ul { padding-left:20px; margin:10px 0; font-size:15px; overflow-wrap:anywhere; }
+#sen-update-notice p { font-size:14px; margin:10px 0; }
+body #sen-update-close.btn { position:absolute; right:8px; top:8px; min-height:28px; height:28px; padding:0 6px; border:0; background:transparent; font-size:0; }
+#sen-update-close svg { width:16px; height:16px; }
+.sen-update-actions { display:flex; gap:8px; flex-wrap:wrap; }
+body .sen-update-actions button.btn { padding:0 12px; }
+body button.sen-update-skip.btn { background:transparent; border:0; padding:0 4px; text-decoration:underline; font-size:14px; }
+body button.sen-update-skip.btn svg { display:none; }
+.sen-update-details { border-top:1px solid var(--hairline); margin-top:16px; padding-top:12px; }
+.sen-update-details p { font-size:14px; }
+.sen-update-auto { display:flex; align-items:center; gap:8px; flex-wrap:wrap; font-size:15px; }
+.sen-update-auto input { accent-color:var(--primary); width:18px; height:18px; }
+.sen-update-auto small { font-size:13px; }
+#sen-update-error { color:var(--danger); }
+
+body dialog.sen-update-dialog { width:min(440px,calc(100vw - 40px)); max-height:calc(100vh - 48px); padding:18px; overflow:auto; }
+body dialog.sen-update-dialog h2 { margin:0 0 16px; padding:0 32px 12px 0; border-bottom:1px solid var(--hairline); }
+body .sen-update-dialog .dialog-close.btn { top:12px; right:12px; min-height:28px; padding:0 6px; border:0; background:transparent; font-size:0; }
+body .sen-update-dialog .dialog-close svg { width:16px; height:16px; }
+.sen-update-primary-actions { display:flex; flex-wrap:wrap; align-items:center; gap:14px; margin:12px 0; }
+.sen-update-check-row { margin:10px 0; }
+body .sen-update-dialog .sen-update-details { border:0; margin:12px 0; padding:0; }
+body .sen-update-dialog .sen-update-privacy { margin:12px 0 0; font-weight:700; }
+body .sen-update-dialog .app-copy { border-top:1px solid var(--hairline); padding-top:10px; margin-bottom:0; }
+body .sen-update-dialog #license-toggle.btn { font-size:12px; min-height:28px; padding:0 6px; }
+.sen-update-summary dl { margin:12px 0; }
+.sen-update-summary dl>div { display:flex; justify-content:space-between; gap:18px; margin:6px 0; font-size:15px; }
+.sen-update-summary dt { flex:none; color:var(--ink-mute); }
+.sen-update-summary dd { text-align:right; margin:0; }
+.sen-update-summary #update-message { margin:0; color:var(--brand); font-size:15px; }
+.sen-update-summary ul { padding-left:20px; margin:12px 0; font-size:15px; overflow-wrap:anywhere; }
+#sen-update-size { font-size:14px; font-weight:700; }

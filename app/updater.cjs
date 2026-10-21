@@ -9,12 +9,24 @@ function isNewer(candidate,current) {
   for(let i=1;i<=3;i++)if(Number(a[i])!==Number(b[i]))return Number(a[i])>Number(b[i]);
   return false;
 }
-function createUpdater({app,isInstalled,loadAutoUpdater,onChange=()=>{},fetchRelease=globalThis.fetch,now=Date.now}) {
+function releaseSummary(value) {
+  const text=Array.isArray(value)?value.map(x=>typeof x==='string'?x:x?.note||'').join('\n'):typeof value==='string'?value:'';
+  const lines=text.slice(0,16000).replace(/<li\b[^>]*>/gi,'\n- ').replace(/<[^>]*>/g,'').split(/\r?\n/).map(s=>s.trim()).filter(s=>s&&!/^#|^!\[/.test(s));
+  const bullets=lines.filter(s=>/^[-*]\s/.test(s));
+  return (bullets.length?bullets:lines).map(s=>s.replace(/^[-*]\s*/,'').replace(/!\[[^\]]*\]\([^)]*\)/g,'').replace(/\[([^\]]+)\]\([^)]*\)/g,'$1').replace(/[*`]/g,'').trim()).filter(Boolean).slice(0,3).map(s=>s.slice(0,240));
+}
+function createUpdater({app,isInstalled,loadAutoUpdater,onChange=()=>{},fetchRelease=globalThis.fetch,now=Date.now,preferences={},savePreferences=async()=>{}}) {
   const mode=!app.isPackaged?'development':isInstalled?'installed':'zip';
   let state={mode,origin:'ab3e7d35badd',phase:mode==='development'?'disabled':'idle',current:app.getVersion(),available:null,progress:0,message:mode==='development'?'개발 실행에서는 업데이트를 확인하지 않습니다.':'새 버전이 있는지 확인할 수 있습니다.',releaseUrl:RELEASE_URL};
   let updater,checking,timer,interval;
-  const snapshot=()=>({...state});
+  let prefs={autoCheck:preferences.autoCheck!==false,skippedVersion:/^\d+\.\d+\.\d+$/.test(preferences.skippedVersion||'')?preferences.skippedVersion:null};
+  const dismissed=new Set();
+  const snapshot=()=>({...state,...prefs,notificationVisible:['available','ready'].includes(state.phase)&&state.available!==prefs.skippedVersion&&!dismissed.has(`${state.available}:${state.phase}`)});
   function set(patch){state={...state,...patch};onChange(snapshot());}
+  function dismissNotice(){dismissed.add(`${state.available}:${state.phase}`);set({});return snapshot();}
+  async function configure(patch){const next={...prefs,...patch};await savePreferences(next);prefs=next;stop();if(prefs.autoCheck)start();set({});return snapshot();}
+  async function skipVersion(){if(!state.available)return snapshot();return configure({skippedVersion:state.available});}
+  async function setAutoCheck(value){if(typeof value!=='boolean')throw Error('자동 확인 설정을 확인해 주세요.');return configure({autoCheck:value});}
   function fail(error){set({phase:'error',progress:0,message:/404|latest\.yml|No published versions|Cannot find latest/i.test(String(error?.message))?'배포된 업데이트 정보를 찾지 못했습니다. 잠시 뒤 다시 확인해 주세요.':'업데이트를 확인하거나 내려받지 못했습니다. 인터넷 연결을 확인하고 다시 시도해 주세요.'});}
   function engine(){
     if(updater)return updater;
@@ -30,8 +42,8 @@ function createUpdater({app,isInstalled,loadAutoUpdater,onChange=()=>{},fetchRel
       child.once('error',reject);child.once('spawn',()=>{child.unref();resolve(true);});
     });
     updater.on('checking-for-update',()=>set({phase:'checking',message:'새 버전을 확인하고 있습니다.'}));
-    updater.on('update-not-available',()=>set({phase:'latest',available:null,checkedAt:now(),message:'최신 버전입니다.'}));
-    updater.on('update-available',info=>set({phase:'available',available:info.version,progress:0,checkedAt:now(),message:`새 버전 ${info.version}을 내려받을 수 있습니다.`}));
+    updater.on('update-not-available',()=>set({phase:'latest',available:null,releaseNotes:[],checkedAt:now(),message:'최신 버전입니다.'}));
+    updater.on('update-available',info=>set({phase:'available',available:info.version,releaseNotes:releaseSummary(info.releaseNotes),downloadBytes:info.files?.find(f=>/\.exe$/i.test(f.url))?.size||null,progress:0,checkedAt:now(),message:`새 버전 ${info.version}을 내려받을 수 있습니다.`}));
     updater.on('download-progress',info=>set({phase:'downloading',progress:Math.max(0,Math.min(100,Math.round(info.percent||0)))}));
     updater.on('update-downloaded',info=>set({phase:'ready',available:info.version,progress:100,message:'다운로드가 끝났습니다. 검토 결과를 저장한 뒤 재시작해 주세요.'}));
     updater.on('error',fail);
@@ -51,7 +63,7 @@ function createUpdater({app,isInstalled,loadAutoUpdater,onChange=()=>{},fetchRel
         if(release.draft||release.prerelease)throw new Error('No published versions');
         const available=String(release.tag_name||'').replace(/^v/,'');
         if(!/^\d+\.\d+\.\d+$/.test(available))throw new Error('Invalid release version');
-        set(isNewer(available,state.current)?{phase:'available',available,checkedAt:now(),message:`새 버전 ${available}이 있습니다. 릴리즈 페이지에서 ZIP 파일을 내려받아 교체하세요.`}:{phase:'latest',available:null,checkedAt:now(),message:'최신 버전입니다.'});
+        set(isNewer(available,state.current)?{phase:'available',available,releaseNotes:releaseSummary(release.body),downloadBytes:release.assets?.find(a=>a.name===`SsenDoc-${available}-x64.zip`)?.size||null,checkedAt:now(),message:`새 버전 ${available}이 있습니다. 릴리즈 페이지에서 ZIP 파일을 내려받아 교체하세요.`}:{phase:'latest',available:null,releaseNotes:[],downloadBytes:null,checkedAt:now(),message:'최신 버전입니다.'});
       }
     }).catch(fail).then(snapshot).finally(()=>{checking=null;});
     return checking;
@@ -70,10 +82,10 @@ function createUpdater({app,isInstalled,loadAutoUpdater,onChange=()=>{},fetchRel
   }
   function stop(){clearTimeout(timer);clearInterval(interval);timer=null;interval=null;}
   function start(){
-    if(mode==='development'||timer||interval)return;
+    if(mode==='development'||!prefs.autoCheck||timer||interval)return;
     timer=setTimeout(()=>void check(),15000);interval=setInterval(()=>void check(),4*60*60*1000);
     timer.unref?.();interval.unref?.();
   }
-  return {check,download,install,start,stop,get state(){return snapshot();}};
+  return {check,download,install,start,stop,dismissNotice,skipVersion,setAutoCheck,get state(){return snapshot();}};
 }
 module.exports={createUpdater,isNewer,RELEASE_REPOSITORY,RELEASE_URL};

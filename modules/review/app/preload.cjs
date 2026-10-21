@@ -9,6 +9,7 @@ contextBridge.exposeInMainWorld('moa',{
   saveEdit:(token,text)=>ipcRenderer.invoke('review:document:save-edit',token,text),
   exportReport:(type,statuses)=>ipcRenderer.invoke('review:report:export',type,statuses),
   exportSamples:()=>ipcRenderer.invoke('review:samples:export'),
+  dismissUpdate:()=>ipcRenderer.invoke('update:dismiss'),skipUpdate:()=>ipcRenderer.invoke('update:skip'),setAutoUpdate:value=>ipcRenderer.invoke('update:auto-check',value),
   updateState:()=>ipcRenderer.invoke('update:state'),
   checkUpdate:()=>ipcRenderer.invoke('update:check'),
   downloadUpdate:()=>ipcRenderer.invoke('update:download'),

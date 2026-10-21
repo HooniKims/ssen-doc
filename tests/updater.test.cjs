@@ -44,3 +44,34 @@ test('missing release is an error, never a false latest-version claim',async()=>
 test('development does not make network calls',async()=>{
   const f=fixture({app:{isPackaged:false,getVersion:()=> '1.1.0'},loadAutoUpdater:()=>{throw Error('No dev network');}});f.updater.start();await f.updater.check();assert.equal(f.updater.state.phase,'disabled');f.updater.stop();
 });
+
+test('automatic checks run after 15 seconds and every four hours, then stop',async t=>{
+ t.mock.timers.enable({apis:['setTimeout','setInterval']});const f=fixture();f.updater.start();f.updater.start();
+ t.mock.timers.tick(14999);await Promise.resolve();assert.equal(f.checks,0);
+ t.mock.timers.tick(1);await Promise.resolve();await Promise.resolve();await f.updater.check();assert.equal(f.checks,1);
+ t.mock.timers.tick(4*60*60*1000);await Promise.resolve();await Promise.resolve();await f.updater.check();assert.equal(f.checks,2);
+ f.updater.stop();t.mock.timers.tick(4*60*60*1000);await Promise.resolve();assert.equal(f.checks,2);
+});
+
+test('later keeps the badge candidate, skipped releases survive restart and new releases notify',async()=>{
+ let saved;const f=fixture({savePreferences:async p=>saved=p});await f.updater.check();assert.equal(f.updater.state.notificationVisible,true);
+ f.updater.dismissNotice();await f.updater.check();assert.equal(f.updater.state.notificationVisible,false);assert.equal(f.updater.state.available,'1.2.0');
+ await f.updater.skipVersion();assert.equal(saved.skippedVersion,'1.2.0');f.updater.stop();
+ const next=fixture({preferences:saved});await next.updater.check();assert.equal(next.updater.state.notificationVisible,false);
+ next.engine.emit('update-available',{version:'1.3.0'});assert.equal(next.updater.state.notificationVisible,true);
+});
+
+test('auto check can be disabled persistently without blocking manual checks',async t=>{
+ t.mock.timers.enable({apis:['setTimeout','setInterval']});let saved;const f=fixture({savePreferences:async p=>saved=p});f.updater.start();
+ await f.updater.setAutoCheck(false);t.mock.timers.tick(5*60*60*1000);await Promise.resolve();assert.equal(f.checks,0);assert.equal(saved.autoCheck,false);
+ await f.updater.check();assert.equal(f.checks,1);assert.equal(f.updater.state.notificationVisible,true);
+});
+
+test('release summary prefers changes and retains actual installer size without HTML',async()=>{
+ const f=fixture();await f.updater.check();f.engine.emit('update-available',{version:'1.3.0',releaseNotes:'# title\nintro\n- **Fix** [details](https://example.com)\n- <img src=x onerror=bad()>Safe',files:[{url:'Setup.exe',size:183207497}]});
+ assert.deepEqual(f.updater.state.releaseNotes,['Fix details','Safe']);assert.equal(f.updater.state.downloadBytes,183207497);
+});
+
+test('failure to save skip preferences leaves the notification available',async()=>{
+ const f=fixture({savePreferences:async()=>{throw Error('disk full');}});await f.updater.check();await assert.rejects(f.updater.skipVersion(),/disk full/);assert.equal(f.updater.state.skippedVersion,null);assert.equal(f.updater.state.notificationVisible,true);
+});
